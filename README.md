@@ -162,3 +162,73 @@ The library's styling is managed through SCSS, offering a high degree of customi
 - **Global Styles** (`@src/styles/`): This directory contains the global styling configuration.
   - **Fonts**: The `@font-face` declarations for all supported narrations are located in `@src/styles/fonts.scss`.
   - **Responsiveness**: Breakpoints for various screen sizes are defined in `@src/styles/_breakpoints.scss` to ensure the layout is responsive.
+
+## Overriding Styles
+
+This library exports a `classnames` object that allows you to override the default styles of the components. Each key in the `classnames` object corresponds to a component, and the value is an object containing the CSS class names for that component.
+
+You can use these class names to apply your own styles. For example, to change the background color of the `QuranReader` component, you can do the following:
+
+**Example:**
+
+```tsx
+import {
+  QuranPageProvider,
+  useQuranPage,
+  classnames,
+} from 'misraj-quran-renderer';
+import QuranPage from 'misraj-quran-renderer';
+import 'misraj-quran-renderer/styles';
+
+function App() {
+  return (
+    <QuranPageProvider dataId="quran-hafs" pageNumber={1}>
+      <QuranReader />
+    </QuranPageProvider>
+  );
+}
+
+function QuranReader() {
+  const {
+    pageNumber,
+    currentSurah,
+    fontScale,
+    increaseFontScale,
+    decreaseFontScale,
+    setSelectedVerse,
+  } = useQuranPage();
+
+  const handleWordClick = (word) => {
+    // select the verse the word belongs to
+    setSelectedVerse(word.verse);
+  };
+
+  const handleWordHover = (word) => {
+    console.log('Word hovered:', word);
+  };
+
+  return (
+    <div className={classnames.QuranReader.container}>
+      <header>
+        <h1>
+          Page {pageNumber} - Surah {currentSurah?.name}
+        </h1>
+        <div>
+          <button onClick={decreaseFontScale}>A-</button>
+          <span>Font size: {fontScale}</span>
+          <button onClick={increaseFontScale}>A+</button>
+        </div>
+      </header>
+      <QuranPage onWordClick={handleWordClick} onWordHover={handleWordHover} />
+    </div>
+  );
+}
+```
+
+Then, in your CSS file, you can define your custom styles:
+
+```css
+.QuranReader-container {
+  background-color: #f0f0f0;
+}
+```
