@@ -30,9 +30,9 @@ A significant portion of this codebase is derived from the [quran.com-frontend-n
 Make sure to import package styles file which includes css styles and fonts assets
 
 ```tsx
-main.tsx
+main.tsx;
 
-import "misraj-quran-renderer/styles";
+import 'misraj-quran-renderer/styles';
 ```
 
 The core of the library is the `QuranPageProvider` and the `QuranPage` component.
@@ -49,15 +49,61 @@ The `QuranPageProvider` is a React context provider that fetches and manages the
 - `pageNumber` (number): The page number of the Quran you wish to display.
 - `children`: The child components that will consume the provider's context.
 
+### 2. `useQuranPage` Hook
+
+This hook provides access to the state and actions of the `QuranPageProvider`. It should be used by components that are children of `QuranPageProvider`.
+
+`@src/components/QuranReader/contexts/QuranPage/QuranPageProvider.tsx`
+
+**State:**
+
+- `fontScale` (number): The current font scale.
+- `selectedVerse` (Ayah | null): The currently selected verse.
+- `currentSurah` (Surah | null): The current surah being displayed.
+- `data` (QuranPageDataType | null): The raw data for the current page.
+- `error` (Error | null): Any error that occurred while fetching data.
+- `loading` (boolean): A boolean indicating if the page data is loading.
+- `pageNumber` (number): The current page number.
+- `dataId` (DataId): The current narration identifier.
+
+**Actions:**
+
+- `increaseFontScale()`: Increases the font scale.
+- `decreaseFontScale()`: Decreases the font scale.
+- `setSelectedVerse(verse: Ayah | null)`: Sets the selected verse.
+- `setCurrentSurah(surah: Surah | null)`: Sets the current surah.
+- `refresh()`: Refreshes the data for the current page.
+
 **Example:**
 
 ```tsx
-import { QuranPageProvider } from '@src/components/QuranReader/contexts/QuranPage/QuranPageProvider';
+import {
+  QuranPageProvider,
+  useQuranPage,
+} from '@src/components/QuranReader/contexts/QuranPage/QuranPageProvider';
 import QuranPage from '@src/components/QuranReader/contexts/QuranPage';
 
 function App() {
+  return (
+    <QuranPageProvider dataId="quran-hafs" pageNumber={1}>
+      <QuranReader />
+    </QuranPageProvider>
+  );
+}
+
+function QuranReader() {
+  const {
+    pageNumber,
+    currentSurah,
+    fontScale,
+    increaseFontScale,
+    decreaseFontScale,
+    setSelectedVerse,
+  } = useQuranPage();
+
   const handleWordClick = (word) => {
-    console.log('Word clicked:', word);
+    // select the verse the word belongs to
+    setSelectedVerse(word.verse);
   };
 
   const handleWordHover = (word) => {
@@ -65,14 +111,24 @@ function App() {
   };
 
   return (
-    <QuranPageProvider dataId="quran-hafs" pageNumber={1}>
+    <div>
+      <header>
+        <h1>
+          Page {pageNumber} - Surah {currentSurah?.name}
+        </h1>
+        <div>
+          <button onClick={decreaseFontScale}>A-</button>
+          <span>Font size: {fontScale}</span>
+          <button onClick={increaseFontScale}>A+</button>
+        </div>
+      </header>
       <QuranPage onWordClick={handleWordClick} onWordHover={handleWordHover} />
-    </QuranPageProvider>
+    </div>
   );
 }
 ```
 
-### 2. `QuranPage` Component
+### 3. `QuranPage` Component
 
 This component consumes the data fetched by `QuranPageProvider` and renders the actual Quran page.
 
