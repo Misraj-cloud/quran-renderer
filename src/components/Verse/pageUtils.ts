@@ -2,7 +2,7 @@
 const CENTER_ALIGNED_PAGES = [1, 2];
 
 // Lines that need to be center aligned
-const CENTER_ALIGNED_PAGE_LINES = {
+const CENTER_ALIGNED_PAGE_LINES: { [key: number]: number[] } = {
   255: [2], // 13(Ar-Ra'd), last ayah
   528: [9], // 67 (Al Qalam) last ayah
   534: [6], // 55(Ar-Rahman) last ayah
