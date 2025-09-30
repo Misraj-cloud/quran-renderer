@@ -37,6 +37,12 @@ export default defineConfig({
   // Make Sass @use/@import like "src/styles/..." work in any .scss file
   // and allow using the existing aliases inside styles as well.
   css: {
+    modules: {
+      generateScopedName: (name, filename) => {
+        const componentName = path.basename(filename, '.module.scss');
+        return `${componentName}-${name}`;
+      },
+    },
     preprocessorOptions: {
       scss: {
         // Support absolute-style imports, e.g. @use "src/styles/constants";
