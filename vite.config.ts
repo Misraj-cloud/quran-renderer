@@ -18,6 +18,7 @@ export default defineConfig({
       name: 'misraj-quran-renderer',
       formats: ['es', 'cjs'],
       fileName: (format) => `index.${format}.js`,
+      styles: path.resolve(__dirname, 'src/styles.ts'),
       cssFileName: 'styles',
     },
     rollupOptions: {
