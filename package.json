@@ -1,5 +1,5 @@
 {
-  "name": "@misraj/quran-renderer",
+  "name": "misraj-quran-renderer",
   "version": "1.0.0",
   "description": "A customizable React component for rendering Quran pages.",
   "type": "module",
