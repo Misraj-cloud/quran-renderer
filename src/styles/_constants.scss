@@ -1,0 +1,16 @@
+// TODO: use css variables instead of hardcoded values. See global.scss
+$side-menu-desktop-width: 24rem;
+
+$notes-side-bar-desktop-width: 26rem;
+
+$audio-player-minimized-height: 2rem;
+
+$audio-player-default-height: 3.5rem;
+
+$audio-player-default-desktop-height: 3rem;
+
+$maximum-font-step: 10;
+
+$reading-view-page-min-width: calc(9.5 * var(--spacing-mega));
+
+$reading-view-container-top-margin: 1.5vh;

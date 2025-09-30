@@ -1,0 +1,76 @@
+// TODO: figure out a way to generate font faces on the fly. We're creating lot of font faces that browsers might not need.
+
+// TODO: regenerate this font and add font-family name
+@font-face {
+  font-family: 'surahnames';
+  src: url('../assets/fonts/quran/surah-names/v1/sura_names.woff2') format('woff2'),
+    url('../assets/fonts/quran/surah-names/v1/sura_names.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Hafs */
+@font-face {
+  font-family: 'UthmanicHafs';
+  src: local('KFGQPC HAFS Uthmanic Script'),
+    url('../assets/fonts/quran/uthmanic_hafs/UthmanicHafs1Ver18.woff2') format('woff2'),
+    url('../assets/fonts/quran/uthmanic_hafs/UthmanicHafs1Ver18.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Shoba */
+@font-face {
+  font-family: 'UthmanicShoba';
+  src: local('KFGQPC Shoba Uthmanic Script'),
+    url('../assets/fonts/quran/uthmanic_shoba/UthmanicShuba\ V20.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Warsh */
+@font-face {
+  font-family: 'UthmanicWarsh';
+  src: local('KFGQPC Warsh Uthmanic Script'),
+    url('../assets/fonts/quran/uthmanic_warsh/UthmanicWarsh\ V21.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Qunbul */
+@font-face {
+  font-family: 'UthmanicQunbul';
+  src: local('KFGQPC Qunbul Uthmanic Script'),
+    url('../assets/fonts/quran/uthmanic_qunbul/UthmanicQunbul\ V20.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Qaloon */
+@font-face {
+  font-family: 'UthmanicQaloon';
+  src: local('KFGQPC Qaloon Uthmanic Script'),
+    url('../assets/fonts/quran/uthmanic_qaloun/UthmanicQaloun\ V21.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Al-Sousi */
+@font-face {
+  font-family: 'UthmanicAlsoosi';
+  src: local('KFGQPC Sousi Uthmanic Script'),
+    url('../assets/fonts/quran/uthmanic-sousi/UthmanicSousi\ V20.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Al-Douri */
+@font-face {
+  font-family: 'UthmanicAldouri';
+  src: local('KFGQPC Douri Uthmanic Script'),
+    url('../assets/fonts/quran/uthmanic-douri/UthmanicDouri\ V20.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* Al-Bazzi */
+@font-face {
+  font-family: 'UthmanicAlbazzi';
+  src: local('KFGQPC Bazzi Uthmanic Script'),
+    url('../assets/fonts/quran/uthmanic-bazzi/UthmanicBazzi\ V20.ttf') format('truetype');
+  font-display: swap;
+}

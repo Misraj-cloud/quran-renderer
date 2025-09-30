@@ -1,0 +1,25 @@
+.iconContainer {
+  span {
+    line-height: normal;
+    font-family: "surahnames";
+    font-size: var(--font-size-large);
+  }
+}
+
+.iconContainerSmall {
+  span {
+    font-size: var(--font-size-xsmall);
+  }
+}
+
+.iconContainerLarge {
+  span {
+    font-size: var(--font-size-jumbo);
+  }
+}
+
+.iconContainerMega {
+  span {
+    font-size: calc(1.5 * var(--font-size-jumbo));
+  }
+}

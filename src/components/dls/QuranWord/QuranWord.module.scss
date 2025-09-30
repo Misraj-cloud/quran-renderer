@@ -1,0 +1,82 @@
+.container {
+  display: inline-block;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.additionalWordGap {
+  margin-inline-end: var(--spacing-xxsmall);
+}
+
+.secondaryHighlight {
+  background-color: var(--color-background-alternative-faded);
+}
+
+.wbwContainer {
+  text-align: center;
+  padding-block-start: var(--spacing-micro);
+  padding-block-end: var(--spacing-micro);
+  padding-inline-start: var(--spacing-micro);
+  padding-inline-end: var(--spacing-micro);
+}
+
+.colored {
+  color: black;
+}
+
+.highlightOnHover {
+  &:hover {
+    color: var(--color-success-medium);
+  }
+}
+
+.highlighted {
+  color: var(--color-success-medium);
+}
+
+.tooltipText {
+  padding-block-start: var(--spacing-micro);
+  padding-block-end: var(--spacing-micro);
+  padding-inline-start: var(--spacing-micro);
+  padding-inline-end: var(--spacing-micro);
+  white-space: normal;
+}
+
+.popoverTrigger {
+  // important is needed to over-ride the values of the popover
+  margin-block-start: 0 !important;
+  margin-block-end: 0 !important;
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+}
+
+.quran-hafs {
+  font-family: UthmanicHafs !important; // important is needed to over-ride the language specific font-family
+}
+
+.quran-shoba {
+  font-family: UthmanicShoba !important;
+}
+
+.quran-warsh {
+  font-family: UthmanicWarsh !important;
+}
+
+.quran-qunbul {
+  font-family: UthmanicQunbul !important;
+}
+
+.quran-qaloon {
+  font-family: UthmanicQaloon !important;
+}
+
+.quran-alsoosi {
+  font-family: UthmanicAlsoosi !important;
+}
+
+.quran-aldouri {
+  font-family: UthmanicAldouri !important;
+}
+
+.quran-albazzi {
+  font-family: UthmanicAlbazzi !important;
+}

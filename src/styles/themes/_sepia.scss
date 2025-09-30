@@ -1,0 +1,66 @@
+@use "src/styles/shades";
+
+@mixin mode {
+  --color-primary-faded: #fff;
+  --color-primary-faint: #fff;
+  --color-primary-medium: #000;
+  --color-primary-deep: #fff;
+
+  --color-secondary-faded: #efe2cd;
+  --color-secondary-faint: #999;
+  --color-secondary-medium: #dbccb3;
+  --color-secondary-deep: #333;
+
+  --color-success-faded: #f2e0bf;
+  --color-success-faint: #d8c6a5;
+  --color-success-medium: #72603f;
+  --color-success-deep: #3f2d0c;
+
+  --color-error-faded: #f7d4d6;
+  --color-error-faint: #ff1a1a;
+  --color-error-medium: #ee0102;
+  --color-error-deep: #c50000;
+
+  --color-warning-faded: #fef3dc;
+  --color-warning-faint: #ffdfaa;
+  --color-warning-medium: #9d5c01;
+  --color-warning-deep: #ab570a;
+
+  --color-text-default: #000;
+  --color-text-faded: #666;
+  --color-text-inverse: #fff;
+  --color-text-link: #2ca4ab;
+  --color-text-warning: #ab570a;
+  --color-text-error: #c50000;
+
+  --color-background-default: #f8ebd5;
+  --color-background-elevated: #fff7ea;
+
+  --color-background-alternative-faded: #efe2cd;
+  --color-background-alternative-faint: #f0e2cc;
+  --color-background-alternative-medium: #efe2cd;
+  --color-background-alternative-deep: #ccb996;
+
+  --color-background-inverse: #000;
+  --color-background-backdrop: rgba(0, 0, 0, 0.25);
+  --color-background-lighten: rgba(252, 233, 203, 0.8);
+  // lighten the `background-color` by using it in `background-image`. check Button's ghost variant for example
+
+  --color-borders-hairline: #dbccb3;
+
+  --color-highlight: #50e3c2;
+
+  --shadow-small: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-normal: 0px 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-large: 0 5px 10px rgba(0, 0, 0, 0.12);
+  --shadow-xlarge: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-jumbo: 0 30px 60px rgba(0, 0, 0, 0.12);
+  --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.12);
+  --shadow-sticky: 0 12px 10px -10px rgba(0, 0, 0, 0.12);
+
+  // scrollbar styles
+  --scrollbar-background: #72603f;
+  --scrollbar-thumb: #f0cd8c;
+  --scrollbar-thumb-hover: #d4b478;
+  --scrollbar-thumb-active: #8d774e;
+}

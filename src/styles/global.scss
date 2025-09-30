@@ -1,0 +1,67 @@
+@use "src/styles/theme";
+@use "src/styles/constants";
+
+body {
+  min-height: 100vh;
+  background: var(--color-background-default);
+  color: var(--color-text-default);
+  padding: 0px !important;
+
+  ::selection {
+    background: var(--color-highlight);
+  }
+
+  ::-moz-selection {
+    background: var(--color-highlight);
+  }
+
+  overscroll-behavior-y: none;
+  font-family: "ProximaVara", "Helvetica Neue", Helvetica, Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Note: Reciter and translation names have full locale names e.g. "urdu" instead of "ur"
+  // and these names are coming from BE. It is easier to add another selector in css instead of changing BE
+  :lang(ur),
+  :lang(urdu),
+  .ur,
+  .urdu {
+    font-family: "MehrNastaliq", "Mehr Nastaliq Web", "Helvetica Neue",
+      Helvetica, Arial, serif;
+  }
+
+  :lang(ar),
+  :lang(arabic) .ar {
+    font-family: "Noto Nastaliq Arabic", "NotoNastaliq", "ProximaVara",
+      "Helvetica Neue", Helvetica, Arial;
+  }
+
+  :lang(bn),
+  :lang(bengali) {
+    font-family: "NotoSerifBengali", "ProximaVara", "Helvetica Neue", Helvetica,
+      Arial;
+  }
+
+  :lang(ku) {
+    font-family: "DroidArabicNaskh", "Noto Nastaliq Arabic", "NotoNastaliq",
+      "ProximaVara", Helvetica, Arial;
+  }
+}
+
+// reference: https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/normalize.css#L165
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+}
+
+a {
+  color: var(--color-text-default);
+}
+
+select option {
+  background-color: var(--color-background-default);
+  color: var(--color-text-default);
+}

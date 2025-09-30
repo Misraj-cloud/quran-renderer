@@ -1,0 +1,11 @@
+.word {
+  line-height: var(--line-height);
+}
+
+.UthmanicHafs {
+  font-family: UthmanicHafs !important; // important is needed to over-ride the language specific font-family
+}
+
+.IndoPak {
+  font-family: IndoPak !important; // important is needed to over-ride the language specific font-family
+}
