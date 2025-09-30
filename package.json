@@ -1,6 +1,7 @@
 {
   "name": "misraj-quran-renderer",
   "version": "1.0.0",
+  "license": "",
   "description": "A customizable React component for rendering Quran pages.",
   "type": "module",
   "main": "dist/index.cjs.js",
