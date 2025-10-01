@@ -1,9 +1,9 @@
 import mushafWordStyles from 'src/components/dls/MushafWord/MushafWord.module.scss';
 import styles from './Page.module.scss';
-import { useMushafContext } from '../contexts/MushafPage/MushafPageProvider';
 
-const PageNumber = () => {
-  const { pageNumber } = useMushafContext();
+type Props = { value: number };
+
+const PageNumber = ({ value }: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ const PageNumber = () => {
         fontFamily="UthmanicHafs"
         className={mushafWordStyles.colored}
       >
-        {pageNumber}
+        {value}
       </text>
     </svg>
   );

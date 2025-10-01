@@ -22,12 +22,13 @@ type PageProps = {
 };
 
 const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageProps) => {
-  const { fontScale, currentSurah, data, hasBorder } = useMushafContext();
+  const { fontScale, hasBorder } = useMushafContext();
   const lines = useMemo(
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
     [verses],
   );
   const isBigTextLayout = fontScale > 3;
+  const firstAyah = verses && verses.length ? verses[0] : undefined;
 
   return (
     <div
@@ -41,10 +42,10 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
       {hasBorder && (
         <>
           <PageMetaDataContainer className={styles.surah}>
-            {currentSurah?.name}
+            {firstAyah?.surah?.name}
           </PageMetaDataContainer>
           <PageMetaDataContainer className={styles.juz}>
-            {getJuzText(data?.[0].juz || 1)}
+            {getJuzText(firstAyah?.juz || 1)}
           </PageMetaDataContainer>
         </>
       )}
@@ -60,7 +61,7 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
           onWordHover={onWordHover}
         />
       ))}
-      {hasBorder && <PageNumber />}
+      {hasBorder && <PageNumber value={pageNumber} />}
     </div>
   );
 };

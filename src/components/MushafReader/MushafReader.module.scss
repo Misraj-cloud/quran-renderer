@@ -62,3 +62,11 @@ $virtual-scrolling-height-bandage: calc(
   display: flex;
   justify-content: center;
 }
+
+.twoPagesRow {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-mega);
+  justify-content: center;
+  flex-wrap: nowrap;
+}

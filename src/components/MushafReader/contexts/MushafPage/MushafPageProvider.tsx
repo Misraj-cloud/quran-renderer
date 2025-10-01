@@ -18,12 +18,14 @@ type MushafPageState = {
   fontScale: number;
   selectedVerse: Ayah | null;
   currentSurah: Surah | null;
-  data: MushafPageDataType | null;
+  ayat: MushafPageDataType | null;
+  nextPageAyat: MushafPageDataType | null;
   error: Error | null;
   loading: boolean;
   pageNumber: number;
   dataId: DataId;
   hasBorder: boolean;
+  isTwoPagesView: boolean;
 };
 
 type MushafPageActions = {
@@ -41,6 +43,7 @@ type MushafPageProviderProps = {
   pageNumber: number;
   initialFontScale?: number;
   hasBorder?: boolean;
+  isTwoPagesView?: boolean;
 };
 
 /** ---------- Helpers ---------- */
@@ -55,11 +58,13 @@ export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
   pageNumber,
   initialFontScale = 3,
   hasBorder = true,
+  isTwoPagesView = false,
 }) => {
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
   const [currentSurah, setCurrentSurah] = useState<Surah | null>(null);
   const [selectedVerse, setSelectedVerse] = useState<Ayah | null>(null);
-  const [data, setData] = useState<MushafPageDataType | null>(null);
+  const [ayat, setAyat] = useState<MushafPageDataType | null>(null);
+  const [nextPageAyat, setNextPageAyat] = useState<MushafPageDataType | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const abortRef = useRef<AbortController | null>(null);
@@ -73,22 +78,40 @@ export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
     setError(null);
 
     try {
-      const resp = await fetchVerses(pageNumber, dataId, ctl.signal);
+      const currPagePromise = fetchVerses(pageNumber, dataId, ctl.signal);
+      const nextPagePromise = isTwoPagesView
+        ? fetchVerses(pageNumber + 1, dataId, ctl.signal)
+        : Promise.resolve(undefined);
 
-      // Defensive guards
+      const resp = await currPagePromise;
+      let respNext: any | undefined;
+      if (isTwoPagesView) {
+        try {
+          respNext = await nextPagePromise;
+        } catch {
+          respNext = undefined;
+        }
+      }
+
+      // Defensive guards for current page
       const surah = resp?.data?.surahs?.[0] ?? null;
       const ayahs = (resp?.data?.ayahs ?? []) as MushafPageDataType;
 
       setCurrentSurah(surah);
-      setData(ayahs);
+      setAyat(ayahs);
+
+      // Next page data (when applicable)
+      const nextAyahs = (respNext?.data?.ayahs ?? null) as MushafPageDataType | null;
+      setNextPageAyat(nextAyahs);
     } catch (err) {
       if ((err as any)?.name === 'AbortError') return; // ignore cancelled
       setError(err instanceof Error ? err : new Error('Unknown error'));
-      setData(null);
+      setAyat(null);
+      setNextPageAyat(null);
     } finally {
       setLoading(false);
     }
-  }, [pageNumber, dataId]);
+  }, [pageNumber, dataId, isTwoPagesView]);
 
   useEffect(() => {
     load();
@@ -108,14 +131,28 @@ export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
       fontScale,
       selectedVerse,
       currentSurah,
-      data,
+      ayat,
+      nextPageAyat,
       error,
       loading,
       pageNumber,
       dataId,
       hasBorder,
+      isTwoPagesView,
     }),
-    [fontScale, selectedVerse, currentSurah, data, error, loading, pageNumber, dataId, hasBorder],
+    [
+      fontScale,
+      selectedVerse,
+      currentSurah,
+      ayat,
+      nextPageAyat,
+      error,
+      loading,
+      pageNumber,
+      dataId,
+      hasBorder,
+      isTwoPagesView,
+    ],
   );
 
   const actions = useMemo<MushafPageActions>(
