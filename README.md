@@ -4,6 +4,8 @@ This library is a powerful and flexible React-based component for rendering Qura
 
 This project is an open-source initiative built upon the excellent foundation of the [quran.com-frontend-next](https://github.com/quran/quran.com-frontend-next) project. While the original project focused solely on the Hafs narration, this library extends its capabilities to include a wider range of Quranic narrations.
 
+The project is also built on top of [Quran Hub API](https://api-staging.quranhub.com/docs#/) which is one of [MISRAJ](https://misraj.sa/) company non-commercial projects
+
 ## License and Acknowledgement
 
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International Public License. See the `LICENSE` file for details.
@@ -30,7 +32,7 @@ A significant portion of this codebase is derived from the [quran.com-frontend-n
 Make sure to import package styles file which includes css styles and fonts assets
 
 ```tsx
-main.tsx;
+// main.tsx;
 
 import 'misraj-quran-renderer/styles';
 ```
@@ -229,6 +231,6 @@ Then, in your CSS file, you can define your custom styles:
 
 ```css
 .QuranReader-container {
-  background-color: #f0f0f0;
+  background-color: #f0f0f0 !important;
 }
 ```
