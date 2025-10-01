@@ -9,6 +9,9 @@ import styles from './Page.module.scss';
 import Word from '@/types/Word';
 import { Ayah } from 'src/types/verses';
 import { useMushafContext } from '../contexts/MushafPage/MushafPageProvider';
+import PageNumber from './PageNumber';
+import PageMetaDataContainer from './page-metadata/PageMetaDataContainer';
+import { getJuzText } from './page-metadata/juz.constants';
 
 type PageProps = {
   verses: Ayah[];
@@ -19,7 +22,7 @@ type PageProps = {
 };
 
 const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageProps) => {
-  const { fontScale } = useMushafContext();
+  const { fontScale, currentSurah, data } = useMushafContext();
   const lines = useMemo(
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
     [verses],
@@ -32,7 +35,12 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
       className={classNames(styles.container, {
         [styles.mobileCenterText]: isBigTextLayout,
       })}
+      style={{ position: 'relative' }}
     >
+      <PageMetaDataContainer className={styles.surah}>{currentSurah?.name}</PageMetaDataContainer>
+      <PageMetaDataContainer className={styles.juz}>
+        {getJuzText(data?.[0].juz || 1)}
+      </PageMetaDataContainer>
       {Object.keys(lines).map((key, lineIndex) => (
         <Line
           pageIndex={pageIndex}
@@ -45,6 +53,7 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
           onWordHover={onWordHover}
         />
       ))}
+      <PageNumber />
     </div>
   );
 };

@@ -10,6 +10,13 @@
   margin-block-start: constants.$reading-view-container-top-margin;
   margin-block-end: var(--spacing-mega);
   max-width: 100%;
+  box-sizing: border-box;
+
+  border: 25px solid transparent;
+
+  position: relative;
+
+  border-image: url('../../../assets/images/full-border.png') 100 repeat;
 }
 
 .mobileCenterText {
@@ -18,4 +25,37 @@
   @include breakpoints.tablet {
     text-align: start;
   }
+}
+
+.pageNumber {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  width: fit-content;
+  height: 35px;
+}
+
+.surah {
+  position: absolute;
+  top: -30px;
+  left: 25%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  width: fit-content;
+  height: 30px;
+}
+
+.juz {
+  position: absolute;
+  top: -30px;
+  right: 25%;
+  transform: translateX(50%);
+  z-index: 1000;
+
+  width: fit-content;
+  height: 30px;
 }
