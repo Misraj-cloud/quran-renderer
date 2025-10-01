@@ -41,7 +41,8 @@
     "@types/lodash": "^4.17.20",
     "classnames": "^2.5.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "vite-plugin-svgr": "^4.5.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.28.4",
