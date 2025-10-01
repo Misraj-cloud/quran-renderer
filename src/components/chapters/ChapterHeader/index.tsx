@@ -27,7 +27,7 @@ const ChapterHeader: React.FC<Props> = ({ chapterId, pageNumber }) => {
       data-chapter-id={chapterId}
     >
       <div className={styles.header}>
-        <ChapterIconContainer chapterId={chapterId} size={ChapterIconsSize.Mega} />
+        <ChapterIconContainer chapterId={chapterId} size={ChapterIconsSize.Large} />
       </div>
       <div className={styles.bismillahContainer}>
         {!CHAPTERS_WITHOUT_BISMILLAH.includes(chapterId) && <Bismillah />}

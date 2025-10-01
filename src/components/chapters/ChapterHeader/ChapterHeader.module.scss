@@ -40,7 +40,7 @@
   display: flex;
   justify-content: center;
   margin-block-start: var(--spacing-xxsmall);
-  margin-block-end: calc(1.5 * var(--spacing-mega));
+  margin-block-end: calc(0.1 * var(--spacing-mega));
 }
 .translatedName {
   font-weight: var(--font-weight-bold);
@@ -92,9 +92,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-block-start: var(--spacing-large);
-  // setting the value below to avoid the CLS issue when the surahnames font has not loaded yet
-  min-height: calc(3.75 * var(--spacing-medium));
+  margin-block-start: calc(0.1 * var(--spacing-mega));
 }
 
 .chapterIconContainer {

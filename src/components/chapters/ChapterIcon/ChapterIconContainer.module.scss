@@ -1,9 +1,21 @@
 .iconContainer {
   span {
     line-height: normal;
-    font-family: "surahnames";
+    font-family: 'surahnames';
     font-size: var(--font-size-large);
   }
+
+  width: 100%;
+  text-align: center;
+
+  // setting the value below to avoid the CLS issue when the surahnames font has not loaded yet
+  border-width: 10px 100px;
+  border-style: solid;
+  border-color: transparent;
+
+  border-image-source: url('../../../assets/images/surah-name-border.png');
+  border-image-slice: 13% 35%;
+  border-image-repeat: round;
 }
 
 .iconContainerSmall {
