@@ -4,28 +4,28 @@ export const narrationIdentifierFromReciterId = (identifier: string | undefined)
   let riwayaahIdentifier = '';
   switch (true) {
     case identifier?.includes('hafs'):
-      riwayaahIdentifier = 'quran-hafs';
+      riwayaahIdentifier = 'mushaf-hafs';
       break;
     case identifier?.includes('shoba'):
-      riwayaahIdentifier = 'quran-shoba';
+      riwayaahIdentifier = 'mushaf-shoba';
       break;
     case identifier?.includes('warsh'):
-      riwayaahIdentifier = 'quran-warsh';
+      riwayaahIdentifier = 'mushaf-warsh';
       break;
     case identifier?.includes('qunbul'):
-      riwayaahIdentifier = 'quran-qunbul';
+      riwayaahIdentifier = 'mushaf-qunbul';
       break;
     case identifier?.includes('albazzi'):
-      riwayaahIdentifier = 'quran-albazzi';
+      riwayaahIdentifier = 'mushaf-albazzi';
       break;
     case identifier?.includes('qaloon'):
-      riwayaahIdentifier = 'quran-qaloon';
+      riwayaahIdentifier = 'mushaf-qaloon';
       break;
     case identifier?.includes('alsoosi'):
-      riwayaahIdentifier = 'quran-alsoosi';
+      riwayaahIdentifier = 'mushaf-alsoosi';
       break;
     case identifier?.includes('aldouri'):
-      riwayaahIdentifier = 'quran-aldouri';
+      riwayaahIdentifier = 'mushaf-aldouri';
       break;
     default:
       riwayaahIdentifier = '';

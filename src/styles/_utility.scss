@@ -227,13 +227,13 @@ $line-width-map: (
 
 // Sets a max-width based on the device width. Inspired by the bootstrap container (https://getbootstrap.com/docs/5.0/layout/containers/).
 $large-device-width-ratio: 95%;
-$quran-max-container-width: 112rem;
-@mixin quranContainer() {
+$mushaf-max-container-width: 112rem;
+@mixin mushafContainer() {
   width: 95%;
 
   @include breakpoints.tablet {
     width: $large-device-width-ratio;
-    max-width: $quran-max-container-width;
+    max-width: $mushaf-max-container-width;
   }
 }
 

@@ -8,24 +8,24 @@ import React, {
   useState,
 } from 'react';
 import type { Ayah, Surah } from 'src/types/verses';
-import type { DataId } from './QuranPage.types';
-import type { QuranPageDataType } from './types';
+import type { DataId } from './MushafPage.types';
+import type { MushafPageDataType } from './types';
 import { fetchVerses } from './helpers/fetch-verses';
 
 /** ---------- Types ---------- */
-type QuranPageState = {
+type MushafPageState = {
   // state
   fontScale: number;
   selectedVerse: Ayah | null;
   currentSurah: Surah | null;
-  data: QuranPageDataType | null;
+  data: MushafPageDataType | null;
   error: Error | null;
   loading: boolean;
   pageNumber: number;
   dataId: DataId;
 };
 
-type QuranPageActions = {
+type MushafPageActions = {
   // actions
   increaseFontScale: () => void;
   decreaseFontScale: () => void;
@@ -34,7 +34,7 @@ type QuranPageActions = {
   refresh: () => void;
 };
 
-type QuranPageProviderProps = {
+type MushafPageProviderProps = {
   children: React.ReactNode;
   dataId: DataId;
   pageNumber: number;
@@ -44,10 +44,10 @@ type QuranPageProviderProps = {
 /** ---------- Helpers ---------- */
 
 /** ---------- Contexts (split: state & actions) ---------- */
-const QuranPageStateContext = createContext<QuranPageState | undefined>(undefined);
-const QuranPageActionsContext = createContext<QuranPageActions | undefined>(undefined);
+const MushafPageStateContext = createContext<MushafPageState | undefined>(undefined);
+const MushafPageActionsContext = createContext<MushafPageActions | undefined>(undefined);
 
-export const QuranPageProvider: React.FC<QuranPageProviderProps> = ({
+export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
   children,
   dataId,
   pageNumber,
@@ -56,7 +56,7 @@ export const QuranPageProvider: React.FC<QuranPageProviderProps> = ({
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
   const [currentSurah, setCurrentSurah] = useState<Surah | null>(null);
   const [selectedVerse, setSelectedVerse] = useState<Ayah | null>(null);
-  const [data, setData] = useState<QuranPageDataType | null>(null);
+  const [data, setData] = useState<MushafPageDataType | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const abortRef = useRef<AbortController | null>(null);
@@ -74,7 +74,7 @@ export const QuranPageProvider: React.FC<QuranPageProviderProps> = ({
 
       // Defensive guards
       const surah = resp?.data?.surahs?.[0] ?? null;
-      const ayahs = (resp?.data?.ayahs ?? []) as QuranPageDataType;
+      const ayahs = (resp?.data?.ayahs ?? []) as MushafPageDataType;
 
       setCurrentSurah(surah);
       setData(ayahs);
@@ -100,7 +100,7 @@ export const QuranPageProvider: React.FC<QuranPageProviderProps> = ({
     _setFontScale((prev) => (prev > 3 ? prev - 1 : prev));
   }, []);
 
-  const state = useMemo<QuranPageState>(
+  const state = useMemo<MushafPageState>(
     () => ({
       fontScale,
       selectedVerse,
@@ -114,7 +114,7 @@ export const QuranPageProvider: React.FC<QuranPageProviderProps> = ({
     [fontScale, selectedVerse, currentSurah, data, error, loading, pageNumber, dataId],
   );
 
-  const actions = useMemo<QuranPageActions>(
+  const actions = useMemo<MushafPageActions>(
     () => ({
       increaseFontScale,
       decreaseFontScale,
@@ -126,30 +126,30 @@ export const QuranPageProvider: React.FC<QuranPageProviderProps> = ({
   );
 
   return (
-    <QuranPageStateContext.Provider value={state}>
-      <QuranPageActionsContext.Provider value={actions}>
+    <MushafPageStateContext.Provider value={state}>
+      <MushafPageActionsContext.Provider value={actions}>
         {children}
-      </QuranPageActionsContext.Provider>
-    </QuranPageStateContext.Provider>
+      </MushafPageActionsContext.Provider>
+    </MushafPageStateContext.Provider>
   );
 };
 
 /** ---------- Hooks ---------- */
-const useQuranPageState = () => {
-  const ctx = useContext(QuranPageStateContext);
-  if (!ctx) throw new Error('useQuranPageState must be used within a QuranPageProvider');
+const useMushafPageState = () => {
+  const ctx = useContext(MushafPageStateContext);
+  if (!ctx) throw new Error('useMushafPageState must be used within a MushafPageProvider');
   return ctx;
 };
 
-const useQuranPageActions = () => {
-  const ctx = useContext(QuranPageActionsContext);
-  if (!ctx) throw new Error('useQuranPageActions must be used within a QuranPageProvider');
+const useMushafPageActions = () => {
+  const ctx = useContext(MushafPageActionsContext);
+  if (!ctx) throw new Error('useMushafPageActions must be used within a MushafPageProvider');
   return ctx;
 };
 
 /** Convenience: keep a compat hook name if you prefer */
-export const useQuranPage = () => {
-  const state = useQuranPageState();
-  const actions = useQuranPageActions();
+export const useMushafContext = () => {
+  const state = useMushafPageState();
+  const actions = useMushafPageActions();
   return { ...state, ...actions };
 };

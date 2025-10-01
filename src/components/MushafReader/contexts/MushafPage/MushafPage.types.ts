@@ -52,7 +52,7 @@ type ReciterId =
 
 export type DataId = NarrationId | ReciterId;
 
-export interface QuranPageProps {
+export interface MushafPageProps {
   style?: React.CSSProperties;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;

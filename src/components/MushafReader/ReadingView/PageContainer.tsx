@@ -3,12 +3,12 @@ import React, { JSX, useMemo } from 'react';
 import Page from './Page';
 
 import { Word } from '@/types/Word';
-import { QuranPageDataType } from 'src/components/QuranReader/contexts/QuranPage/types';
+import { MushafPageDataType } from 'src/components/MushafReader/contexts/MushafPage/types';
 import { Ayah } from 'src/types/verses';
 
 type Props = {
   pageNumber: number;
-  data: QuranPageDataType;
+  data: MushafPageDataType;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   theme?: {};

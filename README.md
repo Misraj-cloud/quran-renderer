@@ -1,6 +1,6 @@
-# Misraj Quran Renderer
+# Misraj Mushaf Renderer
 
-This library is a powerful and flexible React-based component for rendering Quran pages directly in your web application. It is designed to handle the complexities of Quranic text rendering, including multiple narrations, dynamic text sizing, and interactive features.
+This library is a powerful and flexible React-based component for rendering Mushaf pages directly in your web application. It is designed to handle the complexities of Quranic text rendering, including multiple narrations, dynamic text sizing, and interactive features.
 
 This project is an open-source initiative built upon the excellent foundation of the [quran.com-frontend-next](https://github.com/quran/quran.com-frontend-next) project. While the original project focused solely on the Hafs narration, this library extends its capabilities to include a wider range of Quranic narrations.
 
@@ -34,35 +34,35 @@ Make sure to import package styles file which includes css styles and fonts asse
 ```tsx
 // main.tsx;
 
-import 'misraj-quran-renderer/styles';
+import 'misraj-mushaf-renderer/styles';
 ```
 
-The core of the library is the `QuranPageProvider` and the `QuranPage` component.
+The core of the library is the `MushafPageProvider` and the `MushafPage` component.
 
-### 1. `QuranPageProvider`
+### 1. `MushafPageProvider`
 
-The `QuranPageProvider` is a React context provider that fetches and manages the state for a specific Quran page. You need to wrap any component that will render Quranic text with it.
+The `MushafPageProvider` is a React context provider that fetches and manages the state for a specific Mushaf page. You need to wrap any component that will render Mushaf text with it.
 
-`@src/components/QuranReader/contexts/QuranPage/QuranPageProvider.tsx`
+`@src/components/MushafReader/contexts/MushafPage/MushafPageProvider.tsx`
 
 **Props:**
 
-- `dataId` (string): A unique identifier for the Quran narration you want to render (e.g., `quran-hafs`, `quran-qaloon`).
-- `pageNumber` (number): The page number of the Quran you wish to display.
+- `dataId` (string): A unique identifier for the Mushaf narration you want to render (e.g., `quran-hafs`, `quran-qaloon`).
+- `pageNumber` (number): The page number of the Mushaf you wish to display.
 - `children`: The child components that will consume the provider's context.
 
-### 2. `useQuranPage` Hook
+### 2. `useMushafPage` Hook
 
-This hook provides access to the state and actions of the `QuranPageProvider`. It should be used by components that are children of `QuranPageProvider`.
+This hook provides access to the state and actions of the `MushafPageProvider`. It should be used by components that are children of `MushafPageProvider`.
 
-`@src/components/QuranReader/contexts/QuranPage/QuranPageProvider.tsx`
+`@src/components/MushafReader/contexts/MushafPage/MushafPageProvider.tsx`
 
 **State:**
 
 - `fontScale` (number): The current font scale.
 - `selectedVerse` (Ayah | null): The currently selected verse.
 - `currentSurah` (Surah | null): The current surah being displayed.
-- `data` (QuranPageDataType | null): The raw data for the current page.
+- `data` (MushafPageDataType | null): The raw data for the current page.
 - `error` (Error | null): Any error that occurred while fetching data.
 - `loading` (boolean): A boolean indicating if the page data is loading.
 - `pageNumber` (number): The current page number.
@@ -80,20 +80,20 @@ This hook provides access to the state and actions of the `QuranPageProvider`. I
 
 ```tsx
 import {
-  QuranPageProvider,
-  useQuranPage,
-} from '@src/components/QuranReader/contexts/QuranPage/QuranPageProvider';
-import QuranPage from '@src/components/QuranReader/contexts/QuranPage';
+  MushafPageProvider,
+  useMushafPage,
+} from '@src/components/MushafReader/contexts/MushafPage/MushafPageProvider';
+import MushafPage from '@src/components/MushafReader/contexts/MushafPage';
 
 function App() {
   return (
-    <QuranPageProvider dataId="quran-hafs" pageNumber={1}>
-      <QuranReader />
-    </QuranPageProvider>
+    <MushafPageProvider dataId="quran-hafs" pageNumber={1}>
+      <MushafReader />
+    </MushafPageProvider>
   );
 }
 
-function QuranReader() {
+function MushafReader() {
   const {
     pageNumber,
     currentSurah,
@@ -101,7 +101,7 @@ function QuranReader() {
     increaseFontScale,
     decreaseFontScale,
     setSelectedVerse,
-  } = useQuranPage();
+  } = useMushafPage();
 
   const handleWordClick = (word) => {
     // select the verse the word belongs to
@@ -124,17 +124,17 @@ function QuranReader() {
           <button onClick={increaseFontScale}>A+</button>
         </div>
       </header>
-      <QuranPage onWordClick={handleWordClick} onWordHover={handleWordHover} />
+      <MushafPage onWordClick={handleWordClick} onWordHover={handleWordHover} />
     </div>
   );
 }
 ```
 
-### 3. `QuranPage` Component
+### 3. `MushafPage` Component
 
-This component consumes the data fetched by `QuranPageProvider` and renders the actual Quran page.
+This component consumes the data fetched by `MushafPageProvider` and renders the actual Mushaf page.
 
-`@src/components/QuranReader/contexts/QuranPage/index.tsx`
+`@src/components/MushafReader/contexts/MushafPage/index.tsx`
 
 It accepts several optional props to handle user interactions, making the rendered text dynamic.
 
@@ -148,13 +148,13 @@ These handlers provide the flexibility to build rich, interactive experiences, s
 
 ## How It Works: The Rendering Process
 
-Rendering a Quran page is a complex process that this library simplifies into a hierarchy of components.
+Rendering a Mushaf page is a complex process that this library simplifies into a hierarchy of components.
 
-1.  **`Line.tsx`** (`@src/components/QuranReader/ReadingView/Line.tsx`): The Quran page is broken down into lines. This component is responsible for rendering a single line of text, including chapter headers where necessary.
+1.  **`Line.tsx`** (`@src/components/MushafReader/ReadingView/Line.tsx`): The Mushaf page is broken down into lines. This component is responsible for rendering a single line of text, including chapter headers where necessary.
 
 2.  **`VerseText.tsx`** (`@src/components/Verse/VerseText.tsx`): Each line contains words from one or more verses. `VerseText` takes an array of word objects and maps over them to render the verse. It handles text alignment and applies the correct font class based on the selected narration and font scale.
 
-3.  **`QuranWord.tsx`** (`@src/components/dls/QuranWord/QuranWord.tsx`): This is the most granular component, responsible for rendering a single Quranic word. It attaches the `onClick` and `onMouseEnter` event listeners and applies the specific font-family for the current narration via CSS classes defined in `QuranWord.module.scss`.
+3.  **`MushafWord.tsx`** (`@src/components/dls/MushafWord/MushafWord.tsx`): This is the most granular component, responsible for rendering a single Mushaf word. It attaches the `onClick` and `onMouseEnter` event listeners and applies the specific font-family for the current narration via CSS classes defined in `MushafWord.module.scss`.
 
 ## Styling
 
@@ -169,28 +169,24 @@ The library's styling is managed through SCSS, offering a high degree of customi
 
 This library exports a `classnames` object that allows you to override the default styles of the components. Each key in the `classnames` object corresponds to a component, and the value is an object containing the CSS class names for that component.
 
-You can use these class names to apply your own styles. For example, to change the background color of the `QuranReader` component, you can do the following:
+You can use these class names to apply your own styles. For example, to change the background color of the `MushafReader` component, you can do the following:
 
 **Example:**
 
 ```tsx
-import {
-  QuranPageProvider,
-  useQuranPage,
-  classnames,
-} from 'misraj-quran-renderer';
-import QuranPage from 'misraj-quran-renderer';
-import 'misraj-quran-renderer/styles';
+import { MushafPageProvider, useMushafPage, classnames } from 'misraj-mushaf-renderer';
+import { MushafPage } from 'misraj-mushaf-renderer';
+import 'misraj-mushaf-renderer/styles';
 
 function App() {
   return (
-    <QuranPageProvider dataId="quran-hafs" pageNumber={1}>
-      <QuranReader />
-    </QuranPageProvider>
+    <MushafPageProvider dataId="quran-hafs" pageNumber={1}>
+      <MushafReader />
+    </MushafPageProvider>
   );
 }
 
-function QuranReader() {
+function MushafReader() {
   const {
     pageNumber,
     currentSurah,
@@ -198,7 +194,7 @@ function QuranReader() {
     increaseFontScale,
     decreaseFontScale,
     setSelectedVerse,
-  } = useQuranPage();
+  } = useMushafContext();
 
   const handleWordClick = (word) => {
     // select the verse the word belongs to
@@ -210,7 +206,7 @@ function QuranReader() {
   };
 
   return (
-    <div className={classnames.QuranReader.container}>
+    <div className={classnames.MushafReader.container}>
       <header>
         <h1>
           Page {pageNumber} - Surah {currentSurah?.name}
@@ -221,7 +217,7 @@ function QuranReader() {
           <button onClick={increaseFontScale}>A+</button>
         </div>
       </header>
-      <QuranPage onWordClick={handleWordClick} onWordHover={handleWordHover} />
+      <MushafPage onWordClick={handleWordClick} onWordHover={handleWordHover} />
     </div>
   );
 }
@@ -230,7 +226,7 @@ function QuranReader() {
 Then, in your CSS file, you can define your custom styles:
 
 ```css
-.QuranReader-container {
+.MushafReader-container {
   background-color: #f0f0f0 !important;
 }
 ```

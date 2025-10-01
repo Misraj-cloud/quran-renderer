@@ -1,8 +1,8 @@
 import './styles/fonts.scss';
 
-export { default as QuranPage } from './components/QuranReader/contexts/QuranPage';
+export { default as MushafPage } from './components/MushafReader/contexts/MushafPage';
 export {
-  QuranPageProvider,
-  useQuranPage,
-} from './components/QuranReader/contexts/QuranPage/QuranPageProvider';
+  MushafPageProvider,
+  useMushafContext,
+} from './components/MushafReader/contexts/MushafPage/MushafPageProvider';
 export { default as classnames } from './classnames';

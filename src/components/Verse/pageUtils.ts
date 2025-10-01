@@ -1,3 +1,5 @@
+import { MushafFont } from 'src/types/MushafReader';
+
 // Pages where we want to have center align text to resemble the Madani Mushaf
 const CENTER_ALIGNED_PAGES = [1, 2];
 
@@ -22,7 +24,7 @@ const CENTER_ALIGNED_PAGE_LINES: { [key: number]: number[] } = {
  *
  * @param {number} pageNumber
  * @param {number} lineNumber
- * @param {QuranFont} quranFont
+ * @param {MushafFont} mushafFont
  * @returns {boolean}
  */
 const isCenterAlignedPage = (pageNumber: number, lineNumber: number): boolean => {

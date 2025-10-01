@@ -1,26 +1,26 @@
-import { MushafLines, QuranFont } from '@/types/QuranReader';
+import { MushafLines, MushafFont } from 'src/types/MushafReader';
 
 /**
  * Dynamically generate the className of the combination between the font
  * name + size + mushafLines(when its Indopak) that will match the output of
  * generate-font-scales function inside {@see _utility.scss}.
  *
- * @param {QuranFont} quranFont
+ * @param {MushafFont} mushafFont
  * @param {number} fontScale
  * @param {MushafLines} mushafLines
  * @param {boolean} isFallbackFont
  * @returns {string}
  */
 export const getFontClassName = (
-  quranFont: QuranFont,
+  mushafFont: MushafFont,
   fontScale: number,
   mushafLines: MushafLines,
   isFallbackFont = false,
 ): string => {
-  if (quranFont === QuranFont.IndoPak) {
-    return `${quranFont}_${mushafLines}-font-size-${fontScale}`;
+  if (mushafFont === MushafFont.IndoPak) {
+    return `${mushafFont}_${mushafLines}-font-size-${fontScale}`;
   }
   return isFallbackFont
-    ? `fallback_${quranFont}-font-size-${fontScale}`
-    : `${quranFont}-font-size-${fontScale}`;
+    ? `fallback_${mushafFont}-font-size-${fontScale}`
+    : `${mushafFont}-font-size-${fontScale}`;
 };

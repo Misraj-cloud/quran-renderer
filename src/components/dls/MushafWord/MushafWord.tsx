@@ -3,24 +3,24 @@ import { memo, useCallback } from 'react';
 
 import classNames from 'classnames';
 
-import styles from './QuranWord.module.scss';
+import styles from './MushafWord.module.scss';
 
 import Word from '@/types/Word';
 import { makeWordLocation } from '@/utils/verse';
-import { useQuranPage } from 'src/components/QuranReader/contexts/QuranPage/QuranPageProvider';
+import { useMushafContext } from 'src/components/MushafReader/contexts/MushafPage/MushafPageProvider';
 import { narrationIdentifierFromReciterId } from 'src/utils/narration-name';
 
 const DATA_ATTRIBUTE_WORD_LOCATION = 'data-word-location';
 
-type QuranWordProps = {
+type MushafWordProps = {
   word: Word;
   shouldShowSecondaryHighlight?: boolean;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const QuranWord = ({ word, onWordClick, onWordHover }: QuranWordProps) => {
-  const { selectedVerse, dataId } = useQuranPage();
+const MushafWord = ({ word, onWordClick, onWordHover }: MushafWordProps) => {
+  const { selectedVerse, dataId } = useMushafContext();
   const wordLocation = makeWordLocation(word.verse_key, word.position);
   const wordText = <span className={styles.UthmanicHafs}>{word.text}</span>;
 
@@ -66,4 +66,4 @@ const QuranWord = ({ word, onWordClick, onWordHover }: QuranWordProps) => {
   );
 };
 
-export default memo(QuranWord);
+export default memo(MushafWord);

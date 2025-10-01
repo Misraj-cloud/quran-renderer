@@ -2,26 +2,26 @@
 
 import classNames from 'classnames';
 
-import styles from './QuranReader.module.scss';
-import QuranReaderView from './QuranReaderView';
+import styles from './MushafReader.module.scss';
+import MushafReaderView from './MushafReaderView';
 
-import { QuranReaderDataType } from '@/types/QuranReader';
+import { MushafReaderDataType } from 'src/types/MushafReader';
 import Word from '@/types/Word';
-import { QuranPageDataType } from './contexts/QuranPage/types';
+import { MushafPageDataType } from './contexts/MushafPage/types';
 
-type QuranReaderProps = {
-  data: QuranPageDataType;
+type MushafReaderProps = {
+  data: MushafPageDataType;
   id: number | string; // can be the chapter, verse, tafsir, hizb, juz, rub or page's ID.
-  quranReaderDataType?: QuranReaderDataType;
+  mushafReaderDataType?: MushafReaderDataType;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const QuranReader = ({ data, id, onWordClick, onWordHover }: QuranReaderProps) => {
+const MushafReader = ({ data, id, onWordClick, onWordHover }: MushafReaderProps) => {
   return (
     <>
       <div className={classNames(styles.container)}>
-        <QuranReaderView
+        <MushafReaderView
           data={data}
           resourceId={id}
           onWordClick={onWordClick}
@@ -32,7 +32,7 @@ const QuranReader = ({ data, id, onWordClick, onWordHover }: QuranReaderProps) =
   );
 };
 
-export default QuranReader;
+export default MushafReader;
 
 // Documentation for this component:
 // ContextMenu is the one shown at the top of the page, containing surah name, juz' number ... etc

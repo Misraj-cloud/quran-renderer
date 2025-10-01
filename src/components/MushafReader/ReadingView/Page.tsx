@@ -8,7 +8,7 @@ import styles from './Page.module.scss';
 
 import Word from '@/types/Word';
 import { Ayah } from 'src/types/verses';
-import { useQuranPage } from '../contexts/QuranPage/QuranPageProvider';
+import { useMushafContext } from '../contexts/MushafPage/MushafPageProvider';
 
 type PageProps = {
   verses: Ayah[];
@@ -19,7 +19,7 @@ type PageProps = {
 };
 
 const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageProps) => {
-  const { fontScale } = useQuranPage();
+  const { fontScale } = useMushafContext();
   const lines = useMemo(
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
     [verses],

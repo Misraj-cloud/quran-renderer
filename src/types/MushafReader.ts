@@ -1,8 +1,8 @@
-export enum QuranReaderDataType {
+export enum MushafReaderDataType {
   Page = 'page',
 }
 
-export enum QuranFont {
+export enum MushafFont {
   MadaniV1 = 'code_v1',
   MadaniV2 = 'code_v2',
   Uthmani = 'text_uthmani',
@@ -10,7 +10,7 @@ export enum QuranFont {
   QPCHafs = 'qpc_uthmani_hafs',
   Tajweed = 'tajweed',
 }
-export const FALLBACK_FONT = QuranFont.QPCHafs;
+export const FALLBACK_FONT = MushafFont.QPCHafs;
 
 export enum MushafLines {
   FifteenLines = '15_lines',

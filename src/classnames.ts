@@ -22,24 +22,24 @@ const ChapterIconContainer = {
   iconContainerMega: 'ChapterIconContainer-iconContainerMega',
 };
 
-const QuranWord = {
-  container: 'QuranWord-container',
-  additionalWordGap: 'QuranWord-additionalWordGap',
-  secondaryHighlight: 'QuranWord-secondaryHighlight',
-  wbwContainer: 'QuranWord-wbwContainer',
-  colored: 'QuranWord-colored',
-  highlightOnHover: 'QuranWord-highlightOnHover',
-  highlighted: 'QuranWord-highlighted',
-  tooltipText: 'QuranWord-tooltipText',
-  popoverTrigger: 'QuranWord-popoverTrigger',
-  'quran-hafs': 'QuranWord-quran-hafs',
-  'quran-shoba': 'QuranWord-quran-shoba',
-  'quran-warsh': 'QuranWord-quran-warsh',
-  'quran-qunbul': 'QuranWord-quran-qunbul',
-  'quran-qaloon': 'QuranWord-quran-qaloon',
-  'quran-alsoosi': 'QuranWord-quran-alsoosi',
-  'quran-aldouri': 'QuranWord-quran-aldouri',
-  'quran-albazzi': 'QuranWord-quran-albazzi',
+const MushafWord = {
+  container: 'MushafWord-container',
+  additionalWordGap: 'MushafWord-additionalWordGap',
+  secondaryHighlight: 'MushafWord-secondaryHighlight',
+  wbwContainer: 'MushafWord-wbwContainer',
+  colored: 'MushafWord-colored',
+  highlightOnHover: 'MushafWord-highlightOnHover',
+  highlighted: 'MushafWord-highlighted',
+  tooltipText: 'MushafWord-tooltipText',
+  popoverTrigger: 'MushafWord-popoverTrigger',
+  'mushaf-hafs': 'MushafWord-mushaf-hafs',
+  'mushaf-shoba': 'MushafWord-mushaf-shoba',
+  'mushaf-warsh': 'MushafWord-mushaf-warsh',
+  'mushaf-qunbul': 'MushafWord-mushaf-qunbul',
+  'mushaf-qaloon': 'MushafWord-mushaf-qaloon',
+  'mushaf-alsoosi': 'MushafWord-mushaf-alsoosi',
+  'mushaf-aldouri': 'MushafWord-mushaf-aldouri',
+  'mushaf-albazzi': 'MushafWord-mushaf-albazzi',
 };
 
 const TextWord = {
@@ -48,14 +48,14 @@ const TextWord = {
   IndoPak: 'TextWord-IndoPak',
 };
 
-const QuranReader = {
-  infiniteScroll: 'QuranReader-infiniteScroll',
-  readingView: 'QuranReader-readingView',
-  loading: 'QuranReader-loading',
-  container: 'QuranReader-container',
-  withVisibleSideBar: 'QuranReader-withVisibleSideBar',
-  withSidebarNavigationOpenOrAuto: 'QuranReader-withSidebarNavigationOpenOrAuto',
-  playButton: 'QuranReader-playButton',
+const MushafReader = {
+  infiniteScroll: 'MushafReader-infiniteScroll',
+  readingView: 'MushafReader-readingView',
+  loading: 'MushafReader-loading',
+  container: 'MushafReader-container',
+  withVisibleSideBar: 'MushafReader-withVisibleSideBar',
+  withSidebarNavigationOpenOrAuto: 'MushafReader-withSidebarNavigationOpenOrAuto',
+  playButton: 'MushafReader-playButton',
 };
 
 const Line = {
@@ -79,8 +79,8 @@ const VerseText = {
   verseText: 'VerseText-verseText',
   verseTextContainer: 'VerseText-verseTextContainer',
   chapterHeaderContainer: 'VerseText-chapterHeaderContainer',
-  largeQuranTextLayoutContainer: 'VerseText-largeQuranTextLayoutContainer',
-  largeQuranTextLayout: 'VerseText-largeQuranTextLayout',
+  largeMushafTextLayoutContainer: 'VerseText-largeMushafTextLayoutContainer',
+  largeMushafTextLayout: 'VerseText-largeMushafTextLayout',
   verseTextCenterAlign: 'VerseText-verseTextCenterAlign',
   verseTextSpaceBetween: 'VerseText-verseTextSpaceBetween',
   verseTextWrap: 'VerseText-verseTextWrap',
@@ -91,9 +91,9 @@ const VerseText = {
 const classnames = {
   ChapterHeader,
   ChapterIconContainer,
-  QuranWord,
+  MushafWord,
   TextWord,
-  QuranReader,
+  MushafReader,
   Line,
   Page,
   ReadingView,

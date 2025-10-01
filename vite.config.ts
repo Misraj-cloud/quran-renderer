@@ -15,7 +15,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'misraj-quran-renderer',
+      name: 'misraj-mushaf-renderer',
       formats: ['es', 'cjs'],
       fileName: (format) => `index.${format}.js`,
       styles: path.resolve(__dirname, 'src/styles.ts'),

@@ -6,10 +6,10 @@ import styles from './VerseText.module.scss';
 
 import Word from '@/types/Word';
 import { getFirstWordOfSurah } from '@/utils/verse';
-import { FALLBACK_FONT, MushafLines } from 'src/types/QuranReader';
+import { FALLBACK_FONT, MushafLines } from 'src/types/MushafReader';
 import { getFontClassName } from 'src/utils/fontFaceHelper';
-import QuranWord from '../dls/QuranWord/QuranWord';
-import { useQuranPage } from '../QuranReader/contexts/QuranPage/QuranPageProvider';
+import MushafWord from '../dls/MushafWord/MushafWord';
+import { useMushafContext } from '../MushafReader/contexts/MushafPage/MushafPageProvider';
 
 type VerseTextProps = {
   words: Word[];
@@ -30,7 +30,7 @@ const VerseText = ({
   onWordHover,
   hoveredVerseKey,
 }: VerseTextProps) => {
-  const { fontScale } = useQuranPage();
+  const { fontScale } = useMushafContext();
   const [firstWord] = words;
   const {
     line_number: lineNumber,
@@ -57,7 +57,7 @@ const VerseText = ({
         data-page={pageNumber}
         data-chapter-id={chapterId}
         className={classNames(styles.verseTextContainer, {
-          [styles.largeQuranTextLayoutContainer]: isBigTextLayout,
+          [styles.largeMushafTextLayoutContainer]: isBigTextLayout,
           [styles.highlighted]: isHighlighted,
           [styles[fontClassName]]: true,
           [styles.tafsirOrTranslationMode]: !isReadingMode,
@@ -67,13 +67,13 @@ const VerseText = ({
           translate="no"
           className={classNames(styles.verseText, {
             [styles.verseTextWrap]: !isReadingMode,
-            [styles.largeQuranTextLayout]: isBigTextLayout,
+            [styles.largeMushafTextLayout]: isBigTextLayout,
             [styles.verseTextCenterAlign]: isReadingMode && centerAlignPage,
             [styles.verseTextSpaceBetween]: isReadingMode && !centerAlignPage,
           })}
         >
           {words?.map((word) => (
-            <QuranWord
+            <MushafWord
               key={word.location}
               word={word}
               shouldShowSecondaryHighlight={word.verse_key === hoveredVerseKey}

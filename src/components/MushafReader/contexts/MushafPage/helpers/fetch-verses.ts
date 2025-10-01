@@ -1,6 +1,6 @@
 import { HOST_API } from 'src/config-global';
 import type { IVersesListDto } from 'src/types/verses';
-import { DataId } from '../QuranPage.types';
+import { DataId } from '../MushafPage.types';
 
 const versesUrl = (pageNumber: number, identifier = 'quran-hafs') => {
   // Prefer URL for safety; avoids accidental double slashes

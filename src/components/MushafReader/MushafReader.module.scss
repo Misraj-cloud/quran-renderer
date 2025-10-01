@@ -9,7 +9,7 @@ $virtual-scrolling-height-bandage: calc(
 // for example for EndOfScrollingButton component
 
 .infiniteScroll {
-  @include utility.quranContainer;
+  @include utility.mushafContainer;
   margin-block-start: 0;
   margin-block-end: 0;
   margin-inline-start: auto;

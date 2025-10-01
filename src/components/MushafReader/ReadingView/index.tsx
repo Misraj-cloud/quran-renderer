@@ -1,11 +1,11 @@
 import Word from '@/types/Word';
 import classNames from 'classnames';
-import { QuranPageDataType } from 'src/components/QuranReader/contexts/QuranPage/types';
+import { MushafPageDataType } from 'src/components/MushafReader/contexts/MushafPage/types';
 import PageContainer from './PageContainer';
 import styles from './ReadingView.module.scss';
 
 type ReadingViewProps = {
-  data: QuranPageDataType;
+  data: MushafPageDataType;
   resourceId: number | string; // can be the chapter, verse, tafsir, hizb, juz, rub or page's ID.
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;

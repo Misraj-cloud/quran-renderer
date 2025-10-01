@@ -2,17 +2,17 @@
 import React from 'react';
 
 import Word from '@/types/Word';
-import { QuranPageDataType } from './contexts/QuranPage/types';
+import { MushafPageDataType } from './contexts/MushafPage/types';
 import ReadingView from './ReadingView';
 
 interface Props {
-  data: QuranPageDataType;
+  data: MushafPageDataType;
   resourceId: number | string;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
 }
 
-const QuranReaderView: React.FC<Props> = ({ data, resourceId, onWordClick, onWordHover }) => {
+const MushafReaderView: React.FC<Props> = ({ data, resourceId, onWordClick, onWordHover }) => {
   return (
     <ReadingView
       data={data}
@@ -23,4 +23,4 @@ const QuranReaderView: React.FC<Props> = ({ data, resourceId, onWordClick, onWor
   );
 };
 
-export default QuranReaderView;
+export default MushafReaderView;
