@@ -7,8 +7,9 @@
 
   width: 100%;
   text-align: center;
+}
 
-  // setting the value below to avoid the CLS issue when the surahnames font has not loaded yet
+.border {
   border-width: 10px 100px;
   border-style: solid;
   border-color: transparent;

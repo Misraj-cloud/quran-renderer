@@ -23,6 +23,7 @@ type MushafPageState = {
   loading: boolean;
   pageNumber: number;
   dataId: DataId;
+  hasBorder: boolean;
 };
 
 type MushafPageActions = {
@@ -39,6 +40,7 @@ type MushafPageProviderProps = {
   dataId: DataId;
   pageNumber: number;
   initialFontScale?: number;
+  hasBorder?: boolean;
 };
 
 /** ---------- Helpers ---------- */
@@ -52,6 +54,7 @@ export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
   dataId,
   pageNumber,
   initialFontScale = 3,
+  hasBorder = true,
 }) => {
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
   const [currentSurah, setCurrentSurah] = useState<Surah | null>(null);
@@ -110,8 +113,9 @@ export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
       loading,
       pageNumber,
       dataId,
+      hasBorder,
     }),
-    [fontScale, selectedVerse, currentSurah, data, error, loading, pageNumber, dataId],
+    [fontScale, selectedVerse, currentSurah, data, error, loading, pageNumber, dataId, hasBorder],
   );
 
   const actions = useMemo<MushafPageActions>(

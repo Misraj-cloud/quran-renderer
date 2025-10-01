@@ -11,11 +11,11 @@
   margin-block-end: var(--spacing-mega);
   max-width: 100%;
   box-sizing: border-box;
-
-  border: 25px solid transparent;
-
   position: relative;
+}
 
+.border {
+  border: 25px solid transparent;
   border-image: url('../../../assets/images/full-border.png') 100 repeat;
 }
 

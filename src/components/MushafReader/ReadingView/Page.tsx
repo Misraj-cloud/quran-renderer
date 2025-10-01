@@ -22,7 +22,7 @@ type PageProps = {
 };
 
 const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageProps) => {
-  const { fontScale, currentSurah, data } = useMushafContext();
+  const { fontScale, currentSurah, data, hasBorder } = useMushafContext();
   const lines = useMemo(
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
     [verses],
@@ -34,13 +34,20 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
       id={`page-${pageNumber}`}
       className={classNames(styles.container, {
         [styles.mobileCenterText]: isBigTextLayout,
+        [styles.border]: hasBorder,
       })}
       style={{ position: 'relative' }}
     >
-      <PageMetaDataContainer className={styles.surah}>{currentSurah?.name}</PageMetaDataContainer>
-      <PageMetaDataContainer className={styles.juz}>
-        {getJuzText(data?.[0].juz || 1)}
-      </PageMetaDataContainer>
+      {hasBorder && (
+        <>
+          <PageMetaDataContainer className={styles.surah}>
+            {currentSurah?.name}
+          </PageMetaDataContainer>
+          <PageMetaDataContainer className={styles.juz}>
+            {getJuzText(data?.[0].juz || 1)}
+          </PageMetaDataContainer>
+        </>
+      )}
       {Object.keys(lines).map((key, lineIndex) => (
         <Line
           pageIndex={pageIndex}
@@ -53,7 +60,7 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
           onWordHover={onWordHover}
         />
       ))}
-      <PageNumber />
+      {hasBorder && <PageNumber />}
     </div>
   );
 };

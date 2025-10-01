@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import styles from './ChapterIconContainer.module.scss';
 
 import ChapterIcon from '@/components/chapters/ChapterIcon';
+import { useMushafContext } from 'src/components/MushafReader/contexts/MushafPage/MushafPageProvider';
 
 export enum ChapterIconsSize {
   Small = 'small',
@@ -24,18 +25,23 @@ const IconContainer: React.FC<Props> = ({
   chapterId,
   size = ChapterIconsSize.Medium,
   hasSurahPrefix = true,
-}) => (
-  <span
-    className={classNames(styles.iconContainer, {
-      [styles.iconContainerSmall]: size === ChapterIconsSize.Small,
-      [styles.iconContainerLarge]: size === ChapterIconsSize.Large,
-      [styles.iconContainerMega]: size === ChapterIconsSize.Mega,
-    })}
-    style={{ color: 'black' }} // to inherit the text color from the parent element
-  >
-    <ChapterIcon id={chapterId} />
-    {hasSurahPrefix && <ChapterIcon id="surah" />}
-  </span>
-);
+}) => {
+  const { hasBorder } = useMushafContext();
+
+  return (
+    <span
+      className={classNames(styles.iconContainer, {
+        [styles.border]: hasBorder,
+        [styles.iconContainerSmall]: size === ChapterIconsSize.Small,
+        [styles.iconContainerLarge]: size === ChapterIconsSize.Large,
+        [styles.iconContainerMega]: size === ChapterIconsSize.Mega,
+      })}
+      style={{ color: 'black' }} // to inherit the text color from the parent element
+    >
+      <ChapterIcon id={chapterId} />
+      {hasSurahPrefix && <ChapterIcon id="surah" />}
+    </span>
+  );
+};
 
 export default IconContainer;
