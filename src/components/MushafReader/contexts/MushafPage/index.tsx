@@ -1,4 +1,3 @@
-import { MushafReaderDataType } from 'src/types/MushafReader';
 import React from 'react';
 import MushafReader from 'src/components/MushafReader';
 import { MushafPageProps } from './MushafPage.types';
@@ -12,8 +11,7 @@ const MushafPage: React.FC<MushafPageProps> = ({ onWordClick, onWordHover }) => 
   return (
     <MushafReader
       data={data}
-      id={String(pageNumber)}
-      mushafReaderDataType={MushafReaderDataType.Page}
+      pageNumber={String(pageNumber)}
       onWordClick={onWordClick}
       onWordHover={onWordHover}
     />

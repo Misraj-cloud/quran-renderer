@@ -25,7 +25,7 @@ type Props = {
  * @param {Verse[]} initialVerses
  * @returns {Verse[]}
  */
-const getInitialVerses = (pageNumber: number, initialVerses: Ayah[]): Ayah[] =>
+export const getInitialVerses = (pageNumber: number, initialVerses: Ayah[]): Ayah[] =>
   initialVerses.map((verse) => ({
     ...verse,
     words: verse.words.filter((word) => word.page_number === pageNumber),

@@ -3,36 +3,35 @@
 import classNames from 'classnames';
 
 import styles from './MushafReader.module.scss';
-import MushafReaderView from './MushafReaderView';
+import readingViewStyles from './ReadingView/ReadingView.module.scss';
 
-import { MushafReaderDataType } from 'src/types/MushafReader';
 import Word from '@/types/Word';
+import React from 'react';
 import { MushafPageDataType } from './contexts/MushafPage/types';
+import Page from './ReadingView/Page';
 
 type MushafReaderProps = {
   data: MushafPageDataType;
-  id: number | string; // can be the chapter, verse, tafsir, hizb, juz, rub or page's ID.
-  mushafReaderDataType?: MushafReaderDataType;
+  pageNumber: number | string; // can be the chapter, verse, tafsir, hizb, juz, rub or page's ID.
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const MushafReader = ({ data, id, onWordClick, onWordHover }: MushafReaderProps) => {
+const MushafReader = ({ data, pageNumber, onWordClick, onWordHover }: MushafReaderProps) => {
   return (
-    <>
-      <div className={classNames(styles.container)}>
-        <MushafReaderView
-          data={data}
-          resourceId={id}
+    <div className={classNames(styles.container)}>
+      <div className={classNames(readingViewStyles.container)}>
+        <Page
+          verses={data}
+          key={`page-${pageNumber}`}
+          pageNumber={Number(pageNumber)}
+          pageIndex={+pageNumber}
           onWordClick={onWordClick}
           onWordHover={onWordHover}
         />
       </div>
-    </>
+    </div>
   );
 };
 
 export default MushafReader;
-
-// Documentation for this component:
-// ContextMenu is the one shown at the top of the page, containing surah name, juz' number ... etc
