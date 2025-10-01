@@ -1,14 +1,12 @@
 import React from 'react';
 import { QuranPage, QuranPageProvider } from './index';
 
-const App: React.FC = () => {
-  return (
-    <QuranPageProvider pageNumber={10} dataId="ar.abdulsamad.hafs">
-      <QuranPageConsumer />
-    </QuranPageProvider>
-  );
-};
-
 const QuranPageConsumer: React.FC = () => <QuranPage />;
+
+const App: React.FC = () => (
+  <QuranPageProvider pageNumber={367} dataId="quran-qaloon">
+    <QuranPageConsumer />
+  </QuranPageProvider>
+);
 
 export default App;
