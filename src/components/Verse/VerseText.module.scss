@@ -36,7 +36,3 @@
 }
 
 @include utility.generate-font-scales('fallback_qpc_uthmani_hafs');
-
-.highlighted {
-  background-color: var(--color-background-alternative-faded);
-}
