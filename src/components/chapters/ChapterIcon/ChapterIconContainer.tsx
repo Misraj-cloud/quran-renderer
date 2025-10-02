@@ -7,34 +7,19 @@ import styles from './ChapterIconContainer.module.scss';
 import ChapterIcon from '@/components/chapters/ChapterIcon';
 import { useMushafContext } from 'src/components/MushafReader/contexts/MushafPage/MushafPageProvider';
 
-export enum ChapterIconsSize {
-  Small = 'small',
-  Medium = 'medium',
-  Large = 'large',
-  Mega = 'mega',
-}
-
 // TODO: maybe replace `hasSurahPrefix` with `variant` and use it to show v1 or v2 surah name font
 interface Props {
   chapterId: string;
-  size?: ChapterIconsSize;
   hasSurahPrefix?: boolean;
 }
 
-const IconContainer: React.FC<Props> = ({
-  chapterId,
-  size = ChapterIconsSize.Medium,
-  hasSurahPrefix = true,
-}) => {
+const IconContainer: React.FC<Props> = ({ chapterId, hasSurahPrefix = true }) => {
   const { hasBorder } = useMushafContext();
 
   return (
     <span
-      className={classNames(styles.iconContainer, {
+      className={classNames(styles.iconContainer, styles.iconContainerLarge, {
         [styles.border]: hasBorder,
-        [styles.iconContainerSmall]: size === ChapterIconsSize.Small,
-        [styles.iconContainerLarge]: size === ChapterIconsSize.Large,
-        [styles.iconContainerMega]: size === ChapterIconsSize.Mega,
       })}
       style={{ color: 'black' }} // to inherit the text color from the parent element
     >

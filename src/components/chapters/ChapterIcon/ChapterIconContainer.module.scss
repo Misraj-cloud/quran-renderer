@@ -2,7 +2,7 @@
   span {
     line-height: normal;
     font-family: 'surahnames';
-    font-size: var(--font-size-large);
+    font-size: var(--font-size-jumbo);
   }
 
   width: 100%;
@@ -17,22 +17,4 @@
   border-image-source: url('../../../assets/images/surah-name-border.png');
   border-image-slice: 13% 35%;
   border-image-repeat: round;
-}
-
-.iconContainerSmall {
-  span {
-    font-size: var(--font-size-xsmall);
-  }
-}
-
-.iconContainerLarge {
-  span {
-    font-size: var(--font-size-jumbo);
-  }
-}
-
-.iconContainerMega {
-  span {
-    font-size: calc(1.5 * var(--font-size-jumbo));
-  }
 }

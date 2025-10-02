@@ -2,9 +2,7 @@ import React, { useRef } from 'react';
 
 import styles from './ChapterHeader.module.scss';
 
-import ChapterIconContainer, {
-  ChapterIconsSize,
-} from '@/components/chapters/ChapterIcon/ChapterIconContainer';
+import ChapterIconContainer from '@/components/chapters/ChapterIcon/ChapterIconContainer';
 import Bismillah from 'src/components/dls/Bismillah/Bismillah';
 
 interface Props {
@@ -27,7 +25,7 @@ const ChapterHeader: React.FC<Props> = ({ chapterId, pageNumber }) => {
       data-chapter-id={chapterId}
     >
       <div className={styles.header}>
-        <ChapterIconContainer chapterId={chapterId} size={ChapterIconsSize.Large} />
+        <ChapterIconContainer chapterId={chapterId} />
       </div>
       <div className={styles.bismillahContainer}>
         {!CHAPTERS_WITHOUT_BISMILLAH.includes(chapterId) && <Bismillah />}
