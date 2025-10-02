@@ -16,7 +16,8 @@
 
 .border {
   border: 25px solid transparent;
-  border-image: url('../../../assets/images/full-border.png') 100 repeat;
+  border-image: url('../../../assets/images/full-border.svg') 20 repeat;
+  color: red !important;
 }
 
 .mobileCenterText {

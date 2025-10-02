@@ -37,7 +37,7 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
         [styles.mobileCenterText]: isBigTextLayout,
         [styles.border]: hasBorder,
       })}
-      style={{ position: 'relative' }}
+      style={{ position: 'relative', color: 'red' }}
     >
       {hasBorder && (
         <>
