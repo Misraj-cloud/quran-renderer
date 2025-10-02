@@ -60,13 +60,11 @@ const VerseText = ({
           [styles.largeMushafTextLayoutContainer]: isBigTextLayout,
           [styles.highlighted]: isHighlighted,
           [styles[fontClassName]]: true,
-          [styles.tafsirOrTranslationMode]: !isReadingMode,
         })}
       >
         <div
           translate="no"
           className={classNames(styles.verseText, {
-            [styles.verseTextWrap]: !isReadingMode,
             [styles.largeMushafTextLayout]: isBigTextLayout,
             [styles.verseTextCenterAlign]: isReadingMode && centerAlignPage,
             [styles.verseTextSpaceBetween]: isReadingMode && !centerAlignPage,
