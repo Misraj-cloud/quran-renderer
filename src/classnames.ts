@@ -1,16 +1,8 @@
 const ChapterHeader = {
   container: 'ChapterHeader-container',
-  left: 'ChapterHeader-left',
-  right: 'ChapterHeader-right',
   chapterId: 'ChapterHeader-chapterId',
   bismillahContainer: 'ChapterHeader-bismillahContainer',
   translatedName: 'ChapterHeader-translatedName',
-  arabicSurahNameContainer: 'ChapterHeader-arabicSurahNameContainer',
-  transliteratedName: 'ChapterHeader-transliteratedName',
-  actionContainer: 'ChapterHeader-actionContainer',
-  translation: 'ChapterHeader-translation',
-  translationBy: 'ChapterHeader-translationBy',
-  changeTranslation: 'ChapterHeader-changeTranslation',
   header: 'ChapterHeader-header',
   chapterIconContainer: 'ChapterHeader-chapterIconContainer',
 };
@@ -37,12 +29,6 @@ const MushafWord = {
   'mushaf-albazzi': 'MushafWord-mushaf-albazzi',
 };
 
-const TextWord = {
-  word: 'TextWord-word',
-  UthmanicHafs: 'TextWord-UthmanicHafs',
-  IndoPak: 'TextWord-IndoPak',
-};
-
 const MushafReader = {
   infiniteScroll: 'MushafReader-infiniteScroll',
   readingView: 'MushafReader-readingView',
@@ -66,7 +52,6 @@ const Page = {
 
 const ReadingView = {
   container: 'ReadingView-container',
-  virtuosoScroller: 'ReadingView-virtuosoScroller',
 };
 
 const VerseText = {
@@ -76,16 +61,13 @@ const VerseText = {
   largeMushafTextLayout: 'VerseText-largeMushafTextLayout',
   verseTextCenterAlign: 'VerseText-verseTextCenterAlign',
   verseTextSpaceBetween: 'VerseText-verseTextSpaceBetween',
-  verseTextWrap: 'VerseText-verseTextWrap',
   highlighted: 'VerseText-highlighted',
-  tafsirOrTranslationMode: 'VerseText-tafsirOrTranslationMode',
 };
 
 const classnames = {
   ChapterHeader,
   ChapterIconContainer,
   MushafWord,
-  TextWord,
   MushafReader,
   Line,
   Page,
