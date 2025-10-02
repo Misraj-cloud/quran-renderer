@@ -76,7 +76,6 @@ const VerseText = ({
             <MushafWord
               key={word.location}
               word={word}
-              shouldShowSecondaryHighlight={word.verse_key === hoveredVerseKey}
               onWordClick={onWordClick}
               onWordHover={onWordHover}
             />

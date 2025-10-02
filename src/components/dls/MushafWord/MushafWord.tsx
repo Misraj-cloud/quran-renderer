@@ -14,7 +14,6 @@ const DATA_ATTRIBUTE_WORD_LOCATION = 'data-word-location';
 
 type MushafWordProps = {
   word: Word;
-  shouldShowSecondaryHighlight?: boolean;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
 };
