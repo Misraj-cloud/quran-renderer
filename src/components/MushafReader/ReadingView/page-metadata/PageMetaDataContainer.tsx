@@ -209,7 +209,7 @@ const PageMetaDataContainer = ({
         fontSize="16"
         fontWeight="500"
         fontFamily="UthmanicHafs"
-        className={mushafWordStyles.colored}
+        className={mushafWordStyles.filled}
       >
         {children}
       </text>

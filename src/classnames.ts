@@ -5,6 +5,7 @@ const ChapterIconContainer = {
 const MushafWord = {
   container: 'MushafWord-container',
   colored: 'MushafWord-colored',
+  filled: 'MushafWord-filled',
   highlightOnHover: 'MushafWord-highlightOnHover',
   highlighted: 'MushafWord-highlighted',
 };

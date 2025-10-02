@@ -25,7 +25,7 @@ const PageNumber = ({ value }: Props) => {
         fontSize="14"
         fontWeight="500"
         fontFamily="UthmanicHafs"
-        className={mushafWordStyles.colored}
+        className={mushafWordStyles.filled}
       >
         {value}
       </text>

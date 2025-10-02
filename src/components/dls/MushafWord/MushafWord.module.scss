@@ -6,17 +6,20 @@
 
 .colored {
   color: black;
+}
+
+.filled {
   fill: black;
 }
 
 .highlightOnHover {
   &:hover {
-    color: var(--color-success-medium);
+    color: var(--word-highlight-color);
   }
 }
 
 .highlighted {
-  color: var(--color-success-medium);
+  color: var(--word-highlight-color);
 }
 
 .mushaf-hafs {
