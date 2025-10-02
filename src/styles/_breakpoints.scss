@@ -11,32 +11,14 @@ $breakpoints-desktop: 1024px;
   }
 }
 
-@mixin smallerThanMobileS {
-  @media only screen and (max-width: $breakpoints-mobileS) {
-    @content;
-  }
-}
-
 @mixin mobileM {
   @media only screen and (min-width: $breakpoints-mobileM) {
     @content;
   }
 }
 
-@mixin smallerThanMobileM {
-  @media only screen and (max-width: $breakpoints-mobileM) {
-    @content;
-  }
-}
-
 @mixin mobileL {
   @media only screen and (min-width: $breakpoints-mobileL) {
-    @content;
-  }
-}
-
-@mixin smallerThanMobileL {
-  @media only screen and (max-width: $breakpoints-mobileL) {
     @content;
   }
 }
@@ -55,12 +37,6 @@ $breakpoints-desktop: 1024px;
 
 @mixin desktop {
   @media only screen and (min-width: $breakpoints-desktop) {
-    @content;
-  }
-}
-
-@mixin smallerThanDesktop {
-  @media only screen and (max-width: $breakpoints-desktop) {
     @content;
   }
 }

@@ -1,4 +1,3 @@
-@use '../../../styles/breakpoints';
 .container {
   display: flex;
   justify-content: space-between;
@@ -14,89 +13,17 @@
   direction: ltr;
 }
 
-.left {
-  display: flex;
-  flex-direction: column;
-  text-align: start;
-  justify-content: space-between;
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  text-align: start;
-  justify-content: space-between;
-}
-
-.chapterId {
-  text-align: end;
-  font-size: var(--font-size-large);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-faded);
-  z-index: var(--z-index-default);
-}
-
 .bismillahContainer {
   display: flex;
   justify-content: center;
   margin-block-start: var(--spacing-xxsmall);
   margin-block-end: calc(0.1 * var(--spacing-mega));
 }
-.translatedName {
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-faded);
-  font-size: var(--font-size-xsmall);
-  margin-block-end: var(--spacing-xxsmall);
-  z-index: var(--z-index-default);
-}
-.arabicSurahNameContainer {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-end;
-  padding-block-start: var(--spacing-xsmall);
-  margin-block-end: var(--spacing-xxsmall);
-  z-index: var(--z-index-default);
-}
-.transliteratedName {
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-large);
-  margin-block-end: var(--spacing-xxsmall);
-  z-index: var(--z-index-default);
-}
-.actionContainer {
-  position: relative;
-  z-index: var(--z-index-default);
-}
 
-.translation {
-  max-width: calc(5 * var(--spacing-mega));
-  @include breakpoints.mobileM {
-    max-width: calc(7 * var(--spacing-mega));
-  }
-  @include breakpoints.tablet {
-    max-width: calc(11 * var(--spacing-mega));
-  }
-}
-.translationBy {
-  color: var(--color-text-faded);
-}
-.changeTranslation {
-  color: var(--color-success-medium);
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-}
 .header {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-block-start: calc(0.1 * var(--spacing-mega));
-}
-
-.chapterIconContainer {
-  // a hack to center the surah name, because the font width is not correct
-  // leave a lot of empty space on the left
-  margin-right: 0.5em;
 }

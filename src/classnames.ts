@@ -24,14 +24,9 @@ const ChapterIconContainer = {
 
 const MushafWord = {
   container: 'MushafWord-container',
-  additionalWordGap: 'MushafWord-additionalWordGap',
-  secondaryHighlight: 'MushafWord-secondaryHighlight',
-  wbwContainer: 'MushafWord-wbwContainer',
   colored: 'MushafWord-colored',
   highlightOnHover: 'MushafWord-highlightOnHover',
   highlighted: 'MushafWord-highlighted',
-  tooltipText: 'MushafWord-tooltipText',
-  popoverTrigger: 'MushafWord-popoverTrigger',
   'mushaf-hafs': 'MushafWord-mushaf-hafs',
   'mushaf-shoba': 'MushafWord-mushaf-shoba',
   'mushaf-warsh': 'MushafWord-mushaf-warsh',
@@ -62,7 +57,6 @@ const Line = {
   line: 'Line-line',
   container: 'Line-container',
   mobileInline: 'Line-mobileInline',
-  fixedWidth: 'Line-fixedWidth',
 };
 
 const Page = {
@@ -78,7 +72,6 @@ const ReadingView = {
 const VerseText = {
   verseText: 'VerseText-verseText',
   verseTextContainer: 'VerseText-verseTextContainer',
-  chapterHeaderContainer: 'VerseText-chapterHeaderContainer',
   largeMushafTextLayoutContainer: 'VerseText-largeMushafTextLayoutContainer',
   largeMushafTextLayout: 'VerseText-largeMushafTextLayout',
   verseTextCenterAlign: 'VerseText-verseTextCenterAlign',

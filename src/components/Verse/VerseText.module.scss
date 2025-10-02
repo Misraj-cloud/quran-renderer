@@ -13,11 +13,6 @@
   direction: rtl;
 }
 
-.chapterHeaderContainer {
-  margin-inline-start: var(--spacing-medium);
-  margin-inline-end: var(--spacing-medium);
-}
-
 .largeMushafTextLayoutContainer {
   display: inline;
   @include breakpoints.tablet {
@@ -35,9 +30,11 @@
 .verseTextCenterAlign {
   justify-content: center;
 }
+
 .verseTextSpaceBetween {
   justify-content: space-between;
 }
+
 .verseTextWrap {
   flex-wrap: wrap;
 }

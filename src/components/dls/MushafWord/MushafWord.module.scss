@@ -3,21 +3,6 @@
   cursor: pointer;
   white-space: nowrap;
 }
-.additionalWordGap {
-  margin-inline-end: var(--spacing-xxsmall);
-}
-
-.secondaryHighlight {
-  background-color: var(--color-background-alternative-faded);
-}
-
-.wbwContainer {
-  text-align: center;
-  padding-block-start: var(--spacing-micro);
-  padding-block-end: var(--spacing-micro);
-  padding-inline-start: var(--spacing-micro);
-  padding-inline-end: var(--spacing-micro);
-}
 
 .colored {
   color: black;
@@ -32,22 +17,6 @@
 
 .highlighted {
   color: var(--color-success-medium);
-}
-
-.tooltipText {
-  padding-block-start: var(--spacing-micro);
-  padding-block-end: var(--spacing-micro);
-  padding-inline-start: var(--spacing-micro);
-  padding-inline-end: var(--spacing-micro);
-  white-space: normal;
-}
-
-.popoverTrigger {
-  // important is needed to over-ride the values of the popover
-  margin-block-start: 0 !important;
-  margin-block-end: 0 !important;
-  margin-inline-start: 0 !important;
-  margin-inline-end: 0 !important;
 }
 
 .mushaf-hafs {

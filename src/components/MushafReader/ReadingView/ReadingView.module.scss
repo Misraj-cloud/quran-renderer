@@ -1,17 +1,7 @@
-@use 'src/styles/breakpoints';
-@use 'src/styles/utility';
-
 .container {
   max-width: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
-}
-
-.virtuosoScroller {
-  & [data-viewport-type='window'] {
-    // virtuoso adds position: absolute by default so we need to over-ride it
-    position: unset !important;
-  }
 }
