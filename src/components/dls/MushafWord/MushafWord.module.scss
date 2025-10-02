@@ -5,11 +5,11 @@
 }
 
 .colored {
-  color: black;
+  color: var(--primary-font-color);
 }
 
 .filled {
-  fill: black;
+  fill: var(--primary-font-color);
 }
 
 .highlightOnHover {

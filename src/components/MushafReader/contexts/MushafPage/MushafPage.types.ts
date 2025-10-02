@@ -53,8 +53,13 @@ type ReciterId =
 export type DataId = NarrationId | ReciterId;
 
 export interface MushafPageProps {
-  style?: React.CSSProperties;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onPageLoad?: (pageNumber: number) => void;
+
+  styleOverride?: {
+    wordHighlightColor?: string;
+    chapterHeaderFontSize?: string;
+    primaryFontColor?: string;
+  };
 }
