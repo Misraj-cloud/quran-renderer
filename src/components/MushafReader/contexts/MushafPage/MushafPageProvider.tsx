@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import useMediaQuery from '@/hooks/use-media-query';
 import type { Ayah, Surah } from 'src/types/verses';
 import type { DataId } from './MushafPage.types';
 import type { MushafPageDataType } from './types';
@@ -43,7 +44,7 @@ type MushafPageProviderProps = {
   pageNumber: number;
   initialFontScale?: number;
   hasBorder?: boolean;
-  isTwoPagesView?: boolean;
+  initialIsTwoPagesView?: boolean;
 };
 
 /** ---------- Helpers ---------- */
@@ -58,8 +59,9 @@ export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
   pageNumber,
   initialFontScale = 3,
   hasBorder = true,
-  isTwoPagesView = false,
+  initialIsTwoPagesView = false,
 }) => {
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
   const [currentSurah, setCurrentSurah] = useState<Surah | null>(null);
   const [selectedVerse, setSelectedVerse] = useState<Ayah | null>(null);
@@ -68,6 +70,8 @@ export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const abortRef = useRef<AbortController | null>(null);
+
+  const isTwoPagesView = isDesktop && initialIsTwoPagesView;
 
   const load = useCallback(async () => {
     abortRef.current?.abort();
