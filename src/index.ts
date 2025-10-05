@@ -6,3 +6,7 @@ export {
   useMushafContext,
 } from './components/MushafReader/contexts/MushafPage/MushafPageProvider';
 export { default as classnames } from './classnames';
+export {
+  type DataId,
+  type MushafPageProps,
+} from './components/MushafReader/contexts/MushafPage/MushafPage.types';
