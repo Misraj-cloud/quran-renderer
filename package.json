@@ -24,8 +24,7 @@
       "import": "./dist/styles.css",
       "require": "./dist/styles.css"
     },
-    "./package.json": null,
-    "./dist/*": null
+    "./package.json": null
   },
   "scripts": {
     "dev": "vite",
