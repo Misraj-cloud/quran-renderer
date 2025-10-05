@@ -1,6 +1,6 @@
 {
   "name": "misraj-mushaf-renderer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "CC BY-NC 4.0",
   "description": "A customizable React component for rendering Mushaf pages.",
   "type": "module",
