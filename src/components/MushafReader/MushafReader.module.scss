@@ -22,8 +22,8 @@
 }
 
 .twoPagesRow {
-  display: flex;
-  flex-direction: row-reverse;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--spacing-mega);
   justify-content: center;
   flex-wrap: nowrap;
