@@ -4,7 +4,7 @@ import { MushafPageProvider, Mushaf } from './index';
 const MushafPageConsumer: React.FC = () => <Mushaf />;
 
 const App: React.FC = () => (
-  <MushafPageProvider initialIsTwoPagesView hasBorder pageNumber={1} dataId="quran-hafs">
+  <MushafPageProvider initialIsTwoPagesView hasBorder pageNumber={594} dataId="quran-hafs">
     <MushafPageConsumer />
   </MushafPageProvider>
 );
