@@ -34,6 +34,8 @@ export interface Ayah {
   hizbQuarter: number;
   sajda: boolean;
   words: Word[];
+  audio?: string;
+  audioSecondary?: string[];
 }
 
 export interface Surah {
