@@ -6,35 +6,54 @@ import styles from './MushafReader.module.scss';
 import readingViewStyles from './ReadingView/ReadingView.module.scss';
 
 import Word from '@/types/Word';
-import React from 'react';
-import { MushafPageDataType } from './contexts/MushafPage/types';
-import Page from './ReadingView/Page';
+import React, { useEffect } from 'react';
 import { useMushafContext } from './contexts/MushafPage/MushafPageProvider';
+import Page from './ReadingView/Page';
 
 type MushafReaderProps = {
-  data: MushafPageDataType;
-  pageNumber: number | string; // can be the chapter, verse, tafsir, hizb, juz, rub or page's ID.
-  nextData?: MushafPageDataType;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
+
+  styleOverride?: {
+    wordHighlightColor?: string;
+    chapterHeaderFontSize?: string;
+    primaryFontColor?: string;
+  };
 };
 
-const MushafReader = ({
-  data,
-  nextData,
-  pageNumber,
-  onWordClick,
-  onWordHover,
-}: MushafReaderProps) => {
+const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) => {
+  const { ayat, nextPageAyat, pageNumber } = useMushafContext();
+
+  if (!ayat) return null;
+
+  useEffect(() => {
+    // Set global CSS variables (like SCSS vars but at runtime)
+    styleOverride?.wordHighlightColor &&
+      document.documentElement.style.setProperty(
+        '--word-highlight-color',
+        styleOverride?.wordHighlightColor,
+      );
+    styleOverride?.chapterHeaderFontSize &&
+      document.documentElement.style.setProperty(
+        '--chapter-header-font-size',
+        styleOverride?.chapterHeaderFontSize,
+      );
+    styleOverride?.primaryFontColor &&
+      document.documentElement.style.setProperty(
+        '--primary-font-color',
+        styleOverride?.primaryFontColor,
+      );
+  }, [styleOverride]);
+
   const { isTwoPagesView } = useMushafContext();
   const currentPage = Number(pageNumber);
   return (
     <div className={classNames(styles.container)}>
       <div className={classNames(readingViewStyles.container)}>
-        {isTwoPagesView && nextData ? (
+        {isTwoPagesView && nextPageAyat ? (
           <div className={styles.twoPagesRow}>
             <Page
-              verses={data}
+              verses={ayat}
               key={`page-${currentPage}`}
               pageNumber={currentPage}
               pageIndex={currentPage}
@@ -42,7 +61,7 @@ const MushafReader = ({
               onWordHover={onWordHover}
             />
             <Page
-              verses={nextData}
+              verses={nextPageAyat || []}
               key={`page-${currentPage + 1}`}
               pageNumber={currentPage + 1}
               pageIndex={currentPage + 1}
@@ -52,7 +71,7 @@ const MushafReader = ({
           </div>
         ) : (
           <Page
-            verses={data}
+            verses={ayat}
             key={`page-${currentPage}`}
             pageNumber={currentPage}
             pageIndex={currentPage}
@@ -65,4 +84,4 @@ const MushafReader = ({
   );
 };
 
-export default MushafReader;
+export default Mushaf;
