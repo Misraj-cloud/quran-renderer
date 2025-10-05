@@ -24,7 +24,9 @@ type MushafReaderProps = {
 const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) => {
   const { ayat, nextPageAyat, pageNumber } = useMushafContext();
 
-  if (!ayat) return null;
+  console.log('Ayat', ayat);
+
+  if (!ayat) return <></>;
 
   useEffect(() => {
     // Set global CSS variables (like SCSS vars but at runtime)

@@ -53,14 +53,14 @@ type MushafPageProviderProps = {
 const MushafPageStateContext = createContext<MushafPageState | undefined>(undefined);
 const MushafPageActionsContext = createContext<MushafPageActions | undefined>(undefined);
 
-export const MushafPageProvider: React.FC<MushafPageProviderProps> = ({
+export const MushafPageProvider = ({
   children,
   dataId,
   pageNumber,
   initialFontScale = 3,
   hasBorder = true,
   initialIsTwoPagesView = false,
-}) => {
+}: MushafPageProviderProps) => {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
   const [currentSurah, setCurrentSurah] = useState<Surah | null>(null);
