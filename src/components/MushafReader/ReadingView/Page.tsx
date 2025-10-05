@@ -7,11 +7,14 @@ import styles from './Page.module.scss';
 import groupLinesByVerses from './groupLinesByVerses';
 
 import Word from '@/types/Word';
+import ChapterHeader from 'src/components/chapters/ChapterHeader';
+import Bismillah from 'src/components/dls/Bismillah/Bismillah';
 import { Ayah } from 'src/types/verses';
 import { useMushafContext } from '../contexts/MushafPage/MushafPageProvider';
 import PageNumber from './PageNumber';
 import PageMetaDataContainer from './page-metadata/PageMetaDataContainer';
 import { getJuzText } from './page-metadata/juz.constants';
+import chapterHeaderStyles from 'src/components/chapters/ChapterHeader/ChapterHeader.module.scss';
 
 type PageProps = {
   verses: Ayah[];
@@ -27,10 +30,11 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
     [verses],
   );
+
   const isBigTextLayout = fontScale > 3;
   const firstAyah = verses && verses.length ? verses[0] : undefined;
 
-  const isSurahFatihahOrBaqarahFirstPage = pageNumber === 1 || pageNumber === 2;
+  const isFirstTwoPages = pageNumber === 1 || pageNumber === 2;
 
   return (
     <div
@@ -53,21 +57,35 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
       )}
       <div
         className={classNames({
-          [styles.bottomBorder]: hasBorder && isSurahFatihahOrBaqarahFirstPage,
+          [styles.bottomBorder]: hasBorder && isFirstTwoPages,
         })}
+        style={{ width: '100%' }}
       >
-        {Object.keys(lines).map((key, lineIndex) => (
-          <Line
-            pageIndex={pageIndex}
-            lineIndex={lineIndex}
-            lineKey={key}
-            words={lines[key]}
-            key={key}
-            isBigTextLayout={isBigTextLayout}
-            onWordClick={onWordClick}
-            onWordHover={onWordHover}
-          />
-        ))}
+        {isFirstTwoPages && <ChapterHeader chapterId={`${pageNumber}`} pageNumber={pageNumber} />}
+        <div
+          className={classNames({
+            [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,
+          })}
+        >
+          {/* This behavior is explained in @ChapterHeader.tsx */}
+          {pageNumber === 2 && (
+            <div className={chapterHeaderStyles.bismillahContainer}>
+              <Bismillah />
+            </div>
+          )}
+          {Object.keys(lines).map((key, lineIndex) => (
+            <Line
+              pageIndex={pageIndex}
+              lineIndex={lineIndex}
+              lineKey={key}
+              words={lines[key]}
+              key={key}
+              isBigTextLayout={isBigTextLayout}
+              onWordClick={onWordClick}
+              onWordHover={onWordHover}
+            />
+          ))}
+        </div>
       </div>
       {hasBorder && <PageNumber value={pageNumber} />}
     </div>

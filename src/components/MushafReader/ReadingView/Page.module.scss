@@ -12,6 +12,8 @@
   max-width: 100%;
   box-sizing: border-box;
   position: relative;
+
+  display: flex;
 }
 
 .border {
@@ -22,6 +24,7 @@
 .bottomBorder {
   border-bottom: 51px solid transparent;
   border-image: url('../../../assets/images/fatihah-and-baqarah-bottom-image.svg') 60 repeat;
+  width: 100%;
 }
 
 .mobileCenterText {
@@ -30,6 +33,12 @@
   @include breakpoints.tablet {
     text-align: start;
   }
+}
+
+.firstTwoPagesBorder {
+  border: 60px solid transparent;
+  border-image: url('../../../assets/images/firstTwoPagesBorder.svg') 70 round;
+  box-sizing: border-box;
 }
 
 .pageNumberContainer {

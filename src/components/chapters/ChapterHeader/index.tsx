@@ -12,7 +12,9 @@ interface Props {
   isTranslationSelected?: boolean;
 }
 
-const CHAPTERS_WITHOUT_BISMILLAH = ['1', '9'];
+// In surah al baqarah, basmalah should be rendered in side the border and the chapter header should be rendered outside it
+// so, basmalah will not be rendered here, it will be rendered in @Page.tsx
+const CHAPTERS_WITHOUT_BISMILLAH = ['1', '2', '9'];
 
 const ChapterHeader: React.FC<Props> = ({ chapterId, pageNumber }) => {
   const headerRef = useRef(null);
