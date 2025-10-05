@@ -192,8 +192,10 @@ const useMushafPageActions = () => {
   return ctx;
 };
 
+export type MushafContextStateTypes = MushafPageState & MushafPageActions;
+
 /** Convenience: keep a compat hook name if you prefer */
-export const useMushafContext = () => {
+export const useMushafContext = (): MushafContextStateTypes => {
   const state = useMushafPageState();
   const actions = useMushafPageActions();
   return { ...state, ...actions };
