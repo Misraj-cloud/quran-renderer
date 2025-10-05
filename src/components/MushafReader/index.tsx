@@ -55,7 +55,7 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) 
         {isTwoPagesView && nextPageAyat ? (
           <div className={styles.twoPagesRow}>
             <Page
-              verses={nextPageAyat || []}
+              verses={nextPageAyat.data.ayahs || []}
               key={`page-${currentPage + 1}`}
               pageNumber={currentPage + 1}
               pageIndex={currentPage + 1}
@@ -63,7 +63,7 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) 
               onWordHover={onWordHover}
             />
             <Page
-              verses={ayat}
+              verses={ayat.data.ayahs}
               key={`page-${currentPage}`}
               pageNumber={currentPage}
               pageIndex={currentPage}
@@ -73,7 +73,7 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) 
           </div>
         ) : (
           <Page
-            verses={ayat}
+            verses={ayat.data.ayahs}
             key={`page-${currentPage}`}
             pageNumber={currentPage}
             pageIndex={currentPage}

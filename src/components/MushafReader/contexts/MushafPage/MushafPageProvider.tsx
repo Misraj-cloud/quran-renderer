@@ -1,3 +1,4 @@
+import useMediaQuery from '@/hooks/use-media-query';
 import React, {
   createContext,
   useCallback,
@@ -7,10 +8,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import useMediaQuery from '@/hooks/use-media-query';
-import type { Ayah, Surah } from 'src/types/verses';
+import type { Ayah, IVersesListDto } from 'src/types/verses';
 import type { DataId } from './MushafPage.types';
-import type { MushafPageDataType } from './types';
 import { fetchVerses } from './helpers/fetch-verses';
 
 /** ---------- Types ---------- */
@@ -18,9 +17,8 @@ type MushafPageState = {
   // state
   fontScale: number;
   selectedVerse: Ayah | null;
-  currentSurah: Surah | null;
-  ayat: MushafPageDataType | null;
-  nextPageAyat: MushafPageDataType | null;
+  ayat: IVersesListDto | null;
+  nextPageAyat: IVersesListDto | null;
   error: Error | null;
   loading: boolean;
   pageNumber: number;
@@ -34,7 +32,6 @@ type MushafPageActions = {
   increaseFontScale: () => void;
   decreaseFontScale: () => void;
   setSelectedVerse: React.Dispatch<React.SetStateAction<Ayah | null>>;
-  setCurrentSurah: React.Dispatch<React.SetStateAction<Surah | null>>;
   refresh: () => void;
 };
 
@@ -63,10 +60,9 @@ export const MushafPageProvider = ({
 }: MushafPageProviderProps) => {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
-  const [currentSurah, setCurrentSurah] = useState<Surah | null>(null);
   const [selectedVerse, setSelectedVerse] = useState<Ayah | null>(null);
-  const [ayat, setAyat] = useState<MushafPageDataType | null>(null);
-  const [nextPageAyat, setNextPageAyat] = useState<MushafPageDataType | null>(null);
+  const [ayat, setAyat] = useState<IVersesListDto | null>(null);
+  const [nextPageAyat, setNextPageAyat] = useState<IVersesListDto | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const abortRef = useRef<AbortController | null>(null);
@@ -97,16 +93,10 @@ export const MushafPageProvider = ({
         }
       }
 
-      // Defensive guards for current page
-      const surah = resp?.data?.surahs?.[0] ?? null;
-      const ayahs = (resp?.data?.ayahs ?? []) as MushafPageDataType;
-
-      setCurrentSurah(surah);
-      setAyat(ayahs);
+      setAyat(resp);
 
       // Next page data (when applicable)
-      const nextAyahs = (respNext?.data?.ayahs ?? null) as MushafPageDataType | null;
-      setNextPageAyat(nextAyahs);
+      setNextPageAyat(respNext);
     } catch (err) {
       if ((err as any)?.name === 'AbortError') return; // ignore cancelled
       setError(err instanceof Error ? err : new Error('Unknown error'));
@@ -134,7 +124,6 @@ export const MushafPageProvider = ({
     () => ({
       fontScale,
       selectedVerse,
-      currentSurah,
       ayat,
       nextPageAyat,
       error,
@@ -147,7 +136,6 @@ export const MushafPageProvider = ({
     [
       fontScale,
       selectedVerse,
-      currentSurah,
       ayat,
       nextPageAyat,
       error,
@@ -164,10 +152,9 @@ export const MushafPageProvider = ({
       increaseFontScale,
       decreaseFontScale,
       setSelectedVerse,
-      setCurrentSurah,
       refresh: load,
     }),
-    [increaseFontScale, decreaseFontScale, setSelectedVerse, setCurrentSurah, load],
+    [increaseFontScale, decreaseFontScale, setSelectedVerse, load],
   );
 
   return (
