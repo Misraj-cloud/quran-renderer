@@ -23,7 +23,7 @@
 
 .twoPagesRow {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   gap: var(--spacing-mega);
   justify-content: center;
   flex-wrap: nowrap;

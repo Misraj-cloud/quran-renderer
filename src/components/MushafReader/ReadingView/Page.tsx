@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 
 import classNames from 'classnames';
 
-import groupLinesByVerses from './groupLinesByVerses';
 import Line from './Line';
 import styles from './Page.module.scss';
+import groupLinesByVerses from './groupLinesByVerses';
 
 import Word from '@/types/Word';
 import { Ayah } from 'src/types/verses';
@@ -30,6 +30,8 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
   const isBigTextLayout = fontScale > 3;
   const firstAyah = verses && verses.length ? verses[0] : undefined;
 
+  const isSurahFatihahOrBaqarahFirstPage = pageNumber === 1 || pageNumber === 2;
+
   return (
     <div
       id={`page-${pageNumber}`}
@@ -37,7 +39,7 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
         [styles.mobileCenterText]: isBigTextLayout,
         [styles.border]: hasBorder,
       })}
-      style={{ position: 'relative', color: 'red' }}
+      style={{ position: 'relative' }}
     >
       {hasBorder && (
         <>
@@ -49,18 +51,24 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
           </PageMetaDataContainer>
         </>
       )}
-      {Object.keys(lines).map((key, lineIndex) => (
-        <Line
-          pageIndex={pageIndex}
-          lineIndex={lineIndex}
-          lineKey={key}
-          words={lines[key]}
-          key={key}
-          isBigTextLayout={isBigTextLayout}
-          onWordClick={onWordClick}
-          onWordHover={onWordHover}
-        />
-      ))}
+      <div
+        className={classNames({
+          [styles.bottomBorder]: hasBorder && isSurahFatihahOrBaqarahFirstPage,
+        })}
+      >
+        {Object.keys(lines).map((key, lineIndex) => (
+          <Line
+            pageIndex={pageIndex}
+            lineIndex={lineIndex}
+            lineKey={key}
+            words={lines[key]}
+            key={key}
+            isBigTextLayout={isBigTextLayout}
+            onWordClick={onWordClick}
+            onWordHover={onWordHover}
+          />
+        ))}
+      </div>
       {hasBorder && <PageNumber value={pageNumber} />}
     </div>
   );

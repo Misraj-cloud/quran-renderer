@@ -17,7 +17,11 @@
 .border {
   border: 25px solid transparent;
   border-image: url('../../../assets/images/full-border.svg') 20 repeat;
-  color: red !important;
+}
+
+.bottomBorder {
+  border-bottom: 51px solid transparent;
+  border-image: url('../../../assets/images/fatihah-and-baqarah-bottom-image.svg') 60 repeat;
 }
 
 .mobileCenterText {
@@ -28,15 +32,29 @@
   }
 }
 
-.pageNumber {
+.pageNumberContainer {
   position: absolute;
-  bottom: -30px;
+  bottom: -35px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
 
   width: fit-content;
   height: 35px;
+}
+
+.pageNumber {
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+
+  width: fit-content;
+  margin: 0px;
+
+  color: black;
+  font-family: 'UthmanicHafs';
 }
 
 .surah {
