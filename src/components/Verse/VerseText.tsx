@@ -13,22 +13,18 @@ import { useMushafContext } from '../MushafReader/contexts/MushafPage/MushafPage
 
 type VerseTextProps = {
   words: Word[];
-  isReadingMode?: boolean;
   isHighlighted?: boolean;
   shouldShowH1ForSEO?: boolean;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
-  hoveredVerseKey?: string;
 };
 
 const VerseText = ({
   words,
-  isReadingMode = false,
   isHighlighted,
   shouldShowH1ForSEO = false,
   onWordClick,
   onWordHover,
-  hoveredVerseKey,
 }: VerseTextProps) => {
   const { fontScale } = useMushafContext();
   const [firstWord] = words;
@@ -44,7 +40,7 @@ const VerseText = ({
     [pageNumber, lineNumber],
   );
   const firstWordData = getFirstWordOfSurah(location);
-  const isBigTextLayout = isReadingMode && fontScale > 3;
+  const isBigTextLayout = fontScale > 3;
 
   const { chapterId } = firstWordData;
 
@@ -66,8 +62,8 @@ const VerseText = ({
           translate="no"
           className={classNames(styles.verseText, {
             [styles.largeMushafTextLayout]: isBigTextLayout,
-            [styles.verseTextCenterAlign]: isReadingMode && centerAlignPage,
-            [styles.verseTextSpaceBetween]: isReadingMode && !centerAlignPage,
+            [styles.verseTextCenterAlign]: centerAlignPage,
+            [styles.verseTextSpaceBetween]: !centerAlignPage,
           })}
         >
           {words?.map((word) => (

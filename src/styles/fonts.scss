@@ -7,7 +7,7 @@
     url('../assets/fonts/mushaf/surah-names/v1/sura_names.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 /* Hafs */
@@ -16,7 +16,7 @@
   src: local('KFGQPC HAFS Uthmanic Script'),
     url('../assets/fonts/mushaf/uthmanic_hafs/UthmanicHafs1Ver18.woff2') format('woff2'),
     url('../assets/fonts/mushaf/uthmanic_hafs/UthmanicHafs1Ver18.ttf') format('truetype');
-  font-display: swap;
+  font-display: block;
 }
 
 /* Shoba */
@@ -24,7 +24,7 @@
   font-family: 'UthmanicShoba';
   src: local('KFGQPC Shoba Uthmanic Script'),
     url('../assets/fonts/mushaf/uthmanic_shoba/UthmanicShuba\ V20.ttf') format('truetype');
-  font-display: swap;
+  font-display: block;
 }
 
 /* Warsh */
@@ -32,7 +32,7 @@
   font-family: 'UthmanicWarsh';
   src: local('KFGQPC Warsh Uthmanic Script'),
     url('../assets/fonts/mushaf/uthmanic_warsh/UthmanicWarsh\ V21.ttf') format('truetype');
-  font-display: swap;
+  font-display: block;
 }
 
 /* Qunbul */
@@ -40,7 +40,7 @@
   font-family: 'UthmanicQunbul';
   src: local('KFGQPC Qunbul Uthmanic Script'),
     url('../assets/fonts/mushaf/uthmanic_qunbul/UthmanicQunbul\ V20.ttf') format('truetype');
-  font-display: swap;
+  font-display: block;
 }
 
 /* Qaloon */
@@ -48,7 +48,7 @@
   font-family: 'UthmanicQaloon';
   src: local('KFGQPC Qaloon Uthmanic Script'),
     url('../assets/fonts/mushaf/uthmanic_qaloun/UthmanicQaloun\ V21.ttf') format('truetype');
-  font-display: swap;
+  font-display: block;
 }
 
 /* Al-Sousi */
@@ -56,7 +56,7 @@
   font-family: 'UthmanicAlsoosi';
   src: local('KFGQPC Sousi Uthmanic Script'),
     url('../assets/fonts/mushaf/uthmanic-sousi/UthmanicSousi\ V20.ttf') format('truetype');
-  font-display: swap;
+  font-display: block;
 }
 
 /* Al-Douri */
@@ -64,7 +64,7 @@
   font-family: 'UthmanicAldouri';
   src: local('KFGQPC Douri Uthmanic Script'),
     url('../assets/fonts/mushaf/uthmanic-douri/UthmanicDouri\ V20.ttf') format('truetype');
-  font-display: swap;
+  font-display: block;
 }
 
 /* Al-Bazzi */
@@ -72,5 +72,5 @@
   font-family: 'UthmanicAlbazzi';
   src: local('KFGQPC Bazzi Uthmanic Script'),
     url('../assets/fonts/mushaf/uthmanic-bazzi/UthmanicBazzi\ V20.ttf') format('truetype');
-  font-display: swap;
+  font-display: block;
 }

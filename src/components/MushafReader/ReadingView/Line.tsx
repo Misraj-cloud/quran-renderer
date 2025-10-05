@@ -53,7 +53,6 @@ const Line = ({
       >
         <VerseText
           words={words}
-          isReadingMode
           isHighlighted={isHighlighted}
           shouldShowH1ForSEO={pageIndex === 0 && lineIndex === 0}
           onWordClick={onWordClick}
