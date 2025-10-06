@@ -60,6 +60,14 @@
   box-sizing: border-box;
 }
 
+.blueFirstTwoPagesBorder {
+  border-image: url('../../../assets/images/borders/blue/firstTwoPagesBorder.svg') 70 round;
+}
+
+.sepiaFirstTwoPagesBorder {
+  border-image: url('../../../assets/images/borders/sepia/firstTwoPagesBorder.svg') 70 round;
+}
+
 .pageNumberContainer {
   position: absolute;
   bottom: -35px;

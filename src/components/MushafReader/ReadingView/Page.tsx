@@ -69,6 +69,8 @@ const Page = ({
       <div
         className={classNames({
           [styles.bottomBorder]: hasBorder && isFirstTwoPages,
+          [styles.blueBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'blue',
+          [styles.sepiaBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'sepia',
         })}
         style={{ width: '100%' }}
       >
@@ -82,6 +84,10 @@ const Page = ({
         <div
           className={classNames({
             [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,
+            [styles.blueFirstTwoPagesBorder]:
+              hasBorder && isFirstTwoPages && borderColor === 'blue',
+            [styles.sepiaFirstTwoPagesBorder]:
+              hasBorder && isFirstTwoPages && borderColor === 'sepia',
           })}
         >
           {/* This behavior is explained in @ChapterHeader.tsx */}
