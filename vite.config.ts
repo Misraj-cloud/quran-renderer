@@ -29,6 +29,7 @@ export default defineConfig({
       },
       name: 'misraj-mushaf-renderer',
       formats: ['es', 'cjs'],
+      fileName: (format, entry) => `${entry}.${format}.js`,
       cssFileName: 'styles',
     },
     rollupOptions: {
