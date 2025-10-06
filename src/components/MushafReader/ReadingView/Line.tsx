@@ -100,6 +100,7 @@ const Line = ({
  */
 const areLinesEqual = (prevProps: LineProps, nextProps: LineProps): boolean =>
   prevProps.lineKey === nextProps.lineKey &&
-  prevProps.isBigTextLayout === nextProps.isBigTextLayout;
+  prevProps.isBigTextLayout === nextProps.isBigTextLayout &&
+  prevProps.borderColor === nextProps.borderColor;
 
 export default memo(Line, areLinesEqual);
