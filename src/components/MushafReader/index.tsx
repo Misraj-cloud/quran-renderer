@@ -5,24 +5,12 @@ import classNames from 'classnames';
 import styles from './MushafReader.module.scss';
 import readingViewStyles from './ReadingView/ReadingView.module.scss';
 
-import Word from '@/types/Word';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import { MushafPageProps } from './contexts/MushafPage/MushafPage.types';
 import { useMushafContext } from './contexts/MushafPage/MushafPageProvider';
 import Page from './ReadingView/Page';
 
-export type MushafProps = {
-  onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
-  onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
-
-  styleOverride?: {
-    borderColor?: 'blue' | 'green' | 'sepia';
-    wordHighlightColor?: string;
-    chapterHeaderFontSize?: string;
-    primaryFontColor?: string;
-  };
-};
-
-const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafProps) => {
+const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafPageProps) => {
   const { ayat, nextPageAyat, pageNumber } = useMushafContext();
 
   if (!ayat) return <></>;

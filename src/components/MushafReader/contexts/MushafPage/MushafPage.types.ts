@@ -1,4 +1,5 @@
 import Word from '@/types/Word';
+import React from 'react';
 
 type NarrationId =
   | 'quran-hafs'
@@ -55,9 +56,9 @@ export type DataId = NarrationId | ReciterId;
 export interface MushafPageProps {
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
-  onPageLoad?: (pageNumber: number) => void;
 
   styleOverride?: {
+    borderColor?: 'blue' | 'green' | 'sepia';
     wordHighlightColor?: string;
     chapterHeaderFontSize?: string;
     primaryFontColor?: string;
