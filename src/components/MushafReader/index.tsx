@@ -10,21 +10,20 @@ import React, { useEffect } from 'react';
 import { useMushafContext } from './contexts/MushafPage/MushafPageProvider';
 import Page from './ReadingView/Page';
 
-type MushafReaderProps = {
+export type MushafProps = {
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
 
   styleOverride?: {
+    borderColor?: 'blue' | 'green' | 'sepia';
     wordHighlightColor?: string;
     chapterHeaderFontSize?: string;
     primaryFontColor?: string;
   };
 };
 
-const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) => {
+const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafProps) => {
   const { ayat, nextPageAyat, pageNumber } = useMushafContext();
-
-  console.log('Ayat', ayat);
 
   if (!ayat) return <></>;
 
@@ -55,6 +54,7 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) 
         {isTwoPagesView && nextPageAyat ? (
           <div className={styles.twoPagesRow}>
             <Page
+              borderColor={styleOverride?.borderColor}
               verses={nextPageAyat.data.ayahs || []}
               key={`page-${currentPage + 1}`}
               pageNumber={currentPage + 1}
@@ -63,6 +63,7 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) 
               onWordHover={onWordHover}
             />
             <Page
+              borderColor={styleOverride?.borderColor}
               verses={ayat.data.ayahs}
               key={`page-${currentPage}`}
               pageNumber={currentPage}
@@ -73,6 +74,7 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafReaderProps) 
           </div>
         ) : (
           <Page
+            borderColor={styleOverride?.borderColor}
             verses={ayat.data.ayahs}
             key={`page-${currentPage}`}
             pageNumber={currentPage}

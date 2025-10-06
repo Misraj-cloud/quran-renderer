@@ -15,6 +15,7 @@ import PageNumber from './PageNumber';
 import PageMetaDataContainer from './page-metadata/PageMetaDataContainer';
 import { getJuzText } from './page-metadata/juz.constants';
 import chapterHeaderStyles from 'src/components/chapters/ChapterHeader/ChapterHeader.module.scss';
+import { BorderColor } from 'src/types/border-color';
 
 type PageProps = {
   verses: Ayah[];
@@ -22,9 +23,17 @@ type PageProps = {
   pageIndex: number;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
+  borderColor?: BorderColor;
 };
 
-const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageProps) => {
+const Page = ({
+  verses,
+  pageNumber,
+  pageIndex,
+  onWordClick,
+  onWordHover,
+  borderColor,
+}: PageProps) => {
   const { fontScale, hasBorder } = useMushafContext();
   const lines = useMemo(
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
@@ -42,15 +51,17 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
       className={classNames(styles.container, {
         [styles.mobileCenterText]: isBigTextLayout,
         [styles.border]: hasBorder,
+        [styles.blueBorder]: hasBorder && borderColor === 'blue',
+        [styles.sepiaBorder]: hasBorder && borderColor === 'sepia',
       })}
       style={{ position: 'relative' }}
     >
       {hasBorder && (
         <>
-          <PageMetaDataContainer className={styles.surah}>
+          <PageMetaDataContainer borderColor={borderColor} className={styles.surah}>
             {firstAyah?.surah?.name}
           </PageMetaDataContainer>
-          <PageMetaDataContainer className={styles.juz}>
+          <PageMetaDataContainer borderColor={borderColor} className={styles.juz}>
             {getJuzText(firstAyah?.juz || 1)}
           </PageMetaDataContainer>
         </>
@@ -61,7 +72,13 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
         })}
         style={{ width: '100%' }}
       >
-        {isFirstTwoPages && <ChapterHeader chapterId={`${pageNumber}`} pageNumber={pageNumber} />}
+        {isFirstTwoPages && (
+          <ChapterHeader
+            borderColor={borderColor}
+            chapterId={`${pageNumber}`}
+            pageNumber={pageNumber}
+          />
+        )}
         <div
           className={classNames({
             [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,
@@ -83,11 +100,12 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
               isBigTextLayout={isBigTextLayout}
               onWordClick={onWordClick}
               onWordHover={onWordHover}
+              borderColor={borderColor}
             />
           ))}
         </div>
       </div>
-      {hasBorder && <PageNumber value={pageNumber} />}
+      {hasBorder && <PageNumber borderColor={borderColor} value={pageNumber} />}
     </div>
   );
 };

@@ -14,7 +14,15 @@
   border-style: solid;
   border-color: transparent;
 
-  border-image-source: url('../../../assets/images/surah-name-border.png');
+  border-image-source: url('../../../assets/images/borders/green/surah-name-border.svg');
   border-image-slice: 13% 35%;
   border-image-repeat: round;
+}
+
+.blueBorder {
+  border-image-source: url('../../../assets/images/borders/blue/surah-name-border.svg');
+}
+
+.sepiaBorder {
+  border-image-source: url('../../../assets/images/borders/sepia/surah-name-border.svg');
 }

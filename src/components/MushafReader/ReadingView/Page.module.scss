@@ -18,13 +18,32 @@
 
 .border {
   border: 25px solid transparent;
-  border-image: url('../../../assets/images/full-border.svg') 20 repeat;
+  border-image: url('../../../assets/images/borders/green/full-border.svg') 20 repeat;
+}
+
+.blueBorder {
+  border-image: url('../../../assets/images/borders/blue/full-border.svg') 20 repeat;
+}
+
+.sepiaBorder {
+  border-image: url('../../../assets/images/borders/sepia/full-border.svg') 20 repeat;
 }
 
 .bottomBorder {
   border-bottom: 51px solid transparent;
-  border-image: url('../../../assets/images/fatihah-and-baqarah-bottom-image.svg') 60 repeat;
+  border-image: url('../../../assets/images/borders/green/fatihah-and-baqarah-bottom-image.svg') 60
+    repeat;
   width: 100%;
+}
+
+.blueBottomBorder {
+  border-image: url('../../../assets/images/borders/blue/fatihah-and-baqarah-bottom-image.svg') 60
+    repeat;
+}
+
+.sepiaBottomBorder {
+  border-image: url('../../../assets/images/borders/sepia/fatihah-and-baqarah-bottom-image.svg') 60
+    repeat;
 }
 
 .mobileCenterText {
@@ -37,7 +56,7 @@
 
 .firstTwoPagesBorder {
   border: 60px solid transparent;
-  border-image: url('../../../assets/images/firstTwoPagesBorder.svg') 70 round;
+  border-image: url('../../../assets/images/borders/green/firstTwoPagesBorder.svg') 70 round;
   box-sizing: border-box;
 }
 

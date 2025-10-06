@@ -9,6 +9,7 @@ import VerseText from '@/components/Verse/VerseText';
 import Word from '@/types/Word';
 import { getWordDataByLocation } from '@/utils/verse';
 import { useMushafContext } from '../contexts/MushafPage/MushafPageProvider';
+import { BorderColor } from 'src/types/border-color';
 
 type LineProps = {
   words: Word[];
@@ -18,6 +19,7 @@ type LineProps = {
   lineIndex: number;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
+  borderColor?: BorderColor;
 };
 
 const Line = ({
@@ -28,6 +30,7 @@ const Line = ({
   lineIndex,
   onWordClick,
   onWordHover,
+  borderColor,
 }: LineProps) => {
   const { pageNumber } = useMushafContext();
   const firstWordData = getWordDataByLocation(words[0].location);
@@ -54,7 +57,11 @@ const Line = ({
           rendered in a way different from this
       */}
       {shouldShowChapterHeader && !isFirstTwoPages && (
-        <ChapterHeader chapterId={firstWordData[0]} pageNumber={words[0].page_number || 0} />
+        <ChapterHeader
+          borderColor={borderColor}
+          chapterId={firstWordData[0]}
+          pageNumber={words[0].page_number || 0}
+        />
       )}
       <div
         className={classNames(styles.line, {
