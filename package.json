@@ -21,8 +21,8 @@
     },
     "./styles": {
       "types": "./dist/styles.d.ts",
-      "import": "./dist/styles.css",
-      "require": "./dist/styles.css"
+      "import": "./dist/styles.es.js",
+      "require": "./dist/styles.cjs.js"
     },
     "./package.json": null
   },
