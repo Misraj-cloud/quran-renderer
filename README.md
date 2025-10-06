@@ -35,7 +35,7 @@ Make sure to import package styles file which includes css styles and fonts asse
 ```tsx
 // main.tsx;
 
-import 'misraj-mushaf-renderer/styles';
+import 'misraj-mushaf-renderer/dist/styles';
 ```
 
 The core of the library is the `MushafPageProvider` and the `Mushaf` component.
@@ -171,6 +171,7 @@ You can easily override the default component styles by passing a `styleOverride
 - `wordHighlightColor` (string): The color of a word when it is hovered or highlighted.
 - `chapterHeaderFontSize` (string): The font size for the chapter headers (surah names).
 - `primaryFontColor` (string): The primary color of the Quranic text.
+- `borderColor`: ('blue' | 'green' | 'sepia') Supported border colors;
 
 **Example:**
 
@@ -180,6 +181,7 @@ function MushafReader() {
     wordHighlightColor: '#00aaff', // A light blue highlight
     chapterHeaderFontSize: '2.5rem',
     primaryFontColor: '#333333', // A dark gray for the text
+    borderColor: 'blue',
   };
 
   return (
@@ -190,4 +192,3 @@ function MushafReader() {
   );
 }
 ```
-
