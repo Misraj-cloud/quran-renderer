@@ -6,7 +6,15 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), dts({ tsconfigPath: './tsconfig.app.json' }), svgr()],
+  plugins: [
+    react(),
+    dts({
+      tsconfigPath: './tsconfig.app.json',
+      entryRoot: 'src',
+      outDir: 'dist',
+    }),
+    svgr(),
+  ],
   resolve: {
     alias: {
       src: path.resolve(__dirname, 'src'),
@@ -21,7 +29,7 @@ export default defineConfig({
       },
       name: 'misraj-mushaf-renderer',
       formats: ['es', 'cjs'],
-      fileName: (format, entryName) => `${entryName}.${format}.js`,
+      cssFileName: 'styles',
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
@@ -29,12 +37,6 @@ export default defineConfig({
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-        },
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'styles.css') {
-            return 'styles.css';
-          }
-          return assetInfo.name;
         },
       },
     },
