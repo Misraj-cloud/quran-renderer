@@ -46,19 +46,19 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafPageProps) =>
         <div className={styles.twoPagesRow}>
           <Page
             borderColor={styleOverride?.borderColor}
-            verses={nextPageAyat.data.ayahs || []}
-            key={`page-${currentPage + 1}`}
-            pageNumber={currentPage + 1}
-            pageIndex={currentPage + 1}
+            verses={ayat?.data.ayahs || []}
+            key={`page-${currentPage}`}
+            pageNumber={currentPage}
+            pageIndex={currentPage}
             onWordClick={onWordClick}
             onWordHover={onWordHover}
           />
           <Page
             borderColor={styleOverride?.borderColor}
-            verses={ayat?.data.ayahs || []}
-            key={`page-${currentPage}`}
-            pageNumber={currentPage}
-            pageIndex={currentPage}
+            verses={nextPageAyat.data.ayahs || []}
+            key={`page-${currentPage + 1}`}
+            pageNumber={currentPage + 1}
+            pageIndex={currentPage + 1}
             onWordClick={onWordClick}
             onWordHover={onWordHover}
           />
