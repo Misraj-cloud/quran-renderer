@@ -12,9 +12,7 @@ import { useMushafContext } from './contexts/MushafPage/MushafPageProvider';
 import Page from './ReadingView/Page';
 
 const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafPageProps) => {
-  const { ayat, nextPageAyat, pageNumber, loading } = useMushafContext();
-
-  if (loading) return <></>;
+  const { ayat, nextPageAyat, pageNumber } = useMushafContext();
 
   useEffect(() => {
     styleOverride?.borderColor &&
