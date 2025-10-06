@@ -41,30 +41,18 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafPageProps) =>
   const { isTwoPagesView } = useMushafContext();
   const currentPage = Number(pageNumber);
   return (
-    <div className={classNames(styles.container)}>
-      <div className={classNames(readingViewStyles.container)}>
-        {isTwoPagesView && nextPageAyat ? (
-          <div className={styles.twoPagesRow}>
-            <Page
-              borderColor={styleOverride?.borderColor}
-              verses={nextPageAyat.data.ayahs || []}
-              key={`page-${currentPage + 1}`}
-              pageNumber={currentPage + 1}
-              pageIndex={currentPage + 1}
-              onWordClick={onWordClick}
-              onWordHover={onWordHover}
-            />
-            <Page
-              borderColor={styleOverride?.borderColor}
-              verses={ayat?.data.ayahs || []}
-              key={`page-${currentPage}`}
-              pageNumber={currentPage}
-              pageIndex={currentPage}
-              onWordClick={onWordClick}
-              onWordHover={onWordHover}
-            />
-          </div>
-        ) : (
+    <div className={classNames(readingViewStyles.container)}>
+      {isTwoPagesView && nextPageAyat ? (
+        <div className={styles.twoPagesRow}>
+          <Page
+            borderColor={styleOverride?.borderColor}
+            verses={nextPageAyat.data.ayahs || []}
+            key={`page-${currentPage + 1}`}
+            pageNumber={currentPage + 1}
+            pageIndex={currentPage + 1}
+            onWordClick={onWordClick}
+            onWordHover={onWordHover}
+          />
           <Page
             borderColor={styleOverride?.borderColor}
             verses={ayat?.data.ayahs || []}
@@ -74,8 +62,18 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafPageProps) =>
             onWordClick={onWordClick}
             onWordHover={onWordHover}
           />
-        )}
-      </div>
+        </div>
+      ) : (
+        <Page
+          borderColor={styleOverride?.borderColor}
+          verses={ayat?.data.ayahs || []}
+          key={`page-${currentPage}`}
+          pageNumber={currentPage}
+          pageIndex={currentPage}
+          onWordClick={onWordClick}
+          onWordHover={onWordHover}
+        />
+      )}
     </div>
   );
 };
