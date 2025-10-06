@@ -20,7 +20,6 @@ type MushafPageState = {
   ayat: IVersesListDto | null;
   nextPageAyat: IVersesListDto | null;
   error: Error | null;
-  loading: boolean;
   pageNumber: number;
   dataId: DataId;
   hasBorder: boolean;
@@ -64,7 +63,6 @@ export const MushafPageProvider = ({
   const [ayat, setAyat] = useState<IVersesListDto | null>(null);
   const [nextPageAyat, setNextPageAyat] = useState<IVersesListDto | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const abortRef = useRef<AbortController | null>(null);
 
   const isTwoPagesView = isDesktop && initialIsTwoPagesView;
@@ -74,7 +72,6 @@ export const MushafPageProvider = ({
     const ctl = new AbortController();
     abortRef.current = ctl;
 
-    setLoading(true);
     setError(null);
 
     try {
@@ -103,7 +100,6 @@ export const MushafPageProvider = ({
       setAyat(null);
       setNextPageAyat(null);
     } finally {
-      setLoading(false);
     }
   }, [pageNumber, dataId, isTwoPagesView]);
 
@@ -127,7 +123,6 @@ export const MushafPageProvider = ({
       ayat,
       nextPageAyat,
       error,
-      loading,
       pageNumber,
       dataId,
       hasBorder,
@@ -139,7 +134,6 @@ export const MushafPageProvider = ({
       ayat,
       nextPageAyat,
       error,
-      loading,
       pageNumber,
       dataId,
       hasBorder,
