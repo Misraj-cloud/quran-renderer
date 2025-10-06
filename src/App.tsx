@@ -4,7 +4,12 @@ import { MushafPageProvider, Mushaf } from './index';
 const MushafPageConsumer: React.FC = () => <Mushaf styleOverride={{ borderColor: 'blue' }} />;
 
 const App: React.FC = () => (
-  <MushafPageProvider initialIsTwoPagesView hasBorder pageNumber={221} dataId="quran-hafs">
+  <MushafPageProvider
+    initialIsTwoPagesView
+    hasBorder
+    pageNumber={228}
+    dataId="ar.saoodshuraym.hafs"
+  >
     <MushafPageConsumer />
   </MushafPageProvider>
 );

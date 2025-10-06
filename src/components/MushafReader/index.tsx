@@ -6,16 +6,22 @@ import styles from './MushafReader.module.scss';
 import readingViewStyles from './ReadingView/ReadingView.module.scss';
 
 import { useEffect } from 'react';
+import { borderColorsValue } from 'src/types/border-color';
 import { MushafPageProps } from './contexts/MushafPage/MushafPage.types';
 import { useMushafContext } from './contexts/MushafPage/MushafPageProvider';
 import Page from './ReadingView/Page';
 
 const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafPageProps) => {
-  const { ayat, nextPageAyat, pageNumber } = useMushafContext();
+  const { ayat, nextPageAyat, pageNumber, loading } = useMushafContext();
 
-  if (!ayat) return <></>;
+  if (loading) return <></>;
 
   useEffect(() => {
+    styleOverride?.borderColor &&
+      document.documentElement.style.setProperty(
+        '--word-highlight-color',
+        borderColorsValue[styleOverride?.borderColor],
+      );
     // Set global CSS variables (like SCSS vars but at runtime)
     styleOverride?.wordHighlightColor &&
       document.documentElement.style.setProperty(
@@ -52,7 +58,7 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafPageProps) =>
             />
             <Page
               borderColor={styleOverride?.borderColor}
-              verses={ayat.data.ayahs}
+              verses={ayat?.data.ayahs || []}
               key={`page-${currentPage}`}
               pageNumber={currentPage}
               pageIndex={currentPage}
@@ -63,7 +69,7 @@ const Mushaf = ({ onWordClick, onWordHover, styleOverride }: MushafPageProps) =>
         ) : (
           <Page
             borderColor={styleOverride?.borderColor}
-            verses={ayat.data.ayahs}
+            verses={ayat?.data.ayahs || []}
             key={`page-${currentPage}`}
             pageNumber={currentPage}
             pageIndex={currentPage}
