@@ -38,11 +38,11 @@ Make sure to import package styles file which includes css styles and fonts asse
 import 'misraj-mushaf-renderer/dist/styles';
 ```
 
-The core of the library is the `MushafPageProvider` and the `Mushaf` component.
+The core of the library is the `MushafReaderProvider` and the `Mushaf` component.
 
-### 1. `MushafPageProvider`
+### 1. `MushafReaderProvider`
 
-The `MushafPageProvider` is a React context provider that fetches and manages the state for a specific Mushaf page. You need to wrap any component that will render Mushaf text with it.
+The `MushafReaderProvider` is a React context provider that fetches and manages the state for a specific Mushaf page. You need to wrap any component that will render Mushaf text with it.
 
 **Props:**
 
@@ -52,20 +52,20 @@ The `MushafPageProvider` is a React context provider that fetches and manages th
 - `initialFontScale` (number, optional): The initial font scale. Defaults to `3`.
 - `hasBorder` (boolean, optional): Whether to display the page border. Defaults to `true`.
 - `initialIsTwoPagesView` (boolean, optional): The initial state for two-page view. Defaults to `false`.
+- `themeProps` (object, optional): An object to override default theme styles. See the "Styling and Customization" section.
+- `styleOverride` (object, optional): An object to provide custom CSS classes to components. See the "Styling and Customization" section.
 
 ### 2. `useMushafContext` Hook
 
-This hook provides access to the state and actions of the `MushafPageProvider`. It should be used by components that are children of `MushafPageProvider`.
+This hook provides access to the state and actions of the `MushafReaderProvider`. It should be used by components that are children of `MushafReaderProvider`.
 
 **State:**
 
 - `fontScale` (number): The current font scale.
 - `selectedVerse` (Ayah | null): The currently selected verse.
-- `currentSurah` (Surah | null): The current surah being displayed.
 - `ayat` (MushafPageDataType | null): The raw data for the current page.
 - `nextPageAyat` (MushafPageDataType | null): The data for the next page, used in two-page view.
 - `error` (Error | null): Any error that occurred while fetching data.
-- `loading` (boolean): A boolean indicating if the page data is loading.
 - `pageNumber` (number): The current page number.
 - `dataId` (DataId): The current narration identifier.
 - `isTwoPagesView` (boolean): Whether the two-page view is currently active.
@@ -75,34 +75,23 @@ This hook provides access to the state and actions of the `MushafPageProvider`. 
 - `increaseFontScale()`: Increases the font scale.
 - `decreaseFontScale()`: Decreases the font scale.
 - `setSelectedVerse(verse: Ayah | null)`: Sets the selected verse.
-- `setCurrentSurah(surah: Surah | null)`: Sets the current surah.
 
 **Example:**
 
 ```tsx
-import {
-  MushafPageProvider,
-  useMushafContext,
-} from '@src/components/MushafReader/contexts/MushafPage/MushafPageProvider';
-import Mushaf from '@src/components/MushafReader';
+import { MushafReaderProvider, useMushafContext, Mushaf } from 'misraj-mushaf-renderer';
 
 function App() {
   return (
-    <MushafPageProvider dataId="quran-hafs" pageNumber={1} initialIsTwoPagesView={true}>
+    <MushafReaderProvider dataId="quran-hafs" pageNumber={1} initialIsTwoPagesView={true}>
       <MushafReader />
-    </MushafPageProvider>
+    </MushafReaderProvider>
   );
 }
 
 function MushafReader() {
-  const {
-    pageNumber,
-    currentSurah,
-    fontScale,
-    increaseFontScale,
-    decreaseFontScale,
-    setSelectedVerse,
-  } = useMushafContext();
+  const { pageNumber, fontScale, increaseFontScale, decreaseFontScale, setSelectedVerse } =
+    useMushafContext();
 
   const handleWordClick = (word) => {
     // select the verse the word belongs to
@@ -116,9 +105,7 @@ function MushafReader() {
   return (
     <div>
       <header>
-        <h1>
-          Page {pageNumber} - Surah {currentSurah?.name}
-        </h1>
+        <h1>Page {pageNumber}</h1>
         <div>
           <button onClick={decreaseFontScale}>A-</button>
           <span>Font size: {fontScale}</span>
@@ -133,15 +120,14 @@ function MushafReader() {
 
 ### 3. `Mushaf` Component
 
-This component consumes the data fetched by `MushafPageProvider` and renders the actual Mushaf page(s).
+This component consumes the data fetched by `MushafReaderProvider` and renders the actual Mushaf page(s).
 
-It accepts several optional props to handle user interactions and styling.
+It accepts several optional props to handle user interactions.
 
 **Props:**
 
 - `onWordClick(word: Word)`: A callback function that triggers when a user clicks on a specific word. The `word` object contains detailed information about the word, including its location, text, and verse key.
 - `onWordHover(word: Word)`: A callback function that triggers when a user hovers over a word.
-- `styleOverride`: An object to override default styles. See the "Overriding Styles" section for more details.
 
 ## How It Works: The Rendering Process
 
@@ -153,7 +139,7 @@ Rendering a Mushaf page is a complex process that this library simplifies into a
 
 3.  **`MushafWord.tsx`** (`@src/components/dls/MushafWord/MushafWord.tsx`): This is the most granular component, responsible for rendering a single Mushaf word. It attaches the `onClick` and `onMouseEnter` event listeners and applies the specific font-family for the current narration via CSS classes defined in `MushafWord.module.scss`.
 
-## Styling
+## Styling and Customization
 
 The library's styling is managed through SCSS, offering a high degree of customization.
 
@@ -162,33 +148,78 @@ The library's styling is managed through SCSS, offering a high degree of customi
   - **Fonts**: The `@font-face` declarations for all supported narrations are located in `@src/styles/fonts.scss`.
   - **Responsiveness**: Breakpoints for various screen sizes are defined in `@src/styles/_breakpoints.scss` to ensure the layout is responsive.
 
-## Overriding Styles
+The library offers two primary ways to customize the appearance of the Mushaf renderer: `themeProps` for global theme adjustments and `styleOverride` for fine-grained component-level style changes. Both are passed as props to the `MushafReaderProvider`.
 
-You can easily override the default component styles by passing a `styleOverride` object to the `Mushaf` component. This object allows you to set specific CSS variables at runtime.
+### 1. Theming with `themeProps`
+
+The `themeProps` object allows you to easily change the overall theme by setting global CSS variables at runtime.
 
 **Available Options:**
 
-- `wordHighlightColor` (string): The color of a word when it is hovered or highlighted.
-- `chapterHeaderFontSize` (string): The font size for the chapter headers (surah names).
+- `borderColor` ('blue' | 'green' | 'sepia'): Sets the color for the page borders and the default word highlight color.
+- `wordHighlightColor` (string): Overrides the default highlight color for words when they are hovered or selected. Accepts any valid CSS color value.
+- `chapterHeaderFontSize` (string): The font size for the chapter headers (surah names). Accepts any valid CSS font-size value.
 - `primaryFontColor` (string): The primary color of the Quranic text.
-- `borderColor`: ('blue' | 'green' | 'sepia') Supported border colors;
 
 **Example:**
 
 ```tsx
-function MushafReader() {
-  const styleOverride = {
-    wordHighlightColor: '#00aaff', // A light blue highlight
-    chapterHeaderFontSize: '2.5rem',
-    primaryFontColor: '#333333', // A dark gray for the text
-    borderColor: 'blue',
-  };
+const themeProps = {
+  borderColor: 'sepia',
+  wordHighlightColor: '#D4AF37', // Gold highlight
+  chapterHeaderFontSize: '2.5rem',
+  primaryFontColor: '#333333', // Dark gray text
+};
 
+<MushafReaderProvider dataId="quran-hafs" pageNumber={1} themeProps={themeProps}>
+  <Mushaf />
+</MushafReaderProvider>;
+```
+
+### 2. Component-level styling with `styleOverride`
+
+For more specific, dynamic, or one-off styling changes, the `styleOverride` prop allows you to apply a `React.CSSProperties` object directly to the library's internal components.
+
+The `styleOverride` object follows this structure:
+
+```ts
+{
+  [ComponentName]?: {
+    [StyleKey]?: React.CSSProperties; // A CSS style object
+  }
+}
+```
+
+-   `ComponentName` corresponds to the components you want to style (e.g., `Page`, `MushafWord`, `MushafReader`).
+-   `StyleKey` corresponds to a stylable element within that component (e.g., `container`, `highlighted`, `twoPagesRow`).
+
+You can find all available `ComponentName` and `StyleKey` values in the exported `classnames` object.
+
+**Example:**
+
+Let's say you want to remove the gap between the two pages in the two-page view. You can do this by passing a style object to the `twoPagesRow` style key of the `MushafReader` component.
+
+```tsx
+import { Mushaf, MushafReaderProvider } from 'misraj-mushaf-renderer';
+
+const styleOverride = {
+  MushafReader: {
+    twoPagesRow: {
+      gap: 0,
+    },
+  },
+};
+
+function App() {
   return (
-    <div>
-      {/* ... header and controls ... */}
-      <Mushaf styleOverride={styleOverride} />
-    </div>
+    <MushafReaderProvider
+      dataId="quran-hafs"
+      pageNumber={1}
+      styleOverride={styleOverride}
+      initialIsTwoPagesView={true}
+    >
+      <Mushaf />
+    </MushafReaderProvider>
   );
 }
 ```
