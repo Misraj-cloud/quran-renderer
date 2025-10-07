@@ -1,26 +1,5 @@
 @use 'src/styles/breakpoints';
 
-.readingView {
-  min-height: 100vh;
-  @include breakpoints.smallerThanTablet {
-    width: 85%;
-  }
-}
-
-.container {
-  padding-inline-start: 0;
-  padding-inline-end: 0;
-  background-color: var(--color-background-elevated-new);
-  background-image: var(--color-background-lighten);
-  @include breakpoints.tablet {
-    transition: var(--transition-regular);
-    margin-inline-end: 0;
-  }
-
-  @include breakpoints.smallerThanTablet {
-  }
-}
-
 .twoPagesRow {
   display: grid;
   grid-template-columns: 1fr 1fr;

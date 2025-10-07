@@ -6,17 +6,18 @@ import styles from './ChapterIconContainer.module.scss';
 
 import ChapterIcon from '@/components/chapters/ChapterIcon';
 import { useMushafContext } from 'src/components/MushafReader/contexts/MushafPage/MushafPageProvider';
-import { BorderColor } from 'src/types/border-color';
+import { useThemeContext } from 'src/components/MushafReader/contexts/Theme/ThemeProvider';
 
 // TODO: maybe replace `hasSurahPrefix` with `variant` and use it to show v1 or v2 surah name font
 interface Props {
   chapterId: string;
   hasSurahPrefix?: boolean;
-  borderColor?: BorderColor;
 }
 
-const IconContainer: React.FC<Props> = ({ chapterId, hasSurahPrefix = true, borderColor }) => {
+const IconContainer: React.FC<Props> = ({ chapterId, hasSurahPrefix = true }) => {
   const { hasBorder } = useMushafContext();
+  const { themeProps, styleOverride } = useThemeContext();
+  const { borderColor } = themeProps;
 
   return (
     <span
@@ -25,7 +26,7 @@ const IconContainer: React.FC<Props> = ({ chapterId, hasSurahPrefix = true, bord
         [styles.blueBorder]: hasBorder && borderColor === 'blue',
         [styles.sepiaBorder]: hasBorder && borderColor === 'sepia',
       })}
-      style={{ color: 'black' }} // to inherit the text color from the parent element
+      style={{ ...styleOverride?.ChapterIconContainer?.iconContainer }} // to inherit the text color from the parent element
     >
       <ChapterIcon id={chapterId} />
       {hasSurahPrefix && <ChapterIcon id="surah" />}

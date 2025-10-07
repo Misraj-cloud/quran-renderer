@@ -1,28 +1,38 @@
-const ChapterIconContainer = {
-  iconContainer: 'ChapterIconContainer-iconContainer',
-};
+const ChapterIconContainer = ['iconContainer'] as const;
 
-const MushafWord = {
-  container: 'MushafWord-container',
-  colored: 'MushafWord-colored',
-  filled: 'MushafWord-filled',
-  highlightOnHover: 'MushafWord-highlightOnHover',
-  highlighted: 'MushafWord-highlighted',
-};
+const MushafWord = ['colored', 'filled', 'highlightOnHover', 'highlighted'] as const;
 
-const ReadingView = {
-  container: 'ReadingView-container',
-};
+const ReadingView = ['container'] as const;
 
-const VerseText = {
-  highlighted: 'VerseText-highlighted',
-};
+const Page = [
+  'container',
+  'border',
+  'blueBorder',
+  'sepiaBorder',
+  'bottomBorder',
+  'blueBottomBorder',
+  'sepiaBottomBorder',
+  'mobileCenterText',
+  'firstTwoPagesBorder',
+  'blueFirstTwoPagesBorder',
+  'sepiaFirstTwoPagesBorder',
+  'pageNumberContainer',
+  'pageNumber',
+  'surah',
+  'juz',
+] as const;
+
+const MushafReader = ['twoPagesRow'] as const;
+
+const VerseText = ['highlighted'] as const;
 
 const classnames = {
   ChapterIconContainer,
   MushafWord,
   ReadingView,
   VerseText,
+  MushafReader,
+  Page,
 };
 
 export default classnames;

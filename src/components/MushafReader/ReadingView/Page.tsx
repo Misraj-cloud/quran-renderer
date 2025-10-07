@@ -8,14 +8,14 @@ import groupLinesByVerses from './groupLinesByVerses';
 
 import Word from '@/types/Word';
 import ChapterHeader from 'src/components/chapters/ChapterHeader';
+import chapterHeaderStyles from 'src/components/chapters/ChapterHeader/ChapterHeader.module.scss';
 import Bismillah from 'src/components/dls/Bismillah/Bismillah';
 import { Ayah } from 'src/types/verses';
 import { useMushafContext } from '../contexts/MushafPage/MushafPageProvider';
+import { useThemeContext } from '../contexts/Theme/ThemeProvider';
 import PageNumber from './PageNumber';
 import PageMetaDataContainer from './page-metadata/PageMetaDataContainer';
 import { getJuzText } from './page-metadata/juz.constants';
-import chapterHeaderStyles from 'src/components/chapters/ChapterHeader/ChapterHeader.module.scss';
-import { BorderColor } from 'src/types/border-color';
 
 type PageProps = {
   verses: Ayah[];
@@ -23,18 +23,12 @@ type PageProps = {
   pageIndex: number;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
-  borderColor?: BorderColor;
 };
 
-const Page = ({
-  verses,
-  pageNumber,
-  pageIndex,
-  onWordClick,
-  onWordHover,
-  borderColor,
-}: PageProps) => {
+const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageProps) => {
   const { fontScale, hasBorder } = useMushafContext();
+  const { themeProps, styleOverride } = useThemeContext();
+  const { borderColor } = themeProps;
   const lines = useMemo(
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
     [verses],
@@ -54,20 +48,28 @@ const Page = ({
         [styles.blueBorder]: hasBorder && borderColor === 'blue',
         [styles.sepiaBorder]: hasBorder && borderColor === 'sepia',
       })}
-      style={{ position: 'relative' }}
+      style={{ position: 'relative', ...styleOverride?.Page?.container }}
     >
       {hasBorder && (
         <>
-          <PageMetaDataContainer borderColor={borderColor} className={styles.surah}>
+          <PageMetaDataContainer
+            borderColor={borderColor}
+            className={classNames(styles.surah)}
+            style={styleOverride?.Page?.surah}
+          >
             {firstAyah?.surah?.name}
           </PageMetaDataContainer>
-          <PageMetaDataContainer borderColor={borderColor} className={styles.juz}>
+          <PageMetaDataContainer
+            borderColor={borderColor}
+            className={classNames(styles.juz)}
+            style={styleOverride?.Page?.juz}
+          >
             {getJuzText(firstAyah?.juz || 1)}
           </PageMetaDataContainer>
         </>
       )}
       <div
-        className={classNames({
+        className={classNames(styleOverride?.Page?.bottomBorder, {
           [styles.bottomBorder]: hasBorder && isFirstTwoPages,
           [styles.blueBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'blue',
           [styles.sepiaBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'sepia',
@@ -82,7 +84,7 @@ const Page = ({
           />
         )}
         <div
-          className={classNames({
+          className={classNames(styleOverride?.Page?.firstTwoPagesBorder, {
             [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,
             [styles.blueFirstTwoPagesBorder]:
               hasBorder && isFirstTwoPages && borderColor === 'blue',
@@ -106,7 +108,6 @@ const Page = ({
               isBigTextLayout={isBigTextLayout}
               onWordClick={onWordClick}
               onWordHover={onWordHover}
-              borderColor={borderColor}
             />
           ))}
         </div>

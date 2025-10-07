@@ -10,6 +10,7 @@ import { FALLBACK_FONT, MushafLines } from 'src/types/MushafReader';
 import { getFontClassName } from 'src/utils/fontFaceHelper';
 import MushafWord from '../dls/MushafWord/MushafWord';
 import { useMushafContext } from '../MushafReader/contexts/MushafPage/MushafPageProvider';
+import { useThemeContext } from '../MushafReader/contexts/Theme/ThemeProvider';
 
 type VerseTextProps = {
   words: Word[];
@@ -27,6 +28,7 @@ const VerseText = ({
   onWordHover,
 }: VerseTextProps) => {
   const { fontScale } = useMushafContext();
+  const { styleOverride } = useThemeContext();
   const [firstWord] = words;
   const {
     line_number: lineNumber,
@@ -57,6 +59,7 @@ const VerseText = ({
           [styles.highlighted]: isHighlighted,
           [styles[fontClassName]]: true,
         })}
+        style={styleOverride?.VerseText?.highlighted}
       >
         <div
           translate="no"

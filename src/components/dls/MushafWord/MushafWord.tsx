@@ -8,6 +8,7 @@ import styles from './MushafWord.module.scss';
 import Word from '@/types/Word';
 import { makeWordLocation } from '@/utils/verse';
 import { useMushafContext } from 'src/components/MushafReader/contexts/MushafPage/MushafPageProvider';
+import { useThemeContext } from 'src/components/MushafReader/contexts/Theme/ThemeProvider';
 import { narrationIdentifierFromReciterId } from 'src/utils/narration-name';
 
 const DATA_ATTRIBUTE_WORD_LOCATION = 'data-word-location';
@@ -20,6 +21,7 @@ type MushafWordProps = {
 
 const MushafWord = ({ word, onWordClick, onWordHover }: MushafWordProps) => {
   const { selectedVerse, dataId } = useMushafContext();
+  const { styleOverride } = useThemeContext();
   const wordLocation = makeWordLocation(word.verse_key, word.position);
   const wordText = <span className={styles.UthmanicHafs}>{word.text}</span>;
 
@@ -59,6 +61,11 @@ const MushafWord = ({ word, onWordClick, onWordHover }: MushafWordProps) => {
         [styles.colored]: !shouldBeHighLighted,
         [styles.highlighted]: shouldBeHighLighted,
       })}
+      style={{
+        ...styleOverride?.MushafWord?.highlightOnHover,
+        ...styleOverride?.MushafWord?.colored,
+        ...styleOverride?.MushafWord?.highlighted,
+      }}
     >
       {wordText}
     </div>
