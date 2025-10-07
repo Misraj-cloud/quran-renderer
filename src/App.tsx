@@ -1,17 +1,27 @@
 import React from 'react';
-import { MushafPageProvider, Mushaf } from './index';
+import { classnames, Mushaf, MushafReaderProvider } from './index';
 
-const MushafPageConsumer: React.FC = () => <Mushaf styleOverride={{ borderColor: 'blue' }} />;
+const MushafPageConsumer: React.FC = () => <Mushaf />;
 
 const App: React.FC = () => (
-  <MushafPageProvider
+  <MushafReaderProvider
     initialIsTwoPagesView
     hasBorder
-    pageNumber={228}
+    pageNumber={221}
     dataId="ar.saoodshuraym.hafs"
+    themeProps={{
+      borderColor: 'blue',
+    }}
+    styleOverride={{
+      MushafReader: {
+        twoPagesRow: {
+          gap: 0,
+        },
+      },
+    }}
   >
     <MushafPageConsumer />
-  </MushafPageProvider>
+  </MushafReaderProvider>
 );
 
 export default App;

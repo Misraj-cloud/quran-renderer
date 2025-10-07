@@ -11,6 +11,7 @@ import React, {
 import type { Ayah, IVersesListDto } from 'src/types/verses';
 import type { DataId } from './MushafPage.types';
 import { fetchVerses } from './helpers/fetch-verses';
+import { ThemeProviderProps } from '../Theme/type';
 
 /** ---------- Types ---------- */
 type MushafPageState = {
@@ -34,13 +35,15 @@ type MushafPageActions = {
   refresh: () => void;
 };
 
-type MushafPageProviderProps = {
+export type MushafPageProviderProps = {
   children: React.ReactNode;
   dataId: DataId;
   pageNumber: number;
   initialFontScale?: number;
   hasBorder?: boolean;
   initialIsTwoPagesView?: boolean;
+  themeProps?: ThemeProviderProps['themeProps'];
+  styleOverride?: ThemeProviderProps['styleOverride'];
 };
 
 /** ---------- Helpers ---------- */
