@@ -126,8 +126,8 @@ const Page = ({
             ))}
           </div>
         </div>
+        {hasBorder && <PageNumber borderColor={borderColor} value={pageNumber} />}
       </div>
-      {hasBorder && <PageNumber borderColor={borderColor} value={pageNumber} />}
     </div>
   );
 };
