@@ -30,7 +30,6 @@ const Line = ({
   lineIndex,
   onWordClick,
   onWordHover,
-  borderColor,
 }: LineProps) => {
   const { pageNumber } = useMushafContext();
   const firstWordData = getWordDataByLocation(words[0].location);
@@ -57,11 +56,7 @@ const Line = ({
           rendered in a way different from this
       */}
       {shouldShowChapterHeader && !isFirstTwoPages && (
-        <ChapterHeader
-          borderColor={borderColor}
-          chapterId={firstWordData[0]}
-          pageNumber={words[0].page_number || 0}
-        />
+        <ChapterHeader chapterId={firstWordData[0]} pageNumber={words[0].page_number || 0} />
       )}
       <div
         className={classNames(styles.line, {

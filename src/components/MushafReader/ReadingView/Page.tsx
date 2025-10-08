@@ -78,7 +78,6 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
       >
         {isFirstTwoPages && (
           <ChapterHeader
-            borderColor={borderColor}
             chapterId={`${pageNumber}`}
             pageNumber={pageNumber}
           />
@@ -87,7 +86,7 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
           className={classNames(styleOverride?.Page?.firstTwoPagesBorder, {
             [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,
             [styles.blueFirstTwoPagesBorder]:
-              hasBorder && isFirstTwoPages && borderColor === 'blue',
+              hasBorder && isFi rstTwoPages && borderColor === 'blue',
             [styles.sepiaFirstTwoPagesBorder]:
               hasBorder && isFirstTwoPages && borderColor === 'sepia',
           })}
