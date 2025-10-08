@@ -6,6 +6,7 @@ const MushafPageConsumer: React.FC = () => <Mushaf />;
 const App: React.FC = () => (
   <MushafReaderProvider
     initialIsTwoPagesView
+    initialFontScale={1}
     hasBorder
     pageNumber={221}
     dataId="ar.saoodshuraym.hafs"

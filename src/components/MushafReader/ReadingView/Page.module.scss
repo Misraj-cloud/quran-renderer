@@ -9,7 +9,7 @@
 .container {
   margin-block-start: constants.$reading-view-container-top-margin;
   margin-block-end: var(--spacing-mega);
-  max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
   position: relative;
 
@@ -17,6 +17,7 @@
 }
 
 .border {
+  width: 100%;
   border: 25px solid transparent;
   border-image: url('../../../assets/images/borders/green/full-border.svg') 20 repeat;
 }
