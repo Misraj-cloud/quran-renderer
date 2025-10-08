@@ -86,7 +86,7 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
           className={classNames(styleOverride?.Page?.firstTwoPagesBorder, {
             [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,
             [styles.blueFirstTwoPagesBorder]:
-              hasBorder && isFi rstTwoPages && borderColor === 'blue',
+              hasBorder && isFirstTwoPages && borderColor === 'blue',
             [styles.sepiaFirstTwoPagesBorder]:
               hasBorder && isFirstTwoPages && borderColor === 'sepia',
           })}
