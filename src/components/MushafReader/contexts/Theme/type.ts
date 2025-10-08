@@ -15,7 +15,7 @@ type GroupName = keyof ClassnameGroups;
 type GroupKey<K extends GroupName> = ClassnameGroups[K][number];
 
 // new StyleOverride
-type StyleOverride = {
+export type StyleOverride = {
   [K in GroupName]?: Partial<Record<GroupKey<K>, React.CSSProperties>>;
 };
 

@@ -34,6 +34,7 @@ const Mushaf = ({ onWordClick, onWordHover }: MushafPageProps) => {
             pageIndex={currentPage}
             onWordClick={onWordClick}
             onWordHover={onWordHover}
+            pageStyleOverride={styleOverride?.firstPage}
           />
           <Page
             verses={nextPageAyat.data.ayahs || []}
@@ -42,6 +43,7 @@ const Mushaf = ({ onWordClick, onWordHover }: MushafPageProps) => {
             pageIndex={currentPage + 1}
             onWordClick={onWordClick}
             onWordHover={onWordHover}
+            pageStyleOverride={styleOverride?.secondPage}
           />
         </div>
       ) : (

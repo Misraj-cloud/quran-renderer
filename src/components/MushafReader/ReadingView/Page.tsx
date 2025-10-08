@@ -16,6 +16,7 @@ import { useThemeContext } from '../contexts/Theme/ThemeProvider';
 import PageNumber from './PageNumber';
 import PageMetaDataContainer from './page-metadata/PageMetaDataContainer';
 import { getJuzText } from './page-metadata/juz.constants';
+import { StyleOverride } from '../contexts/Theme/type';
 
 type PageProps = {
   verses: Ayah[];
@@ -23,6 +24,7 @@ type PageProps = {
   pageIndex: number;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
+  pageStyleOverride?: StyleOverride['Page'];
 };
 
 const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageProps) => {
@@ -76,12 +78,7 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
         })}
         style={{ width: '100%' }}
       >
-        {isFirstTwoPages && (
-          <ChapterHeader
-            chapterId={`${pageNumber}`}
-            pageNumber={pageNumber}
-          />
-        )}
+        {isFirstTwoPages && <ChapterHeader chapterId={`${pageNumber}`} pageNumber={pageNumber} />}
         <div
           className={classNames(styleOverride?.Page?.firstTwoPagesBorder, {
             [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,

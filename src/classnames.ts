@@ -33,6 +33,8 @@ const classnames = {
   VerseText,
   MushafReader,
   Page,
+  firstPage: Page,
+  secondPage: Page,
 };
 
 export default classnames;
