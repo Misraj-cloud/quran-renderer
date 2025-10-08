@@ -53,70 +53,78 @@ const Page = ({
       id={`page-${pageNumber}`}
       className={classNames(styles.container, {
         [styles.mobileCenterText]: isBigTextLayout,
-        [styles.border]: hasBorder,
-        [styles.blueBorder]: hasBorder && borderColor === 'blue',
-        [styles.sepiaBorder]: hasBorder && borderColor === 'sepia',
       })}
       style={{
-        position: 'relative',
         ...styleOverride?.Page?.container,
         ...pageStyleOverride?.container,
       }}
     >
-      {hasBorder && (
-        <>
-          <PageMetaDataContainer
-            borderColor={borderColor}
-            className={classNames(styles.surah)}
-            style={styleOverride?.Page?.surah}
-          >
-            {firstAyah?.surah?.name}
-          </PageMetaDataContainer>
-          <PageMetaDataContainer
-            borderColor={borderColor}
-            className={classNames(styles.juz)}
-            style={styleOverride?.Page?.juz}
-          >
-            {getJuzText(firstAyah?.juz || 1)}
-          </PageMetaDataContainer>
-        </>
-      )}
       <div
-        className={classNames(styleOverride?.Page?.bottomBorder, {
-          [styles.bottomBorder]: hasBorder && isFirstTwoPages,
-          [styles.blueBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'blue',
-          [styles.sepiaBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'sepia',
+        className={classNames({
+          [styles.border]: hasBorder,
+          [styles.blueBorder]: hasBorder && borderColor === 'blue',
+          [styles.sepiaBorder]: hasBorder && borderColor === 'sepia',
         })}
-        style={{ width: '100%' }}
+        style={{
+          position: 'relative',
+          ...pageStyleOverride?.border,
+        }}
       >
-        {isFirstTwoPages && <ChapterHeader chapterId={`${pageNumber}`} pageNumber={pageNumber} />}
+        {hasBorder && (
+          <>
+            <PageMetaDataContainer
+              borderColor={borderColor}
+              className={classNames(styles.surah)}
+              style={styleOverride?.Page?.surah}
+            >
+              {firstAyah?.surah?.name}
+            </PageMetaDataContainer>
+            <PageMetaDataContainer
+              borderColor={borderColor}
+              className={classNames(styles.juz)}
+              style={styleOverride?.Page?.juz}
+            >
+              {getJuzText(firstAyah?.juz || 1)}
+            </PageMetaDataContainer>
+          </>
+        )}
         <div
-          className={classNames(styleOverride?.Page?.firstTwoPagesBorder, {
-            [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,
-            [styles.blueFirstTwoPagesBorder]:
-              hasBorder && isFirstTwoPages && borderColor === 'blue',
-            [styles.sepiaFirstTwoPagesBorder]:
-              hasBorder && isFirstTwoPages && borderColor === 'sepia',
+          className={classNames(styleOverride?.Page?.bottomBorder, {
+            [styles.bottomBorder]: hasBorder && isFirstTwoPages,
+            [styles.blueBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'blue',
+            [styles.sepiaBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'sepia',
           })}
+          style={{ width: '100%' }}
         >
-          {/* This behavior is explained in @ChapterHeader.tsx */}
-          {pageNumber === 2 && (
-            <div className={chapterHeaderStyles.bismillahContainer}>
-              <Bismillah />
-            </div>
-          )}
-          {Object.keys(lines).map((key, lineIndex) => (
-            <Line
-              pageIndex={pageIndex}
-              lineIndex={lineIndex}
-              lineKey={key}
-              words={lines[key]}
-              key={key}
-              isBigTextLayout={isBigTextLayout}
-              onWordClick={onWordClick}
-              onWordHover={onWordHover}
-            />
-          ))}
+          {isFirstTwoPages && <ChapterHeader chapterId={`${pageNumber}`} pageNumber={pageNumber} />}
+          <div
+            className={classNames(styleOverride?.Page?.firstTwoPagesBorder, {
+              [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,
+              [styles.blueFirstTwoPagesBorder]:
+                hasBorder && isFirstTwoPages && borderColor === 'blue',
+              [styles.sepiaFirstTwoPagesBorder]:
+                hasBorder && isFirstTwoPages && borderColor === 'sepia',
+            })}
+          >
+            {/* This behavior is explained in @ChapterHeader.tsx */}
+            {pageNumber === 2 && (
+              <div className={chapterHeaderStyles.bismillahContainer}>
+                <Bismillah />
+              </div>
+            )}
+            {Object.keys(lines).map((key, lineIndex) => (
+              <Line
+                pageIndex={pageIndex}
+                lineIndex={lineIndex}
+                lineKey={key}
+                words={lines[key]}
+                key={key}
+                isBigTextLayout={isBigTextLayout}
+                onWordClick={onWordClick}
+                onWordHover={onWordHover}
+              />
+            ))}
+          </div>
         </div>
       </div>
       {hasBorder && <PageNumber borderColor={borderColor} value={pageNumber} />}
