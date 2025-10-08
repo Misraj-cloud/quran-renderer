@@ -27,7 +27,14 @@ type PageProps = {
   pageStyleOverride?: StyleOverride['Page'];
 };
 
-const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageProps) => {
+const Page = ({
+  verses,
+  pageNumber,
+  pageIndex,
+  onWordClick,
+  onWordHover,
+  pageStyleOverride,
+}: PageProps) => {
   const { fontScale, hasBorder } = useMushafContext();
   const { themeProps, styleOverride } = useThemeContext();
   const { borderColor } = themeProps;
@@ -50,7 +57,11 @@ const Page = ({ verses, pageNumber, pageIndex, onWordClick, onWordHover }: PageP
         [styles.blueBorder]: hasBorder && borderColor === 'blue',
         [styles.sepiaBorder]: hasBorder && borderColor === 'sepia',
       })}
-      style={{ position: 'relative', ...styleOverride?.Page?.container }}
+      style={{
+        position: 'relative',
+        ...styleOverride?.Page?.container,
+        ...pageStyleOverride?.container,
+      }}
     >
       {hasBorder && (
         <>
