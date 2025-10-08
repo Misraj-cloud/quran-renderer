@@ -1,5 +1,5 @@
 import React from 'react';
-import { classnames, Mushaf, MushafReaderProvider } from './index';
+import { Mushaf, MushafReaderProvider } from './index';
 
 const MushafPageConsumer: React.FC = () => <Mushaf />;
 
