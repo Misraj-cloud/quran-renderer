@@ -67,6 +67,7 @@ const Page = ({
         })}
         style={{
           position: 'relative',
+          ...styleOverride?.Page?.border,
           ...pageStyleOverride?.border,
         }}
       >
