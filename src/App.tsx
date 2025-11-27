@@ -7,11 +7,12 @@ const App: React.FC = () => (
   <MushafReaderProvider
     initialIsTwoPagesView
     hasBorder
-    pageNumber={221}
+    pageNumber={222}
     dataId="ar.saoodshuraym.hafs"
     themeProps={{
       borderColor: 'blue',
     }}
+    initialFontScale={3}
     styleOverride={{
       MushafReader: {
         twoPagesRow: {

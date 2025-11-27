@@ -7,6 +7,9 @@
   display: flex;
   align-items: flex-start;
   line-height: var(--line-height);
+  @include breakpoints.tablet {
+    width: 390px;
+  }
 }
 .verseTextContainer {
   display: block;
