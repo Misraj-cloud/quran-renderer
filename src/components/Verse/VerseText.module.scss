@@ -7,10 +7,20 @@
   display: flex;
   align-items: flex-start;
   line-height: var(--line-height);
+}
+
+.verseTextWidth {
   @include breakpoints.tablet {
     width: 390px;
   }
 }
+
+.verseTextFirstTwoPagesWidth {
+  @include breakpoints.tablet {
+    width: 280px;
+  }
+}
+
 .verseTextContainer {
   display: block;
   direction: rtl;

@@ -5,9 +5,8 @@ const MushafPageConsumer: React.FC = () => <Mushaf />;
 
 const App: React.FC = () => (
   <MushafReaderProvider
-    initialIsTwoPagesView
     hasBorder
-    pageNumber={222}
+    pageNumber={2}
     dataId="ar.saoodshuraym.hafs"
     themeProps={{
       borderColor: 'blue',

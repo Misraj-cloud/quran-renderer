@@ -67,6 +67,8 @@ const VerseText = ({
             [styles.largeMushafTextLayout]: isBigTextLayout,
             [styles.verseTextCenterAlign]: centerAlignPage,
             [styles.verseTextSpaceBetween]: !centerAlignPage,
+            [styles.verseTextWidth]: ![1, 2].includes(pageNumber),
+            [styles.verseTextFirstTwoPagesWidth]: [1, 2].includes(pageNumber),
           })}
         >
           {words?.map((word) => (
