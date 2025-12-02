@@ -3,7 +3,6 @@ import styles from './Page.module.scss';
 import greenPageNumberBorder from 'src/assets/images/borders/green/page-number-border.svg';
 import bluePageNumberBorder from 'src/assets/images/borders/blue/page-number-border.svg';
 import sepiaPageNumberBorder from 'src/assets/images/borders/sepia/page-number-border.svg';
-import React from 'react';
 import { useThemeContext } from '../contexts/Theme/ThemeProvider';
 
 const pageNumberBorder = {
