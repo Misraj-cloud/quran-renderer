@@ -3,6 +3,8 @@ import styles from './Page.module.scss';
 import greenPageNumberBorder from 'src/assets/images/borders/green/page-number-border.svg';
 import bluePageNumberBorder from 'src/assets/images/borders/blue/page-number-border.svg';
 import sepiaPageNumberBorder from 'src/assets/images/borders/sepia/page-number-border.svg';
+import React from 'react';
+import { useThemeContext } from '../contexts/Theme/ThemeProvider';
 
 const pageNumberBorder = {
   green: greenPageNumberBorder,
@@ -13,10 +15,14 @@ const pageNumberBorder = {
 type Props = { value: number; borderColor?: BorderColor };
 
 const PageNumber = ({ value, borderColor }: Props) => {
+  const { styleOverride } = useThemeContext();
+
   return (
     <div className={styles.pageNumberContainer}>
       <img src={pageNumberBorder[borderColor || 'green']} />
-      <p className={styles.pageNumber}>{pageNumberToHindi(`${value}`)}</p>
+      <p className={styles.pageNumber} style={styleOverride?.Page?.pageNumber}>
+        {pageNumberToHindi(`${value}`)}
+      </p>
     </div>
   );
 };
