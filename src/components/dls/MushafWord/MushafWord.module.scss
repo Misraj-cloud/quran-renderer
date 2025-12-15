@@ -14,12 +14,16 @@
 
 .highlightOnHover {
   &:hover {
-    color: var(--word-highlight-color);
+    color: var(
+      --word-highlight-color
+    ) !important; // important is needed to over-ride any theme default color set by the used app, which can ignore lighting on hover
   }
 }
 
 .highlighted {
-  color: var(--word-highlight-color);
+  color: var(
+    --word-highlight-color
+  ) !important; // important is needed to over-ride any theme default color set by the used app, which can ignore lighting
 }
 
 .mushaf-hafs {
