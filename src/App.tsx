@@ -1,32 +1,39 @@
 import React from 'react';
-import { Mushaf, MushafReaderProvider } from './index';
+import { DataId, Mushaf, MushafReaderProvider } from './index';
+import { narrationIdentifierFromReciterId } from './utils/narration-name';
 
 const MushafPageConsumer: React.FC = () => <Mushaf />;
 
-const App: React.FC = () => (
-  <MushafReaderProvider
-    hasBorder
-    pageNumber={106}
-    dataId="ar.saoodshuraym.hafs"
-    themeProps={{
-      borderColor: 'blue',
-    }}
-    initialFontScale={3}
-    styleOverride={{
-      MushafReader: {
-        twoPagesRow: {
-          gap: 0,
+const App: React.FC = () => {
+  const DATA_ID: DataId = 'ar.sufi.shoba';
+
+  return (
+    <MushafReaderProvider
+      hasBorder
+      pageNumber={106}
+      dataId={DATA_ID}
+      themeProps={{
+        borderColor: 'blue',
+      }}
+      showNarrationDifferences={{
+        sourceEditionIdentifier: narrationIdentifierFromReciterId(DATA_ID).replace(
+          'mushaf',
+          'quran',
+        ),
+        targetEditionIdentifier: 'quran-hafs',
+      }}
+      initialFontScale={3}
+      styleOverride={{
+        MushafReader: {
+          twoPagesRow: {
+            gap: 0,
+          },
         },
-      },
-      Page: {
-        pageNumber: {
-          display: 'none',
-        },
-      },
-    }}
-  >
-    <MushafPageConsumer />
-  </MushafReaderProvider>
-);
+      }}
+    >
+      <MushafPageConsumer />
+    </MushafReaderProvider>
+  );
+};
 
 export default App;

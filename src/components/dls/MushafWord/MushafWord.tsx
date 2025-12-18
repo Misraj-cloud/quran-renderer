@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import classNames from 'classnames';
 
@@ -20,14 +20,35 @@ type MushafWordProps = {
 };
 
 const MushafWord = ({ word, onWordClick, onWordHover }: MushafWordProps) => {
-  const { selectedVerse, dataId } = useMushafContext();
+  const { selectedVerse, dataId, narrationDifferences } = useMushafContext();
   const { styleOverride } = useThemeContext();
   const wordLocation = makeWordLocation(word.verse_key, word.position);
   const wordText = <span className={styles.UthmanicHafs}>{word.text}</span>;
 
   const shouldBeHighLighted = selectedVerse?.numberInSurah === word.verse.numberInSurah;
 
+  const differencesMap = useMemo(() => {
+    if (!narrationDifferences) return null;
+    const map = new Map<
+      string,
+      {
+        differenceText: string;
+        differenceContent: string;
+      }
+    >();
+    narrationDifferences.forEach((difference) => {
+      difference.words?.forEach((differenceWord) => {
+        map.set(differenceWord.location, {
+          differenceText: difference.difference_text,
+          differenceContent: difference.difference_content,
+        });
+      });
+    });
+    return map;
+  }, [narrationDifferences]);
+
   const narrationId = narrationIdentifierFromReciterId(dataId);
+  const differenceInfo = differencesMap?.get(wordLocation);
 
   const onClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -60,6 +81,7 @@ const MushafWord = ({ word, onWordClick, onWordHover }: MushafWordProps) => {
         [styles.highlightOnHover]: true,
         [styles.colored]: !shouldBeHighLighted,
         [styles.highlighted]: shouldBeHighLighted,
+        [styles.differenceHighlight]: !!differenceInfo,
       })}
       style={{
         ...styleOverride?.MushafWord?.highlightOnHover,

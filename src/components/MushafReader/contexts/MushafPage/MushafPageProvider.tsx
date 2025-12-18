@@ -9,9 +9,13 @@ import React, {
   useState,
 } from 'react';
 import type { Ayah, IVersesListDto } from 'src/types/verses';
+import { fetchNarrationDifferences } from './helpers/fetch-differences';
+import { NarrationDifference } from 'src/types/differences';
 import type { DataId } from './MushafPage.types';
 import { fetchVerses } from './helpers/fetch-verses';
 import { ThemeProviderProps } from '../Theme/type';
+
+type NarrationDifferences = NarrationDifference[];
 
 /** ---------- Types ---------- */
 type MushafPageState = {
@@ -20,6 +24,7 @@ type MushafPageState = {
   selectedVerse: Ayah | null;
   ayat: IVersesListDto | null;
   nextPageAyat: IVersesListDto | null;
+  narrationDifferences: NarrationDifferences | null;
   error: Error | null;
   pageNumber: number;
   dataId: DataId;
@@ -44,6 +49,10 @@ export type MushafPageProviderProps = {
   initialIsTwoPagesView?: boolean;
   themeProps?: ThemeProviderProps['themeProps'];
   styleOverride?: ThemeProviderProps['styleOverride'];
+  showNarrationDifferences?: {
+    sourceEditionIdentifier: string;
+    targetEditionIdentifier: string;
+  } | null;
 };
 
 /** ---------- Helpers ---------- */
@@ -59,14 +68,20 @@ export const MushafPageProvider = ({
   initialFontScale = 3,
   hasBorder = true,
   initialIsTwoPagesView = false,
+  showNarrationDifferences = null,
 }: MushafPageProviderProps) => {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
   const [selectedVerse, setSelectedVerse] = useState<Ayah | null>(null);
   const [ayat, setAyat] = useState<IVersesListDto | null>(null);
   const [nextPageAyat, setNextPageAyat] = useState<IVersesListDto | null>(null);
+  const [narrationDifferences, setNarrationDifferences] = useState<NarrationDifferences | null>(
+    null,
+  );
+
   const [error, setError] = useState<Error | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const differencesAbortRef = useRef<AbortController | null>(null);
 
   const isTwoPagesView = isDesktop && initialIsTwoPagesView;
 
@@ -76,6 +91,7 @@ export const MushafPageProvider = ({
     abortRef.current = ctl;
 
     setError(null);
+    setNarrationDifferences(null);
 
     try {
       const currPagePromise = fetchVerses(pageNumber, dataId, ctl.signal);
@@ -106,10 +122,46 @@ export const MushafPageProvider = ({
     }
   }, [pageNumber, dataId, isTwoPagesView]);
 
+  const loadDifferences = useCallback(async () => {
+    if (
+      !showNarrationDifferences ||
+      showNarrationDifferences.sourceEditionIdentifier ===
+        showNarrationDifferences.targetEditionIdentifier
+    ) {
+      setNarrationDifferences(null);
+      return;
+    }
+
+    differencesAbortRef.current?.abort();
+    const ctl = new AbortController();
+    differencesAbortRef.current = ctl;
+
+    try {
+      const resp = await fetchNarrationDifferences(
+        pageNumber,
+        showNarrationDifferences.sourceEditionIdentifier,
+        showNarrationDifferences.targetEditionIdentifier,
+        ctl.signal,
+      );
+
+      console.log('response', resp);
+
+      setNarrationDifferences(resp.data);
+    } catch (err) {
+      if ((err as any)?.name === 'AbortError') return;
+      setNarrationDifferences(null);
+    }
+  }, [pageNumber, showNarrationDifferences]);
+
   useEffect(() => {
     load();
     return () => abortRef.current?.abort();
   }, [load]);
+
+  useEffect(() => {
+    loadDifferences();
+    return () => differencesAbortRef.current?.abort();
+  }, [loadDifferences]);
 
   const increaseFontScale = useCallback(() => {
     _setFontScale((prev) => (prev < 10 ? prev + 1 : prev));
@@ -125,6 +177,7 @@ export const MushafPageProvider = ({
       selectedVerse,
       ayat,
       nextPageAyat,
+      narrationDifferences,
       error,
       pageNumber,
       dataId,
@@ -136,6 +189,7 @@ export const MushafPageProvider = ({
       selectedVerse,
       ayat,
       nextPageAyat,
+      narrationDifferences,
       error,
       pageNumber,
       dataId,

@@ -26,6 +26,10 @@
   ) !important; // important is needed to over-ride any theme default color set by the used app, which can ignore lighting
 }
 
+.differenceHighlight {
+  color: #ef233c !important;
+}
+
 .mushaf-hafs {
   font-family: UthmanicHafs !important; // important is needed to over-ride the language specific font-family
 }
