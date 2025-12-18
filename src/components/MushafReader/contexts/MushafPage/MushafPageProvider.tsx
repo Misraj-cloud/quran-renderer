@@ -137,16 +137,25 @@ export const MushafPageProvider = ({
     differencesAbortRef.current = ctl;
 
     try {
-      const resp = await fetchNarrationDifferences(
-        pageNumber,
-        showNarrationDifferences.sourceEditionIdentifier,
-        showNarrationDifferences.targetEditionIdentifier,
-        ctl.signal,
-      );
+      const [resp, respNext] = await Promise.all([
+        fetchNarrationDifferences(
+          pageNumber,
+          showNarrationDifferences.sourceEditionIdentifier,
+          showNarrationDifferences.targetEditionIdentifier,
+          ctl.signal,
+        ),
+        isTwoPagesView &&
+          fetchNarrationDifferences(
+            pageNumber + 1,
+            showNarrationDifferences.sourceEditionIdentifier,
+            showNarrationDifferences.targetEditionIdentifier,
+            ctl.signal,
+          ),
+      ]);
 
       console.log('response', resp);
 
-      setNarrationDifferences(resp.data);
+      setNarrationDifferences([...resp.data, ...(respNext && respNext.data ? respNext.data : [])]);
     } catch (err) {
       if ((err as any)?.name === 'AbortError') return;
       setNarrationDifferences(null);

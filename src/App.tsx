@@ -10,7 +10,7 @@ const App: React.FC = () => {
   return (
     <MushafReaderProvider
       hasBorder
-      pageNumber={106}
+      pageNumber={110}
       dataId={DATA_ID}
       themeProps={{
         borderColor: 'blue',
@@ -23,6 +23,7 @@ const App: React.FC = () => {
         targetEditionIdentifier: 'quran-hafs',
       }}
       initialFontScale={3}
+      initialIsTwoPagesView
       styleOverride={{
         MushafReader: {
           twoPagesRow: {
