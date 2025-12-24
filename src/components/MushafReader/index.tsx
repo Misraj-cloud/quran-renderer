@@ -14,7 +14,7 @@ const Mushaf = ({ onWordClick, onWordHover }: MushafPageProps) => {
   const { ayat, nextPageAyat, pageNumber } = useMushafContext();
   const { styleOverride } = useThemeContext();
 
-  const { isTwoPagesView } = useMushafContext();
+  const { initialIsTwoPagesView } = useMushafContext();
   const currentPage = Number(pageNumber);
 
   return (
@@ -22,7 +22,7 @@ const Mushaf = ({ onWordClick, onWordHover }: MushafPageProps) => {
       className={classNames(readingViewStyles.container)}
       style={styleOverride?.ReadingView?.container}
     >
-      {isTwoPagesView && nextPageAyat ? (
+      {initialIsTwoPagesView && nextPageAyat ? (
         <div
           className={classNames(styles.twoPagesRow)}
           style={styleOverride?.MushafReader?.twoPagesRow}

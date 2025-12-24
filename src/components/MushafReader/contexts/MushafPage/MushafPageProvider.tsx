@@ -29,7 +29,7 @@ type MushafPageState = {
   pageNumber: number;
   dataId: DataId;
   hasBorder: boolean;
-  isTwoPagesView: boolean;
+  initialIsTwoPagesView: boolean;
 };
 
 type MushafPageActions = {
@@ -70,7 +70,6 @@ export const MushafPageProvider = ({
   initialIsTwoPagesView = false,
   showNarrationDifferences = null,
 }: MushafPageProviderProps) => {
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
   const [selectedVerse, setSelectedVerse] = useState<Ayah | null>(null);
   const [ayat, setAyat] = useState<IVersesListDto | null>(null);
@@ -83,8 +82,6 @@ export const MushafPageProvider = ({
   const abortRef = useRef<AbortController | null>(null);
   const differencesAbortRef = useRef<AbortController | null>(null);
 
-  const isTwoPagesView = isDesktop && initialIsTwoPagesView;
-
   const load = useCallback(async () => {
     abortRef.current?.abort();
     const ctl = new AbortController();
@@ -95,13 +92,13 @@ export const MushafPageProvider = ({
 
     try {
       const currPagePromise = fetchVerses(pageNumber, dataId, ctl.signal);
-      const nextPagePromise = isTwoPagesView
+      const nextPagePromise = initialIsTwoPagesView
         ? fetchVerses(pageNumber + 1, dataId, ctl.signal)
         : Promise.resolve(undefined);
 
       const resp = await currPagePromise;
       let respNext: any | undefined;
-      if (isTwoPagesView) {
+      if (initialIsTwoPagesView) {
         try {
           respNext = await nextPagePromise;
         } catch {
@@ -120,7 +117,7 @@ export const MushafPageProvider = ({
       setNextPageAyat(null);
     } finally {
     }
-  }, [pageNumber, dataId, isTwoPagesView]);
+  }, [pageNumber, dataId, initialIsTwoPagesView]);
 
   const loadDifferences = useCallback(async () => {
     if (
@@ -144,7 +141,7 @@ export const MushafPageProvider = ({
           showNarrationDifferences.targetEditionIdentifier,
           ctl.signal,
         ),
-        isTwoPagesView &&
+        initialIsTwoPagesView &&
           fetchNarrationDifferences(
             pageNumber + 1,
             showNarrationDifferences.sourceEditionIdentifier,
@@ -191,7 +188,7 @@ export const MushafPageProvider = ({
       pageNumber,
       dataId,
       hasBorder,
-      isTwoPagesView,
+      initialIsTwoPagesView,
     }),
     [
       fontScale,
@@ -203,7 +200,7 @@ export const MushafPageProvider = ({
       pageNumber,
       dataId,
       hasBorder,
-      isTwoPagesView,
+      initialIsTwoPagesView,
     ],
   );
 
