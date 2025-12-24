@@ -1,4 +1,3 @@
-import useMediaQuery from '@/hooks/use-media-query';
 import React, {
   createContext,
   useCallback,
@@ -8,12 +7,12 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import type { Ayah, IVersesListDto } from 'src/types/verses';
-import { fetchNarrationDifferences } from './helpers/fetch-differences';
 import { NarrationDifference } from 'src/types/differences';
-import type { DataId } from './MushafPage.types';
-import { fetchVerses } from './helpers/fetch-verses';
+import type { Ayah, IVersesListDto } from 'src/types/verses';
 import { ThemeProviderProps } from '../Theme/type';
+import type { DataId } from './MushafPage.types';
+import { fetchNarrationDifferences } from './helpers/fetch-differences';
+import { fetchVerses } from './helpers/fetch-verses';
 
 type NarrationDifferences = NarrationDifference[];
 
