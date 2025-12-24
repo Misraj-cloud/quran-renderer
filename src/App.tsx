@@ -5,12 +5,12 @@ import { narrationIdentifierFromReciterId } from './utils/narration-name';
 const MushafPageConsumer: React.FC = () => <Mushaf />;
 
 const App: React.FC = () => {
-  const DATA_ID: DataId = 'ar.sufi.shoba';
+  const DATA_ID: DataId = 'quran-shoba';
 
   return (
     <MushafReaderProvider
       hasBorder
-      pageNumber={110}
+      pageNumber={305}
       dataId={DATA_ID}
       themeProps={{
         borderColor: 'blue',
