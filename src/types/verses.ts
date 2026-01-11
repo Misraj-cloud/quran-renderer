@@ -52,6 +52,7 @@ export interface Word {
   char_type_name: string;
   position: number;
   line_number: number;
+  line_number_qpc_uthmani: number;
   verse_key: string;
   location: string;
   page_number: number;

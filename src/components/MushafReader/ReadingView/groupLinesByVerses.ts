@@ -25,7 +25,10 @@ const groupLinesByVerses = (verses: Ayah[]): Record<string, Word[]> => {
   });
 
   // Groups the words based on their (page and) line number
-  const lines = groupBy(words, (word: Word) => `Page${word.page_number}-Line${word.line_number}`);
+  const lines = groupBy(
+    words,
+    (word: Word) => `Page${word.page_number}-Line${word.line_number_qpc_uthmani}`,
+  );
 
   return lines;
 };
