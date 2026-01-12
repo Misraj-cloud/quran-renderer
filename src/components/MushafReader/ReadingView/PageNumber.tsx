@@ -19,7 +19,8 @@ const PageNumber = ({ value, borderColor }: Props) => {
 
   return (
     <div
-      className={classNames(styles.pageNumberContainer, styleOverride.Page?.pageNumberContainer)}
+      className={classNames(styles.pageNumberContainer)}
+      style={{ ...styleOverride.Page?.pageNumberContainer }}
     >
       <img src={pageNumberBorder[borderColor || 'green']} />
       <p className={styles.pageNumber} style={styleOverride?.Page?.pageNumber}>
