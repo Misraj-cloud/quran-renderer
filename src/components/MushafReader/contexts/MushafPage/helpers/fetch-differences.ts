@@ -1,5 +1,6 @@
 import { HOST_API } from 'src/config-global';
 import type { INarrationsDifferencesDto } from 'src/types/differences';
+import { HostApiEnvironment } from '../MushafPageProvider';
 
 type DifferencesPathBuilder = (
   page: number,
@@ -18,19 +19,26 @@ const differencesUrl = (
   pageNumber: number,
   sourceEditionIdentifier: string,
   marginEditionIdentifier: string,
+  hostApiEnvironment: HostApiEnvironment,
 ) => {
   const path = defaultDifferencesPath(pageNumber, sourceEditionIdentifier, marginEditionIdentifier);
-  return new URL(path, HOST_API).toString();
+  return new URL(path, HOST_API[hostApiEnvironment]).toString();
 };
 
 export const fetchNarrationDifferences = async (
   pageNumber: number,
   sourceEditionIdentifier: string,
   marginEditionIdentifier: string,
+  hostApiEnvironment: HostApiEnvironment,
   signal?: AbortSignal,
 ) => {
   const res = await fetch(
-    differencesUrl(pageNumber, sourceEditionIdentifier, marginEditionIdentifier),
+    differencesUrl(
+      pageNumber,
+      sourceEditionIdentifier,
+      marginEditionIdentifier,
+      hostApiEnvironment,
+    ),
     {
       cache: 'default',
       signal,

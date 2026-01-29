@@ -39,9 +39,12 @@ type MushafPageActions = {
   refresh: () => void;
 };
 
+export type HostApiEnvironment = 'production' | 'staging';
+
 export type MushafPageProviderProps = {
   children: React.ReactNode;
   dataId: DataId;
+  hostApiEnvironment?: HostApiEnvironment;
   pageNumber: number;
   initialFontScale?: number;
   hasBorder?: boolean;
@@ -68,6 +71,7 @@ export const MushafPageProvider = ({
   hasBorder = true,
   initialIsTwoPagesView = false,
   showNarrationDifferences = null,
+  hostApiEnvironment = 'production',
 }: MushafPageProviderProps) => {
   const [fontScale, _setFontScale] = useState<number>(initialFontScale);
   const [selectedVerse, setSelectedVerse] = useState<Ayah | null>(null);
@@ -90,9 +94,9 @@ export const MushafPageProvider = ({
     setNarrationDifferences(null);
 
     try {
-      const currPagePromise = fetchVerses(pageNumber, dataId, ctl.signal);
+      const currPagePromise = fetchVerses(pageNumber, dataId, hostApiEnvironment, ctl.signal);
       const nextPagePromise = initialIsTwoPagesView
-        ? fetchVerses(pageNumber + 1, dataId, ctl.signal)
+        ? fetchVerses(pageNumber + 1, dataId, hostApiEnvironment, ctl.signal)
         : Promise.resolve(undefined);
 
       const resp = await currPagePromise;
@@ -138,6 +142,7 @@ export const MushafPageProvider = ({
           pageNumber,
           showNarrationDifferences.sourceEditionIdentifier,
           showNarrationDifferences.targetEditionIdentifier,
+          hostApiEnvironment,
           ctl.signal,
         ),
         initialIsTwoPagesView &&
@@ -145,11 +150,10 @@ export const MushafPageProvider = ({
             pageNumber + 1,
             showNarrationDifferences.sourceEditionIdentifier,
             showNarrationDifferences.targetEditionIdentifier,
+            hostApiEnvironment,
             ctl.signal,
           ),
       ]);
-
-      console.log('response', resp);
 
       setNarrationDifferences([...resp.data, ...(respNext && respNext.data ? respNext.data : [])]);
     } catch (err) {
