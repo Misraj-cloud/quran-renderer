@@ -18,12 +18,6 @@ export const ThemeProvider = ({
   styleOverride = {},
 }: ThemeProviderProps) => {
   useEffect(() => {
-    if (themeProps.borderColor) {
-      document.documentElement.style.setProperty(
-        '--word-highlight-color',
-        borderColorsValue[themeProps.borderColor],
-      );
-    }
     if (themeProps.wordHighlightColor) {
       document.documentElement.style.setProperty(
         '--word-highlight-color',

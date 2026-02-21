@@ -14,14 +14,14 @@
 
 .highlightOnHover {
   &:hover {
-    color: var(
+    background-color: var(
       --word-highlight-color
     ) !important; // important is needed to over-ride any theme default color set by the used app, which can ignore lighting on hover
   }
 }
 
 .highlighted {
-  color: var(
+  background-color: var(
     --word-highlight-color
   ) !important; // important is needed to over-ride any theme default color set by the used app, which can ignore lighting
 }

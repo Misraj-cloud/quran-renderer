@@ -15,6 +15,7 @@ const App: React.FC = () => {
       dataId={DATA_ID}
       themeProps={{
         borderColor: 'blue',
+        wordHighlightColor: '#D0F7E9',
       }}
       showNarrationDifferences={{
         sourceEditionIdentifier: narrationIdentifierFromReciterId(DATA_ID).replace(
