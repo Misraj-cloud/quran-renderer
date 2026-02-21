@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect } from 'react';
-import { borderColorsValue } from 'src/types/border-color';
 import { ThemeProviderProps, ThemeState } from './type';
 
 const ThemeContext = createContext<ThemeState | undefined>(undefined);
