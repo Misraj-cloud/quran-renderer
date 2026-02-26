@@ -21,10 +21,9 @@ const IconContainer: React.FC<Props> = ({ chapterId, hasSurahPrefix = true }) =>
 
   return (
     <span
-      className={classNames(styles.iconContainer, styles.iconContainerLarge, {
-        [styles.border]: hasBorder,
-        [styles.blueBorder]: hasBorder && borderColor === 'blue',
-        [styles.sepiaBorder]: hasBorder && borderColor === 'sepia',
+      className={classNames(styles.iconContainer, styles.iconContainerLarge, styles.border, {
+        [styles.blueBorder]: borderColor === 'blue',
+        [styles.sepiaBorder]: borderColor === 'sepia',
       })}
       style={{ ...styleOverride?.ChapterIconContainer?.iconContainer }} // to inherit the text color from the parent element
     >

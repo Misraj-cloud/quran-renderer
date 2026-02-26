@@ -9,7 +9,7 @@ const App: React.FC = () => {
 
   return (
     <MushafReaderProvider
-      hasBorder
+      hasBorder={false}
       hostApiEnvironment="staging"
       pageNumber={305}
       dataId={DATA_ID}
