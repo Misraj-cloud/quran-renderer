@@ -7,6 +7,7 @@ type ThemeProps = {
   wordHighlightColor?: string;
   chapterHeaderFontSize?: string;
   primaryFontColor?: string;
+  fontSize?: string;
 };
 
 // helpers (optional but tidy)

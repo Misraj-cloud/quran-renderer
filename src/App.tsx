@@ -25,7 +25,7 @@ const App: React.FC = () => {
         targetEditionIdentifier: 'quran-hafs',
       }}
       initialFontScale={3}
-      initialIsTwoPagesView
+      initialIsTwoPagesView={false}
       styleOverride={{
         MushafReader: {
           twoPagesRow: {

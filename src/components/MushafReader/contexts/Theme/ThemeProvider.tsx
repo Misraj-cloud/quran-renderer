@@ -35,6 +35,9 @@ export const ThemeProvider = ({
         themeProps.primaryFontColor,
       );
     }
+    if (themeProps.fontSize) {
+      document.documentElement.style.setProperty('--font-size', themeProps.fontSize);
+    }
   }, [themeProps]);
 
   const value = {
