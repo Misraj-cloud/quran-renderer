@@ -1,21 +1,33 @@
 import React from 'react';
-import { DataId, Mushaf, MushafReaderProvider } from './index';
+import { DataId, Mushaf, MushafReaderProvider, useMushafContext } from './index';
 import { narrationIdentifierFromReciterId } from './utils/narration-name';
+import Word from './types/Word';
 
-const MushafPageConsumer: React.FC = () => <Mushaf />;
+const MushafPageConsumer: React.FC = () => {
+  const { setSelectedVerse } = useMushafContext();
+
+  const handleWordClick = (word: Word) => {
+    // select the verse the word belongs to
+    setSelectedVerse(word.verse);
+  };
+
+  return <Mushaf onWordClick={handleWordClick} />;
+};
 
 const App: React.FC = () => {
   const DATA_ID: DataId = 'quran-shoba';
 
   return (
     <MushafReaderProvider
-      hasBorder={false}
+      hasBorder
+      initialIsTwoPagesView
       hostApiEnvironment="staging"
-      pageNumber={305}
+      pageNumber={1}
       dataId={DATA_ID}
       themeProps={{
         borderColor: 'blue',
         wordHighlightColor: '#D0F7E9',
+        fontSize: '14px',
       }}
       showNarrationDifferences={{
         sourceEditionIdentifier: narrationIdentifierFromReciterId(DATA_ID).replace(
@@ -25,7 +37,6 @@ const App: React.FC = () => {
         targetEditionIdentifier: 'quran-hafs',
       }}
       initialFontScale={3}
-      initialIsTwoPagesView={false}
       styleOverride={{
         MushafReader: {
           twoPagesRow: {
