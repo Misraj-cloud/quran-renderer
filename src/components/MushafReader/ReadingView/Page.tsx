@@ -90,11 +90,11 @@ const Page = ({
           </>
         )}
         <div
-          className={classNames(styleOverride?.Page?.bottomBorder, {
-            [styles.bottomBorder]: hasBorder && isFirstTwoPages,
-            [styles.blueBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'blue',
-            [styles.sepiaBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'sepia',
-          })}
+          // className={classNames(styleOverride?.Page?.bottomBorder, {
+          //   [styles.bottomBorder]: hasBorder && isFirstTwoPages,
+          //   [styles.blueBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'blue',
+          //   [styles.sepiaBottomBorder]: hasBorder && isFirstTwoPages && borderColor === 'sepia',
+          // })}
           style={{ width: '100%' }}
         >
           {isFirstTwoPages && <ChapterHeader chapterId={`${pageNumber}`} pageNumber={pageNumber} />}
