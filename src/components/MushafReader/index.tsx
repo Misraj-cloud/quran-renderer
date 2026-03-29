@@ -11,7 +11,7 @@ import { useThemeContext } from './contexts/Theme/ThemeProvider';
 import Page from './ReadingView/Page';
 
 const Mushaf = ({ onWordClick, onWordHover }: MushafPageProps) => {
-  const { ayat, nextPageAyat, pageNumber, setSelectedVerse } = useMushafContext();
+  const { ayat, nextPageAyat, pageNumber } = useMushafContext();
   const { styleOverride } = useThemeContext();
 
   const { initialIsTwoPagesView } = useMushafContext();
