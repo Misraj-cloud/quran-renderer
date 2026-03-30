@@ -2,6 +2,15 @@ import React from 'react';
 import mushafWordStyles from 'src/components/dls/MushafWord/MushafWord.module.scss';
 import { BorderColor } from 'src/types/border-color';
 
+const extractTextContent = (children: React.ReactNode): string =>
+  React.Children.toArray(children)
+    .filter(
+      (child): child is string | number =>
+        typeof child === 'string' || typeof child === 'number',
+    )
+    .join('')
+    .trim();
+
 const PageMetaDataContainer = ({
   className,
   children,
@@ -18,6 +27,11 @@ const PageMetaDataContainer = ({
     blue: '#2A5D73',
     sepia: '#A97C50',
   };
+  const label = extractTextContent(children);
+  const wordCount = label ? label.split(/\s+/).length : 0;
+  const isLongLabel = wordCount >= 3 || label.length > 16;
+  const fontSize = isLongLabel ? 13 : 16;
+  const textLength = isLongLabel ? 88 : undefined;
 
   return (
     <svg
@@ -212,15 +226,23 @@ const PageMetaDataContainer = ({
         y="50%" // vertical center
         textAnchor="middle" // center align text horizontally
         dominantBaseline="middle" // center align vertically
-        fontSize="16"
+        fontSize={fontSize}
         fontWeight="500"
         fontFamily="UthmanicHafs"
+        lengthAdjust={textLength ? 'spacingAndGlyphs' : undefined}
+        textLength={textLength}
         className={mushafWordStyles.filled}
       >
         {children}
       </text>
     </svg>
   );
+};
+
+PageMetaDataContainer.defaultProps = {
+  className: undefined,
+  borderColor: undefined,
+  style: undefined,
 };
 
 export default PageMetaDataContainer;
