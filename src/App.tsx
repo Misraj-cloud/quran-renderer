@@ -22,7 +22,7 @@ const App: React.FC = () => {
       hasBorder
       initialIsTwoPagesView
       hostApiEnvironment="staging"
-      pageNumber={1}
+      pageNumber={500}
       dataId={DATA_ID}
       themeProps={{
         borderColor: 'blue',
