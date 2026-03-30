@@ -8,14 +8,19 @@ import Bismillah from 'src/components/dls/Bismillah/Bismillah';
 interface Props {
   chapterId: string;
   pageNumber: number;
+  firstAyahText?: string;
 }
 
 // In surah al baqarah, basmalah should be rendered in side the border and the chapter header should be rendered outside it
 // so, basmalah will not be rendered here, it will be rendered in @Page.tsx
 const CHAPTERS_WITHOUT_BISMILLAH = ['1', '2', '9'];
+const BISMILLAH_TEXT = 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ';
 
-const ChapterHeader: React.FC<Props> = ({ chapterId, pageNumber }) => {
+const ChapterHeader: React.FC<Props> = ({ chapterId, pageNumber, firstAyahText }) => {
   const headerRef = useRef(null);
+  const shouldShowBismillah =
+    !CHAPTERS_WITHOUT_BISMILLAH.includes(chapterId) ||
+    (chapterId === '1' && !firstAyahText?.includes(BISMILLAH_TEXT));
 
   return (
     <div
@@ -27,9 +32,7 @@ const ChapterHeader: React.FC<Props> = ({ chapterId, pageNumber }) => {
       <div className={styles.header}>
         <ChapterIconContainer chapterId={chapterId} />
       </div>
-      <div className={styles.bismillahContainer}>
-        {!CHAPTERS_WITHOUT_BISMILLAH.includes(chapterId) && <Bismillah />}
-      </div>
+      <div className={styles.bismillahContainer}>{shouldShowBismillah && <Bismillah />}</div>
     </div>
   );
 };

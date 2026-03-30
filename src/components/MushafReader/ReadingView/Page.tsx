@@ -38,6 +38,7 @@ const Page = ({
   const { fontScale, hasBorder } = useMushafContext();
   const { themeProps, styleOverride } = useThemeContext();
   const { borderColor } = themeProps;
+  console.log('Verses', verses);
   const lines = useMemo(
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
     [verses],
@@ -97,7 +98,13 @@ const Page = ({
           // })}
           style={{ width: '100%' }}
         >
-          {isFirstTwoPages && <ChapterHeader chapterId={`${pageNumber}`} pageNumber={pageNumber} />}
+          {isFirstTwoPages && (
+            <ChapterHeader
+              chapterId={`${pageNumber}`}
+              pageNumber={pageNumber}
+              firstAyahText={firstAyah?.text}
+            />
+          )}
           <div
             className={classNames(styleOverride?.Page?.firstTwoPagesBorder, {
               [styles.firstTwoPagesBorder]: hasBorder && isFirstTwoPages,

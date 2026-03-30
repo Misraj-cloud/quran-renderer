@@ -56,7 +56,11 @@ const Line = ({
           rendered in a way different from this
       */}
       {shouldShowChapterHeader && !isFirstTwoPages && (
-        <ChapterHeader chapterId={firstWordData[0]} pageNumber={words[0].page_number || 0} />
+        <ChapterHeader
+          chapterId={firstWordData[0]}
+          pageNumber={words[0].page_number || 0}
+          firstAyahText={words[0].verse?.text}
+        />
       )}
       <div
         className={classNames(styles.line, {
