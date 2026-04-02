@@ -25,7 +25,6 @@ const MushafWord = ({ word, onWordClick, onWordHover }: MushafWordProps) => {
   const wordLocation = makeWordLocation(word.verse_key, word.position);
   const wordText = <span className={styles.UthmanicHafs}>{word.text}</span>;
 
-  console.log('Selected Verse', selectedVerse);
   const shouldBeHighLighted = selectedVerse?.number === word.verse?.number;
 
   const differencesMap = useMemo(() => {

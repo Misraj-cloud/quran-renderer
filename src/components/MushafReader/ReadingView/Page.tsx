@@ -38,7 +38,6 @@ const Page = ({
   const { fontScale, hasBorder } = useMushafContext();
   const { themeProps, styleOverride } = useThemeContext();
   const { borderColor } = themeProps;
-  console.log('Verses', verses);
   const lines = useMemo(
     () => (verses && verses.length ? groupLinesByVerses(verses) : {}),
     [verses],
