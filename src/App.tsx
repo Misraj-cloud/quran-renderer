@@ -15,14 +15,14 @@ const MushafPageConsumer: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const DATA_ID: DataId = 'quran-shoba';
+  const DATA_ID: DataId = 'quran-hafs';
 
   return (
     <MushafReaderProvider
       hasBorder
       initialIsTwoPagesView
       hostApiEnvironment="staging"
-      pageNumber={500}
+      pageNumber={598}
       dataId={DATA_ID}
       themeProps={{
         borderColor: 'blue',

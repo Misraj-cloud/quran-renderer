@@ -11,6 +11,7 @@ const versesUrl = (
   // Prefer URL for safety; avoids accidental double slashes
   const url = new URL(`v1/page/${Number(pageNumber)}/${identifier}`, HOST_API[hostApiEnvironment]);
   url.searchParams.set('words', 'true');
+  // url.searchParams.set('layoutCode', 'qpc-hafs-15-lines');
   return url.toString();
 };
 
