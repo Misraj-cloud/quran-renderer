@@ -1,6 +1,12 @@
 const ChapterIconContainer = ['iconContainer'] as const;
 
-const MushafWord = ['colored', 'filled', 'highlightOnHover', 'highlighted', 'differenceHighlight'] as const;
+const MushafWord = [
+  'colored',
+  'filled',
+  'highlightOnHover',
+  'highlighted',
+  'differenceHighlight',
+] as const;
 
 const ReadingView = ['container'] as const;
 
@@ -24,7 +30,7 @@ const Page = [
 
 const MushafReader = ['twoPagesRow'] as const;
 
-const VerseText = ['highlighted'] as const;
+const VerseText = ['highlighted', 'container'] as const;
 
 const classnames = {
   ChapterIconContainer,

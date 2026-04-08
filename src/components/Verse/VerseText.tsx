@@ -59,7 +59,7 @@ const VerseText = ({
           [styles.highlighted]: isHighlighted,
           [styles[fontClassName]]: true,
         })}
-        style={styleOverride?.VerseText?.highlighted}
+        style={{ ...styleOverride?.VerseText?.highlighted, ...styleOverride?.VerseText?.container }}
       >
         <div
           translate="no"

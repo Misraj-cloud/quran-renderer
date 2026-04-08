@@ -43,6 +43,11 @@ const App: React.FC = () => {
             gap: 0,
           },
         },
+        VerseText: {
+          container: {
+            width: 375,
+          },
+        },
       }}
     >
       <MushafPageConsumer />
