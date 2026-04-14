@@ -4,7 +4,8 @@ import React, { useMemo } from 'react';
 import isCenterAlignedPage from './pageUtils';
 import styles from './VerseText.module.scss';
 
-import Word from '@/types/Word';
+import type Word from '@/types/Word';
+import { buildNarrationDifferencesMap } from '@/core/shaping';
 import { getFirstWordOfSurah } from '@/utils/verse';
 import { FALLBACK_FONT, MushafLines } from 'src/types/MushafReader';
 import { getFontClassName } from 'src/utils/fontFaceHelper';
@@ -27,8 +28,8 @@ const VerseText = ({
   onWordClick,
   onWordHover,
 }: VerseTextProps) => {
-  const { fontScale } = useMushafContext();
-  const { styleOverride } = useThemeContext();
+  const { fontScale, selectedVerse, narrationDifferences } = useMushafContext();
+  const { classNames: slotClassNames, styles: slotStyles, renderers } = useThemeContext();
   const [firstWord] = words;
   const {
     line_number: lineNumber,
@@ -43,45 +44,63 @@ const VerseText = ({
   );
   const firstWordData = getFirstWordOfSurah(location);
   const isBigTextLayout = fontScale > 3;
-
   const { chapterId } = firstWordData;
-
   const VerseTextContainer = shouldShowH1ForSEO ? 'h1' : 'div';
   const fontClassName = getFontClassName(FALLBACK_FONT, fontScale, MushafLines.FifteenLines, true);
+  const differencesMap = useMemo(
+    () => buildNarrationDifferencesMap(narrationDifferences),
+    [narrationDifferences],
+  );
+
   return (
-    <>
-      <VerseTextContainer
-        data-verse-key={verseKey}
-        data-page={pageNumber}
-        data-chapter-id={chapterId}
-        className={classNames(styles.verseTextContainer, {
+    <VerseTextContainer
+      data-verse-key={verseKey}
+      data-page={pageNumber}
+      data-chapter-id={chapterId}
+      className={classNames(
+        styles.verseTextContainer,
+        slotClassNames.verseText,
+        {
           [styles.largeMushafTextLayoutContainer]: isBigTextLayout,
           [styles.highlighted]: isHighlighted,
           [styles[fontClassName]]: true,
+        },
+      )}
+      style={{
+        ...slotStyles.verseText,
+      }}
+    >
+      <div
+        translate="no"
+        className={classNames(styles.verseText, {
+          [styles.largeMushafTextLayout]: isBigTextLayout,
+          [styles.verseTextCenterAlign]: centerAlignPage,
+          [styles.verseTextSpaceBetween]: !centerAlignPage,
+          [styles.verseTextWidth]: ![1, 2].includes(pageNumber),
+          [styles.verseTextFirstTwoPagesWidth]: [1, 2].includes(pageNumber),
         })}
-        style={{ ...styleOverride?.VerseText?.highlighted, ...styleOverride?.VerseText?.container }}
       >
-        <div
-          translate="no"
-          className={classNames(styles.verseText, {
-            [styles.largeMushafTextLayout]: isBigTextLayout,
-            [styles.verseTextCenterAlign]: centerAlignPage,
-            [styles.verseTextSpaceBetween]: !centerAlignPage,
-            [styles.verseTextWidth]: ![1, 2].includes(pageNumber),
-            [styles.verseTextFirstTwoPagesWidth]: [1, 2].includes(pageNumber),
-          })}
-        >
-          {words?.map((word) => (
+        {words.map((word) => {
+          const defaultNode = (
             <MushafWord
               key={word.location}
               word={word}
               onWordClick={onWordClick}
               onWordHover={onWordHover}
             />
-          ))}
-        </div>
-      </VerseTextContainer>
-    </>
+          );
+
+          return renderers.renderWord
+            ? renderers.renderWord({
+                word,
+                isSelected: selectedVerse?.number === word.verse?.number,
+                isDifference: Boolean(differencesMap?.has(word.location)),
+                defaultNode,
+              })
+            : defaultNode;
+        })}
+      </div>
+    </VerseTextContainer>
   );
 };
 

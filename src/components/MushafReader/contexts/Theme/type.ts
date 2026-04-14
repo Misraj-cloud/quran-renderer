@@ -1,32 +1,27 @@
 import React from 'react';
-import classnames from 'src/classnames';
-import { BorderColor } from 'src/types/border-color';
 
-type ThemeProps = {
-  borderColor?: BorderColor;
-  wordHighlightColor?: string;
-  chapterHeaderFontSize?: string;
-  primaryFontColor?: string;
-  fontSize?: string;
-};
-
-// helpers (optional but tidy)
-type ClassnameGroups = typeof classnames;
-type GroupName = keyof ClassnameGroups;
-type GroupKey<K extends GroupName> = ClassnameGroups[K][number];
-
-// new StyleOverride
-export type StyleOverride = {
-  [K in GroupName]?: Partial<Record<GroupKey<K>, React.CSSProperties>>;
-};
+import type {
+  MushafClassNames,
+  MushafRenderers,
+  MushafSlotProps,
+  MushafStyles,
+  MushafTheme,
+} from '@/core/types';
 
 export type ThemeState = {
-  themeProps: ThemeProps;
-  styleOverride: StyleOverride;
+  theme: MushafTheme;
+  classNames: MushafClassNames;
+  styles: MushafStyles;
+  slotProps: MushafSlotProps;
+  renderers: MushafRenderers;
+  rootStyle: React.CSSProperties;
 };
 
 export type ThemeProviderProps = {
   children: React.ReactNode;
-  themeProps?: ThemeProps;
-  styleOverride?: StyleOverride;
+  theme?: MushafTheme;
+  classNames?: MushafClassNames;
+  styles?: MushafStyles;
+  slotProps?: MushafSlotProps;
+  renderers?: MushafRenderers;
 };

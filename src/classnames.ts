@@ -32,6 +32,21 @@ const MushafReader = ['twoPagesRow'] as const;
 
 const VerseText = ['highlighted', 'container'] as const;
 
+export const mushafSlots = [
+  'root',
+  'twoPageLayout',
+  'page',
+  'pageBorder',
+  'pageMeta',
+  'pageNumber',
+  'line',
+  'verseText',
+  'word',
+  'wordHighlighted',
+  'chapterHeader',
+  'chapterIcon',
+] as const;
+
 const classnames = {
   ChapterIconContainer,
   MushafWord,

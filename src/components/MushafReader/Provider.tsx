@@ -1,26 +1,36 @@
+import type { MushafClassNames, MushafRenderers, MushafSlotProps, MushafStyles, MushafTheme } from '@/core';
 import {
   MushafPageProvider,
-  MushafPageProviderProps,
+  type MushafPageProviderProps,
 } from './contexts/MushafPage/MushafPageProvider';
 import { ThemeProvider } from './contexts/Theme/ThemeProvider';
-import { ThemeProviderProps } from './contexts/Theme/type';
 
-type MushafReaderProviderProps = MushafPageProviderProps & {
-  themeProps?: ThemeProviderProps['themeProps'];
-  styleOverride?: ThemeProviderProps['styleOverride'];
+export type MushafReaderProviderProps = MushafPageProviderProps & {
+  theme?: MushafTheme;
+  classNames?: MushafClassNames;
+  styles?: MushafStyles;
+  slotProps?: MushafSlotProps;
+  renderers?: MushafRenderers;
 };
 
 const MushafReaderProvider = ({
   children,
-  themeProps,
-  styleOverride,
+  theme,
+  classNames,
+  styles,
+  slotProps,
+  renderers,
   ...props
-}: MushafReaderProviderProps) => {
-  return (
-    <ThemeProvider themeProps={themeProps} styleOverride={styleOverride}>
-      <MushafPageProvider {...props}>{children}</MushafPageProvider>
-    </ThemeProvider>
-  );
-};
+}: MushafReaderProviderProps) => (
+  <ThemeProvider
+    theme={theme}
+    classNames={classNames}
+    styles={styles}
+    slotProps={slotProps}
+    renderers={renderers}
+  >
+    <MushafPageProvider {...props}>{children}</MushafPageProvider>
+  </ThemeProvider>
+);
 
 export default MushafReaderProvider;

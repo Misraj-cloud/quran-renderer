@@ -11,21 +11,33 @@ import { useThemeContext } from './contexts/Theme/ThemeProvider';
 import Page from './ReadingView/Page';
 
 const Mushaf = ({ onWordClick, onWordHover }: MushafPageProps) => {
-  const { ayat, nextPageAyat, pageNumber } = useMushafContext();
-  const { styleOverride } = useThemeContext();
+  const { ayat, nextPageAyat, pageNumber, isTwoPagesView } = useMushafContext();
+  const { rootStyle, slotProps, classNames: slotClassNames, styles: slotStyles } =
+    useThemeContext();
 
-  const { initialIsTwoPagesView } = useMushafContext();
   const currentPage = Number(pageNumber);
 
   return (
     <div
-      className={classNames(readingViewStyles.container)}
-      style={styleOverride?.ReadingView?.container}
+      {...slotProps.root}
+      className={classNames(
+        'misraj-mushaf-root',
+        readingViewStyles.container,
+        slotClassNames.root,
+        slotProps.root?.className,
+      )}
+      style={{
+        ...rootStyle,
+        ...slotStyles.root,
+        ...slotProps.root?.style,
+      }}
     >
-      {initialIsTwoPagesView && nextPageAyat ? (
+      {isTwoPagesView && nextPageAyat ? (
         <div
-          className={classNames(styles.twoPagesRow)}
-          style={styleOverride?.MushafReader?.twoPagesRow}
+          className={classNames(styles.twoPagesRow, slotClassNames.twoPageLayout)}
+          style={{
+            ...slotStyles.twoPageLayout,
+          }}
         >
           <Page
             verses={ayat?.data.ayahs || []}
@@ -34,7 +46,6 @@ const Mushaf = ({ onWordClick, onWordHover }: MushafPageProps) => {
             pageIndex={currentPage}
             onWordClick={onWordClick}
             onWordHover={onWordHover}
-            pageStyleOverride={styleOverride?.firstPage}
           />
           <Page
             verses={nextPageAyat.data.ayahs || []}
@@ -43,7 +54,6 @@ const Mushaf = ({ onWordClick, onWordHover }: MushafPageProps) => {
             pageIndex={currentPage + 1}
             onWordClick={onWordClick}
             onWordHover={onWordHover}
-            pageStyleOverride={styleOverride?.secondPage}
           />
         </div>
       ) : (

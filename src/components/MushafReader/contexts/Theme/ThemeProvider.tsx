@@ -1,7 +1,30 @@
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useMemo } from 'react';
+
+import type { MushafTheme } from '@/core/types';
+import { borderColorsValue } from '@/types/border-color';
 import { ThemeProviderProps, ThemeState } from './type';
 
 const ThemeContext = createContext<ThemeState | undefined>(undefined);
+
+const defaultTheme: MushafTheme = {
+  borderColor: 'green',
+  wordHighlightColor: '#3E9257',
+  chapterHeaderFontSize: '2rem',
+  primaryFontColor: 'black',
+  spacingMega: '2rem',
+};
+
+const createRootStyle = (theme: MushafTheme) =>
+  ({
+    '--primary-font-color': theme.primaryFontColor ?? defaultTheme.primaryFontColor,
+    '--word-highlight-color': theme.wordHighlightColor ?? defaultTheme.wordHighlightColor,
+    '--chapter-header-font-size':
+      theme.chapterHeaderFontSize ?? defaultTheme.chapterHeaderFontSize,
+    '--font-size': theme.fontSize,
+    '--spacing-mega': theme.spacingMega ?? defaultTheme.spacingMega,
+    '--mushaf-border-color':
+      borderColorsValue[theme.borderColor ?? defaultTheme.borderColor ?? 'green'],
+  }) as React.CSSProperties;
 
 export const useThemeContext = () => {
   const context = useContext(ThemeContext);
@@ -13,37 +36,25 @@ export const useThemeContext = () => {
 
 export const ThemeProvider = ({
   children,
-  themeProps = {},
-  styleOverride = {},
+  theme,
+  classNames = {},
+  styles = {},
+  slotProps = {},
+  renderers = {},
 }: ThemeProviderProps) => {
-  useEffect(() => {
-    if (themeProps.wordHighlightColor) {
-      document.documentElement.style.setProperty(
-        '--word-highlight-color',
-        themeProps.wordHighlightColor,
-      );
-    }
-    if (themeProps.chapterHeaderFontSize) {
-      document.documentElement.style.setProperty(
-        '--chapter-header-font-size',
-        themeProps.chapterHeaderFontSize,
-      );
-    }
-    if (themeProps.primaryFontColor) {
-      document.documentElement.style.setProperty(
-        '--primary-font-color',
-        themeProps.primaryFontColor,
-      );
-    }
-    if (themeProps.fontSize) {
-      document.documentElement.style.setProperty('--font-size', themeProps.fontSize);
-    }
-  }, [themeProps]);
+  const resolvedTheme = useMemo(() => ({ ...defaultTheme, ...theme }), [theme]);
 
-  const value = {
-    themeProps,
-    styleOverride,
-  };
+  const value = useMemo<ThemeState>(
+    () => ({
+      theme: resolvedTheme,
+      classNames,
+      styles,
+      slotProps,
+      renderers,
+      rootStyle: createRootStyle(resolvedTheme),
+    }),
+    [classNames, renderers, resolvedTheme, slotProps, styles],
+  );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };

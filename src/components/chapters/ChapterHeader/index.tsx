@@ -4,6 +4,7 @@ import styles from './ChapterHeader.module.scss';
 
 import ChapterIconContainer from '@/components/chapters/ChapterIcon/ChapterIconContainer';
 import Bismillah from 'src/components/dls/Bismillah/Bismillah';
+import { useThemeContext } from 'src/components/MushafReader/contexts/Theme/ThemeProvider';
 
 interface Props {
   chapterId: string;
@@ -18,6 +19,7 @@ const BISMILLAH_TEXT = 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱ�
 
 const ChapterHeader: React.FC<Props> = ({ chapterId, pageNumber, firstAyahText }) => {
   const headerRef = useRef(null);
+  const { classNames: slotClassNames, styles: slotStyles } = useThemeContext();
   const shouldShowBismillah =
     !CHAPTERS_WITHOUT_BISMILLAH.includes(chapterId) ||
     (chapterId === '1' && !firstAyahText?.includes(BISMILLAH_TEXT));
@@ -28,6 +30,8 @@ const ChapterHeader: React.FC<Props> = ({ chapterId, pageNumber, firstAyahText }
       data-verse-key={`${chapterId}:1`}
       data-page={pageNumber}
       data-chapter-id={chapterId}
+      className={slotClassNames.chapterHeader}
+      style={slotStyles.chapterHeader}
     >
       <div className={styles.header}>
         <ChapterIconContainer chapterId={chapterId} />

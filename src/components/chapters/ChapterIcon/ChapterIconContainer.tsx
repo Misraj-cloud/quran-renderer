@@ -14,16 +14,24 @@ interface Props {
 }
 
 const IconContainer: React.FC<Props> = ({ chapterId, hasSurahPrefix = true }) => {
-  const { themeProps, styleOverride } = useThemeContext();
-  const { borderColor } = themeProps;
+  const { theme, styles: slotStyles, classNames: slotClassNames } = useThemeContext();
+  const { borderColor } = theme;
 
   return (
     <span
-      className={classNames(styles.iconContainer, styles.iconContainerLarge, styles.border, {
-        [styles.blueBorder]: borderColor === 'blue',
-        [styles.sepiaBorder]: borderColor === 'sepia',
-      })}
-      style={{ ...styleOverride?.ChapterIconContainer?.iconContainer }} // to inherit the text color from the parent element
+      className={classNames(
+        styles.iconContainer,
+        styles.iconContainerLarge,
+        styles.border,
+        slotClassNames.chapterIcon,
+        {
+          [styles.blueBorder]: borderColor === 'blue',
+          [styles.sepiaBorder]: borderColor === 'sepia',
+        },
+      )}
+      style={{
+        ...slotStyles.chapterIcon,
+      }}
     >
       <ChapterIcon id={chapterId} />
       {hasSurahPrefix && <ChapterIcon id="surah" />}

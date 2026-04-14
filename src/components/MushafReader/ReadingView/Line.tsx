@@ -6,10 +6,11 @@ import styles from './Line.module.scss';
 
 import ChapterHeader from '@/components/chapters/ChapterHeader';
 import VerseText from '@/components/Verse/VerseText';
-import Word from '@/types/Word';
+import type Word from '@/types/Word';
+import type { MushafLineRenderContext } from '@/core/types';
 import { getWordDataByLocation } from '@/utils/verse';
 import { useMushafContext } from '../contexts/MushafPage/MushafPageProvider';
-import { BorderColor } from 'src/types/border-color';
+import { useThemeContext } from '../contexts/Theme/ThemeProvider';
 
 type LineProps = {
   words: Word[];
@@ -19,7 +20,6 @@ type LineProps = {
   lineIndex: number;
   onWordClick?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
   onWordHover?: (word: Word, event: React.MouseEvent<HTMLElement>) => void;
-  borderColor?: BorderColor;
 };
 
 const Line = ({
@@ -32,35 +32,51 @@ const Line = ({
   onWordHover,
 }: LineProps) => {
   const { pageNumber } = useMushafContext();
+  const { classNames: slotClassNames, styles: slotStyles, renderers, slotProps } = useThemeContext();
+
   const firstWordData = getWordDataByLocation(words[0].location);
   const shouldShowChapterHeader = firstWordData[1] === '1' && firstWordData[2] === '1';
-
   const isFirstTwoPages = pageNumber === 1 || pageNumber === 2;
-
   const isHighlighted = false;
 
-  return (
+  const defaultNode = (
     <div
+      {...slotProps.line}
       id={lineKey}
-      className={classNames(styles.container, {
-        [styles.highlighted]: isHighlighted,
-        [styles.mobileInline]: isBigTextLayout,
-      })}
+      className={classNames(
+        styles.container,
+        slotClassNames.line,
+        slotProps.line?.className,
+        {
+          [styles.mobileInline]: isBigTextLayout,
+        },
+      )}
+      style={{
+        ...slotStyles.line,
+        ...slotProps.line?.style,
+      }}
       role="button"
       tabIndex={0}
     >
-      {/*
-       Chapter header is rendered here if the page is not from the first two page
-          this is because specific border should be rendered for the first two pages,
-          and chapter header should be rendered out of this border, so it should be 
-          rendered in a way different from this
-      */}
       {shouldShowChapterHeader && !isFirstTwoPages && (
-        <ChapterHeader
-          chapterId={firstWordData[0]}
-          pageNumber={words[0].page_number || 0}
-          firstAyahText={words[0].verse?.text}
-        />
+        renderers.renderChapterHeader ? renderers.renderChapterHeader({
+          chapterId: firstWordData[0],
+          pageNumber: words[0].page_number || 0,
+          firstAyahText: words[0].verse?.text,
+          defaultNode: (
+            <ChapterHeader
+              chapterId={firstWordData[0]}
+              pageNumber={words[0].page_number || 0}
+              firstAyahText={words[0].verse?.text}
+            />
+          ),
+        }) : (
+          <ChapterHeader
+            chapterId={firstWordData[0]}
+            pageNumber={words[0].page_number || 0}
+            firstAyahText={words[0].verse?.text}
+          />
+        )
       )}
       <div
         className={classNames(styles.line, {
@@ -77,29 +93,24 @@ const Line = ({
       </div>
     </div>
   );
+
+  if (!renderers.renderLine) {
+    return defaultNode;
+  }
+
+  const renderContext: MushafLineRenderContext = {
+    lineKey,
+    words,
+    pageIndex,
+    lineIndex,
+    defaultNode,
+  };
+
+  return renderers.renderLine(renderContext);
 };
 
-/**
- * Since we are passing words and it's an array
- * even if the same words are passed, their reference will change
- * on fetching a new page and since Memo only does shallow comparison,
- * we need to use custom comparing logic:
- *
- *  1. Check if the line keys are the same.
- *  2. Check if the number of words are the same.
- *  3. Check if isBigTextLayout values are the same.
- *  4. Check if the font changed.
- *
- * If the above conditions are met, it's safe to assume that the result
- * of both renders are the same.
- *
- * @param {LineProps} prevProps
- * @param {LineProps} nextProps
- * @returns {boolean}
- */
 const areLinesEqual = (prevProps: LineProps, nextProps: LineProps): boolean =>
   prevProps.lineKey === nextProps.lineKey &&
-  prevProps.isBigTextLayout === nextProps.isBigTextLayout &&
-  prevProps.borderColor === nextProps.borderColor;
+  prevProps.isBigTextLayout === nextProps.isBigTextLayout;
 
 export default memo(Line, areLinesEqual);

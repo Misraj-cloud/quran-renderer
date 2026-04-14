@@ -15,15 +15,17 @@ const pageNumberBorder = {
 type Props = { value: number; borderColor?: BorderColor };
 
 const PageNumber = ({ value, borderColor }: Props) => {
-  const { styleOverride } = useThemeContext();
+  const { classNames: slotClassNames, styles: slotStyles } = useThemeContext();
 
   return (
     <div
-      className={classNames(styles.pageNumberContainer)}
-      style={{ ...styleOverride.Page?.pageNumberContainer }}
+      className={classNames(styles.pageNumberContainer, slotClassNames.pageNumber)}
+      style={{
+        ...slotStyles.pageNumber,
+      }}
     >
-      <img src={pageNumberBorder[borderColor || 'green']} />
-      <p className={styles.pageNumber} style={styleOverride?.Page?.pageNumber}>
+      <img src={pageNumberBorder[borderColor || 'green']} alt="" />
+      <p className={styles.pageNumber}>
         {pageNumberToHindi(`${value}`)}
       </p>
     </div>
