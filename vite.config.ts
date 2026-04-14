@@ -25,6 +25,9 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, 'src/index.ts'),
+        core: path.resolve(__dirname, 'src/core.ts'),
+        'react-ui': path.resolve(__dirname, 'src/react-ui.tsx'),
+        'quranhub-entry': path.resolve(__dirname, 'src/adapters/quranhub-entry.ts'),
         styles: path.resolve(__dirname, 'src/styles.ts'),
       },
       name: 'misraj-mushaf-renderer',
@@ -35,6 +38,7 @@ export default defineConfig({
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: {
+        exports: 'named',
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',

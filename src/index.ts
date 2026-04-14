@@ -1,10 +1,7 @@
 import './styles/fonts.scss';
 
-export { default as Mushaf } from './components/MushafReader/index';
-export { useMushafContext } from './components/MushafReader/contexts/MushafPage/MushafPageProvider';
-export { default as MushafReaderProvider } from './components/MushafReader/Provider';
-export { default as classnames } from './classnames';
-export {
-  type DataId,
-  type MushafPageProps,
-} from './components/MushafReader/contexts/MushafPage/MushafPage.types';
+export { default as classnames, mushafSlots } from './classnames';
+export { default as MushafReader, Mushaf, MushafReaderProvider, useMushafContext } from './react-ui';
+export type { MushafPageProps } from './components/MushafReader/contexts/MushafPage/MushafPage.types';
+export * from './core';
+export { createQuranhubDataSource } from './adapters/quranhub';

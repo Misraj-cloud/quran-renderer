@@ -1,249 +1,46 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { NarrationDifference } from 'src/types/differences';
-import type { Ayah, IVersesListDto } from 'src/types/verses';
-import { ThemeProviderProps } from '../Theme/type';
-import type { DataId } from './MushafPage.types';
-import { fetchNarrationDifferences } from './helpers/fetch-differences';
-import { fetchVerses } from './helpers/fetch-verses';
+import React, { createContext, useContext } from 'react';
 
-type NarrationDifferences = NarrationDifference[];
+import { createQuranhubDataSource } from '@/adapters/quranhub';
+import {
+  type MushafReaderValue,
+  useMushafController,
+} from '@/core';
 
-/** ---------- Types ---------- */
-type MushafPageState = {
-  // state
-  fontScale: number;
-  selectedVerse: Ayah | null;
-  ayat: IVersesListDto | null;
-  nextPageAyat: IVersesListDto | null;
-  narrationDifferences: NarrationDifferences | null;
-  error: Error | null;
-  pageNumber: number;
-  dataId: DataId;
-  hasBorder: boolean;
-  initialIsTwoPagesView: boolean;
-};
+export type MushafPageProviderProps = React.PropsWithChildren<
+  Parameters<typeof useMushafController>[0] & {
+    value?: MushafReaderValue;
+  }
+>;
 
-type MushafPageActions = {
-  // actions
-  increaseFontScale: () => void;
-  decreaseFontScale: () => void;
-  setSelectedVerse: React.Dispatch<React.SetStateAction<Ayah | null>>;
-  refresh: () => void;
-};
-
-export type HostApiEnvironment = 'production' | 'staging';
-
-export type MushafPageProviderProps = {
-  children: React.ReactNode;
-  dataId: DataId;
-  hostApiEnvironment?: HostApiEnvironment;
-  pageNumber: number;
-  initialFontScale?: number;
-  hasBorder?: boolean;
-  initialIsTwoPagesView?: boolean;
-  themeProps?: ThemeProviderProps['themeProps'];
-  styleOverride?: ThemeProviderProps['styleOverride'];
-  showNarrationDifferences?: {
-    sourceEditionIdentifier: string;
-    targetEditionIdentifier: string;
-  } | null;
-};
-
-/** ---------- Helpers ---------- */
-
-/** ---------- Contexts (split: state & actions) ---------- */
-const MushafPageStateContext = createContext<MushafPageState | undefined>(undefined);
-const MushafPageActionsContext = createContext<MushafPageActions | undefined>(undefined);
+const MushafPageContext = createContext<MushafReaderValue | undefined>(undefined);
 
 export const MushafPageProvider = ({
   children,
-  dataId,
-  pageNumber,
-  initialFontScale = 3,
-  hasBorder = true,
-  initialIsTwoPagesView = false,
-  showNarrationDifferences = null,
-  hostApiEnvironment = 'production',
+  value,
+  dataSource,
+  ...controllerOptions
 }: MushafPageProviderProps) => {
-  const [fontScale, _setFontScale] = useState<number>(initialFontScale);
-  const [selectedVerse, setSelectedVerse] = useState<Ayah | null>(null);
-  const [ayat, setAyat] = useState<IVersesListDto | null>(null);
-  const [nextPageAyat, setNextPageAyat] = useState<IVersesListDto | null>(null);
-  const [narrationDifferences, setNarrationDifferences] = useState<NarrationDifferences | null>(
-    null,
-  );
+  const resolvedValue =
+    value ??
+    useMushafController({
+      ...controllerOptions,
+      dataSource:
+        dataSource ??
+        (controllerOptions.pageData === undefined
+          ? createQuranhubDataSource({ environment: 'production' })
+          : undefined),
+    });
 
-  const [error, setError] = useState<Error | null>(null);
-  const abortRef = useRef<AbortController | null>(null);
-  const differencesAbortRef = useRef<AbortController | null>(null);
-
-  const load = useCallback(async () => {
-    abortRef.current?.abort();
-    const ctl = new AbortController();
-    abortRef.current = ctl;
-
-    setError(null);
-    setNarrationDifferences(null);
-
-    try {
-      const currPagePromise = fetchVerses(pageNumber, dataId, hostApiEnvironment, ctl.signal);
-      const nextPagePromise = initialIsTwoPagesView
-        ? fetchVerses(pageNumber + 1, dataId, hostApiEnvironment, ctl.signal)
-        : Promise.resolve(undefined);
-
-      const resp = await currPagePromise;
-      let respNext: any | undefined;
-      if (initialIsTwoPagesView) {
-        try {
-          respNext = await nextPagePromise;
-        } catch {
-          respNext = undefined;
-        }
-      }
-
-      setAyat(resp);
-
-      // Next page data (when applicable)
-      setNextPageAyat(respNext);
-    } catch (err) {
-      if ((err as any)?.name === 'AbortError') return; // ignore cancelled
-      setError(err instanceof Error ? err : new Error('Unknown error'));
-      setAyat(null);
-      setNextPageAyat(null);
-    } finally {
-    }
-  }, [pageNumber, dataId, initialIsTwoPagesView]);
-
-  const loadDifferences = useCallback(async () => {
-    if (
-      !showNarrationDifferences ||
-      showNarrationDifferences.sourceEditionIdentifier ===
-        showNarrationDifferences.targetEditionIdentifier
-    ) {
-      setNarrationDifferences(null);
-      return;
-    }
-
-    differencesAbortRef.current?.abort();
-    const ctl = new AbortController();
-    differencesAbortRef.current = ctl;
-
-    try {
-      const [resp, respNext] = await Promise.all([
-        fetchNarrationDifferences(
-          pageNumber,
-          showNarrationDifferences.sourceEditionIdentifier,
-          showNarrationDifferences.targetEditionIdentifier,
-          hostApiEnvironment,
-          ctl.signal,
-        ),
-        initialIsTwoPagesView &&
-          fetchNarrationDifferences(
-            pageNumber + 1,
-            showNarrationDifferences.sourceEditionIdentifier,
-            showNarrationDifferences.targetEditionIdentifier,
-            hostApiEnvironment,
-            ctl.signal,
-          ),
-      ]);
-
-      setNarrationDifferences([...resp.data, ...(respNext && respNext.data ? respNext.data : [])]);
-    } catch (err) {
-      if ((err as any)?.name === 'AbortError') return;
-      setNarrationDifferences(null);
-    }
-  }, [pageNumber, showNarrationDifferences]);
-
-  useEffect(() => {
-    load();
-    return () => abortRef.current?.abort();
-  }, [load]);
-
-  useEffect(() => {
-    loadDifferences();
-    return () => differencesAbortRef.current?.abort();
-  }, [loadDifferences]);
-
-  const increaseFontScale = useCallback(() => {
-    _setFontScale((prev) => (prev < 10 ? prev + 1 : prev));
-  }, []);
-
-  const decreaseFontScale = useCallback(() => {
-    _setFontScale((prev) => (prev > 3 ? prev - 1 : prev));
-  }, []);
-
-  const state = useMemo<MushafPageState>(
-    () => ({
-      fontScale,
-      selectedVerse,
-      ayat,
-      nextPageAyat,
-      narrationDifferences,
-      error,
-      pageNumber,
-      dataId,
-      hasBorder,
-      initialIsTwoPagesView,
-    }),
-    [
-      fontScale,
-      selectedVerse,
-      ayat,
-      nextPageAyat,
-      narrationDifferences,
-      error,
-      pageNumber,
-      dataId,
-      hasBorder,
-      initialIsTwoPagesView,
-    ],
-  );
-
-  const actions = useMemo<MushafPageActions>(
-    () => ({
-      increaseFontScale,
-      decreaseFontScale,
-      setSelectedVerse,
-      refresh: load,
-    }),
-    [increaseFontScale, decreaseFontScale, setSelectedVerse, load],
-  );
-
-  return (
-    <MushafPageStateContext.Provider value={state}>
-      <MushafPageActionsContext.Provider value={actions}>
-        {children}
-      </MushafPageActionsContext.Provider>
-    </MushafPageStateContext.Provider>
-  );
+  return <MushafPageContext.Provider value={resolvedValue}>{children}</MushafPageContext.Provider>;
 };
 
-/** ---------- Hooks ---------- */
-const useMushafPageState = () => {
-  const ctx = useContext(MushafPageStateContext);
-  if (!ctx) throw new Error('useMushafPageState must be used within a MushafPageProvider');
-  return ctx;
+export const useMushafContext = (): MushafReaderValue => {
+  const context = useContext(MushafPageContext);
+  if (!context) {
+    throw new Error('useMushafContext must be used within a MushafPageProvider');
+  }
+
+  return context;
 };
 
-const useMushafPageActions = () => {
-  const ctx = useContext(MushafPageActionsContext);
-  if (!ctx) throw new Error('useMushafPageActions must be used within a MushafPageProvider');
-  return ctx;
-};
-
-export type MushafContextStateTypes = MushafPageState & MushafPageActions;
-
-/** Convenience: keep a compat hook name if you prefer */
-export const useMushafContext = (): MushafContextStateTypes => {
-  const state = useMushafPageState();
-  const actions = useMushafPageActions();
-  return { ...state, ...actions };
-};
+export type MushafContextStateTypes = MushafReaderValue;
