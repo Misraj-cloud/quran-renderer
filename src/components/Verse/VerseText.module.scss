@@ -9,17 +9,6 @@
   line-height: var(--line-height);
 }
 
-.verseTextWidth {
-  @include breakpoints.tablet {
-  }
-}
-
-.verseTextFirstTwoPagesWidth {
-  @include breakpoints.tablet {
-    width: 280px;
-  }
-}
-
 .verseTextContainer {
   display: block;
   direction: rtl;

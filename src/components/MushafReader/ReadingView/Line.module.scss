@@ -10,6 +10,10 @@
   direction: rtl;
 }
 
+.fixedWidth {
+  width: var(--line-width, auto);
+}
+
 .mobileInline {
   display: inline;
   @include breakpoints.tablet {

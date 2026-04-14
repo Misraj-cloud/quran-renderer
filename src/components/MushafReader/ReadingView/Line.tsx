@@ -80,6 +80,7 @@ const Line = ({
       )}
       <div
         className={classNames(styles.line, {
+          [styles.fixedWidth]: true,
           [styles.mobileInline]: isBigTextLayout,
         })}
       >

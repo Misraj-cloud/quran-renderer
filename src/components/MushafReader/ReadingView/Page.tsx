@@ -8,6 +8,8 @@ import styles from './Page.module.scss';
 import type Word from '@/types/Word';
 import type { MushafPageMetaRenderContext } from '@/core/types';
 import { groupVersesByLines } from '@/core/shaping';
+import { FALLBACK_FONT, MushafLines } from '@/types/MushafReader';
+import { getLineWidthClassName } from '@/utils/fontFaceHelper';
 import ChapterHeader from 'src/components/chapters/ChapterHeader';
 import chapterHeaderStyles from 'src/components/chapters/ChapterHeader/ChapterHeader.module.scss';
 import Bismillah from 'src/components/dls/Bismillah/Bismillah';
@@ -37,6 +39,12 @@ const Page = ({
   const { theme, classNames: slotClassNames, styles: slotStyles, renderers, slotProps } =
     useThemeContext();
   const { borderColor } = theme;
+  const lineWidthClassName = getLineWidthClassName(
+    FALLBACK_FONT,
+    fontScale,
+    MushafLines.FifteenLines,
+    true,
+  );
   const lines = useMemo(() => (verses.length ? groupVersesByLines(verses) : {}), [verses]);
 
   const isBigTextLayout = fontScale > 3;
@@ -115,6 +123,7 @@ const Page = ({
       id={`page-${pageNumber}`}
       className={classNames(
         styles.container,
+        styles[lineWidthClassName],
         slotClassNames.page,
         slotProps.page?.className,
         {
